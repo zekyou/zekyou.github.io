@@ -827,7 +827,7 @@ pre .clojure .title {
 pre .deletion {
   color: #dc322f;
 }
-.post-toc {
+#post-toc {
   background-color: #fff;
   padding-top: 10px;
   padding-bottom: 10px;
@@ -836,31 +836,31 @@ pre .deletion {
   height: auto;
   z-index: 98;
 }
-.post-toc .toc {
+#post-toc .toc {
   background-color: #eee;
   list-style: none;
   padding: 10px;
 }
-.post-toc .toc-item {
+#post-toc .toc-item {
   list-style: none;
 }
-.post-toc .toc-title {
+#post-toc .toc-title {
   text-align: center;
   font-size: 24px;
 }
-.post-toc ol {
+#post-toc ol {
   margin: 1;
   width: 290px;
 }
-.post-toc li {
+#post-toc li {
   font-size: 18px;
 }
-.post-toc li ol il a {
+#post-toc li ol il a {
   font-size: 16px;
   color: #ffc1c1;
 }
 @media screen and (max-width: 640px) {
-  .post-toc {
+  #post-toc {
     display: none;
   }
 }
