@@ -1,0 +1,280 @@
+<!DOCTYPE HTML>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  
+  <title>CWPSU用自定义模型产生反射波法模拟数据 | ZeKyou&#39;s Blog</title>
+  <meta name="author" content="ZeKyou">
+  
+  <meta name="description" content="利用CWPSU自建模型进行反射波法模拟数据拖了很久的反射波法终于出炉了。限于时间，本期只有数据的合成，用法的解释。对于数据后续的处理，放到明天再展开，同学们可以自己先捣鼓。由于有了数据，处理也会如鱼得水。
+前情提要为什么反射波法拖了这么久，其实还是因为一个矛盾：自建模型和线性数据的矛盾。此话怎讲呢，">
+  
+  <meta name="keywords" content="CWPSU">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="CWPSU用自定义模型产生反射波法模拟数据"/>
+  <meta property="og:site_name" content="ZeKyou&#39;s Blog"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="ZeKyou&#39;s Blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">ZeKyou&#39;s Blog</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article id="post-cwpsureflect" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2019-10-18T11:35:00.000Z"><a href="/2019/10/18/cwpsureflect/">2019-10-18</a></time>
+      
+      
+  
+    <h1 class="p-name title" itemprop="headline name">CWPSU用自定义模型产生反射波法模拟数据</h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <div id="toc" class="toc-article">
+    <div class="toc-title">目录</div>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#null"><span class="toc-text">利用CWPSU自建模型进行反射波法模拟数据</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">前情提要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">SUSYNLV</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text">Usage</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text">Main Parameters</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text">Other Parameters</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text"></span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">产生结果</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text">运行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text">抽道</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">预告</span></a></li></ol></li></ol>
+</div>
+
+        
+        <h1><span id="利用cwpsu自建模型进行反射波法模拟数据">利用CWPSU自建模型进行反射波法模拟数据</span></h1><p>拖了很久的反射波法终于出炉了。限于时间，本期只有数据的合成，用法的解释。对于数据后续的处理，放到明天再展开，同学们可以自己先捣鼓。由于有了数据，处理也会如鱼得水。</p>
+<h2><span id="前情提要">前情提要</span></h2><p>为什么反射波法拖了这么久，其实还是因为一个矛盾：自建模型和线性数据的矛盾。此话怎讲呢，本人看了很多网上包括前辈们的操作，<strong>大抵相似</strong>，都是使用susynlv来做，不过susynlv是一个模拟线性地层的工具，那不就先前自建的各种崎岖模型就失去意义了吗？对此，网上很多攻略忽略了这一点，有的甚至还<strong>滥竽充数</strong>，分析的头头是道，结果<strong>前后矛盾</strong>。如果说只是单纯的模拟一个在深度和方向上完全线性的地层，那么很简单，直接用susynlv就可以做到，不过显然我们不想这么<strong>咸鱼</strong>。</p>
+<p>那么CWPSU提供了susynvxz和susynvxzcs等一系列可以输入模型的方法，这些方法参数众多，琢磨很久也没有完全摸透，索性放弃。不过之前在外网看到一个用trimodel做的模型，再用triseismic做的反射成像，图很漂亮：</p>
+<p><img src="cwpsureflect1.png" alt="cwpsureflect1"></p>
+<p><img src="cwpsureflect2.png" alt="cwpsureflect2"></p>
+<p>奈何不是多次覆盖。难以调用。</p>
+<p>我们回到最初的起点，回到<strong>susynlv</strong></p>
+<h2><span id="susynlv">SUSYNLV</span></h2><p>我们回到了起点，我们之前一直不想用它是因为所有攻略中它不能带入模型文件，只能做一个线性的地层，或者一个速度为常数的模型，而且那些作者也大多是这么干的。那么susynlv能不能做一个自定义的地层反射波模拟呢？我们先对它的Usage做一个介绍：</p>
+<p>不在意原理的同学可以直接到代码块,<a href="#link1">点击跳到Codes</a></p>
+<h3><span id="usage">Usage</span></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"> SUSYNLV - SYNthetic seismograms for Linear Velocity function</span><br><span class="line"></span><br><span class="line"> susynlv &gt;outfile [optional parameters]</span><br><span class="line"></span><br><span class="line"> Optional Parameters:</span><br><span class="line"> nt&#x3D;101                 number of time samples</span><br><span class="line"> dt&#x3D;0.04                time sampling interval (sec)</span><br><span class="line"> ft&#x3D;0.0                 first time (sec)</span><br><span class="line"> kilounits&#x3D;1            input length units are km or kilo-feet</span><br><span class="line">                         &#x3D;0 for m or ft</span><br><span class="line">                        Note: Output (sx,gx,offset) are always m or ft</span><br><span class="line"> nxo&#x3D;1                  number of source-receiver offsets</span><br><span class="line"> dxo&#x3D;0.05               offset sampling interval (kilounits)</span><br><span class="line"> fxo&#x3D;0.0                first offset (kilounits, see notes below)</span><br><span class="line"> xo&#x3D;fxo,fxo+dxo,...     array of offsets (use only for non-uniform offsets)</span><br><span class="line"> nxm&#x3D;101                number of midpoints (see notes below)</span><br><span class="line"> dxm&#x3D;0.05               midpoint sampling interval (kilounits)</span><br><span class="line"> fxm&#x3D;0.0                first midpoint (kilounits)</span><br><span class="line"> nxs&#x3D;101                number of shotpoints (see notes below)</span><br><span class="line"> dxs&#x3D;0.05               shotpoint sampling interval (kilounits)</span><br><span class="line"> fxs&#x3D;0.0                first shotpoint (kilounits)</span><br><span class="line"> x0&#x3D;0.0                 distance x at which v00 is specified</span><br><span class="line"> z0&#x3D;0.0                 depth z at which v00 is specified</span><br><span class="line"> v00&#x3D;2.0                velocity at x0,z0 (kilounits&#x2F;sec)</span><br><span class="line"> dvdx&#x3D;0.0               derivative of velocity with distance x (dv&#x2F;dx)</span><br><span class="line"> dvdz&#x3D;0.0               derivative of velocity with depth z (dv&#x2F;dz)</span><br><span class="line"> fpeak&#x3D;0.2&#x2F;dt           peak frequency of symmetric Ricker wavelet (Hz)</span><br><span class="line"> ref&#x3D;&quot;1:1,2;4,2&quot;        reflector(s):  &quot;amplitude:x1,z1;x2,z2;x3,z3;...</span><br><span class="line"> smooth&#x3D;0               &#x3D;1 for smooth (piecewise cubic spline) reflectors</span><br><span class="line"> er&#x3D;0                   &#x3D;1 for exploding reflector amplitudes</span><br><span class="line"> ls&#x3D;0                   &#x3D;1 for line source; default is point source</span><br><span class="line"> ob&#x3D;1                   &#x3D;1 to include obliquity factors</span><br><span class="line"> tmin&#x3D;10.0*dt           minimum time of interest (sec)</span><br><span class="line"> ndpfz&#x3D;5                number of diffractors per Fresnel zone</span><br><span class="line"> verbose&#x3D;0              &#x3D;1 to print some useful information</span><br><span class="line"></span><br><span class="line">Notes:</span><br><span class="line">Offsets are signed - may be positive or negative.  Receiver locations</span><br><span class="line">are computed by adding the signed offset to the source location.</span><br><span class="line"></span><br><span class="line">Specify either midpoint sampling or shotpoint sampling, but not both.</span><br><span class="line">If neither is specified, the default is the midpoint sampling above.</span><br><span class="line"></span><br><span class="line">More than one ref (reflector) may be specified. Do this by putting</span><br><span class="line">additional ref&#x3D; entries on the commandline. When obliquity factors</span><br><span class="line">are included, then only the left side of each reflector (as the x,z</span><br><span class="line">reflector coordinates are traversed) is reflecting.  For example, if x</span><br><span class="line">coordinates increase, then the top side of a reflector is reflecting.</span><br><span class="line">Note that reflectors are encoded as quoted strings, with an optional</span><br><span class="line">reflector amplitude: preceding the x,z coordinates of each reflector.</span><br><span class="line">Default amplitude is 1.0 if amplitude: part of the string is omitted.</span><br></pre></td></tr></table></figure>
+
+<p>东西很多，不过这里只对我们需要了解的东西做一个介绍。</p>
+<h3><span id="main-parameters">Main Parameters</span></h3><p>我们做反射波法模拟，多次覆盖法。需要重点定义：</p>
+<ul>
+<li>1 道间距</li>
+<li>2 道数</li>
+<li>3 偏移距</li>
+<li>4 覆盖次数</li>
+</ul>
+<p>本博客做出如下定义：</p>
+<p>紧跟上次模型，长500米，深80米。100道，5米一道，起始道位于5米处。25次覆盖（打25炮），根据公式，每炮移动2个道间距（10米），我们采用零偏。那么这些参数怎么在这里体现呢？</p>
+<p>经过实验发现：</p>
+<p>nxo代表道数、dxo代表道间距、fxo代表第一个检波点位置（默认模型起始为0米）</p>
+<p>我们还需要定义炮点参数。在Notes里我们可以了解到，定义炮点参数只需定义nxm和nxs中的一个系列即可，我们选择nxs系列参数：</p>
+<p>nxs代表炮数（覆盖数）dxs代表每炮移动距离 fxs代表起始炮位置</p>
+<h3><span id="other-parameters">Other Parameters</span></h3><p>我们还需定义一些其他参数，例如采样频率，单位制，速度分布，界面信息等。</p>
+<p>本文定义：</p>
+<p>采样频dt=0.01 采样次数301 起始采样0s开始</p>
+<p>单位制为mkilounits=0</p>
+<p>我们说过，我们想把自己的自定义模型用起来，那么susynlv如何做到？我们发现，它提供了一个v00和ref的参数，这使得我们的想法成为可能。</p>
+<p>我们定义速度分布为v00=1000,1700,2300</p>
+<p>界面信息ref为</p>
+<p>ref1=”0.3:0.0,30;100.0,36;200.0,42;300,47;400,40;500,24”<br>ref2=”0.7:0,60;500,60”<br>ref3=”0.8:0,80;500,80”</p>
+<p>第一个为反射系数，后面是界面信息。</p>
+<p>其实这就是我们之前建立的Model。你可以前去查看：</p>
+<p><a href="https://zekyou.github.io/2019/10/16/suunif2/" target="_blank" rel="noopener">点击前去</a></p>
+<p>其实到这里你就发现了，我们的susynlv<strong>是可以做到加载自定义</strong>而非线性模型了，只是我们之前用<strong>unif2建立的文件只是用来显示给别人看的</strong>，在这里我们还需重新设置一次<strong>相同</strong>的参数，同时把线性模型<strong>参数全部设为0</strong>。</p>
+<h3><span id="codes"></span></h3><p>我们解释了很多参数，这里给出本文使用的shell脚本dg.sh</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">constant parameters</span></span><br><span class="line">dt=0.01</span><br><span class="line">nt=301</span><br><span class="line">ft=0.0</span><br><span class="line">kilounits=0</span><br><span class="line"></span><br><span class="line">nxo=100</span><br><span class="line">dxo=5</span><br><span class="line">fxo=5</span><br><span class="line"></span><br><span class="line">nxs=25</span><br><span class="line">dxs=10</span><br><span class="line">fxs=5</span><br><span class="line">ref1="0.3:0.0,30;100.0,36;200.0,42;300,47;400,40;500,24"</span><br><span class="line">ref2="0.7:0,60;500,60"</span><br><span class="line">ref3="0.8:0,80;500,80"</span><br><span class="line">susynlv &gt; dataraw.su nt=$nt dt=$dt ft=$ft dvdx=0 dvdz=0 nxo=$nxo dxo=$dxo fxo=$fxo nxs=$nxs dxs=$dxs fxs=$fxs ref=$ref1 ref=$ref2 ref=$ref3 v00=1000,1700,2300 kilounits=$kilounits verbose=1</span><br></pre></td></tr></table></figure>
+
+<p>因为我们不再使用完全线性地层，所以两个梯度全部是0。verbose只是可以显示更多信息，不用在意。<br><strong>在这里我们特别说明一下，这里我们让nxs=25是为了理解多次覆盖的方便，我们将在真正数据处理的过程中将它改为49，这是为了满足覆盖的点多一些</strong> 数据处理的链接在<a href="https://zekyou.github.io/2019/10/19/reflectdata/" target="_blank" rel="noopener">此处</a><br>所以我们的模型可以概括如下：</p>
+<p>在这样的一个地层中：</p>
+<p><img src="cwpsureflect3.png" alt="1571400551475"></p>
+<p>（注：我们为了使得界面更加明显，崎岖，中间凹的很厉害）</p>
+<p>我们在上面布设了100个检波点，5米一个，起始位置5米处。25次覆盖，每次移动2个道间距（10米）。零偏。文件储存在dataraw.su中。</p>
+<h2><span id="产生结果">产生结果</span></h2><h3><span id="运行">运行</span></h3><p>我们运行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh ./dg.sh</span><br></pre></td></tr></table></figure>
+
+<p>注意此时不要直接用suxwigb打开，因为它是2500个道集，打开就全是黑的，且道数增倍：</p>
+<p><img src="cwpsureflect4.png" alt="1571401128981"></p>
+<h3><span id="抽道">抽道</span></h3><p>我们需要抽出我们想要的道数，为了说明一般性，我们抽1和25炮的记录：</p>
+<p>输入命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">suwind &lt;dataraw.su key=fldr max=1 max=1 |suxwigb &amp;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">suwind &lt;dataraw.su key=fldr min=25 max=25 |suxwigb &amp;</span><br></pre></td></tr></table></figure>
+
+<p>分别获得第1炮和第25炮的数据记录：</p>
+<p>第1炮：</p>
+<p><img src="cwpsureflect5.png" alt="1571401456015"></p>
+<p>第25炮：</p>
+<p><img src="cwpsureflect6.png" alt="1571401426460"></p>
+<p>我们还是能看出区别的。</p>
+<p><strong>不过我们需要特别说明：</strong></p>
+<p>在第n炮的记录中，第一道并不是我们原先布设的第一道，可以理解，因为我们炮点移动了，比如第2炮的第一道就相对于第一炮的第3道了。也就是说我们的100道是往后顺延的。</p>
+<p>这也是<strong>为什么我们后面处理需要抽道选排</strong>了。</p>
+<p>后续的数据处理我们还需要加噪声，动校正等等，这个后续会更新，其实只要数据模拟出来了，后面的处理大同小异，相信大家能够完成，当然你也可以期待近期更新（预计19号） 已更新，这是<a href="https://zekyou.github.io/2019/10/19/reflectdata/" target="_blank" rel="noopener">链接</a></p>
+<h2><span id="预告">预告</span></h2><p>下期我们将带来模拟数据的处理，噪声、选排、校正、偏移等。再会！</p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/学术/">学术</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/地震/">地震</a>, <a href="/tags/软件/">软件</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+<section id="comment">
+  <h1 class="title">Comments</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://yoursite.com/2019/10/18/cwpsureflect/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="as_sitesearch" value="yoursite.com">
+  </form>
+</div>
+
+    
+  
+<div class="widget tag">
+  <h3 class="title">Categories</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/学术/">学术</a><small>6</small></li>
+  
+    <li><a href="/categories/技术/">技术</a><small>4</small></li>
+  
+    <li><a href="/categories/网络/">网络</a><small>3</small></li>
+  
+  </ul>
+</div>
+
+    
+  
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/Linux/">Linux</a><small>1</small></li>
+  
+    <li><a href="/tags/代理/">代理</a><small>1</small></li>
+  
+    <li><a href="/tags/地震/">地震</a><small>6</small></li>
+  
+    <li><a href="/tags/日语/">日语</a><small>1</small></li>
+  
+    <li><a href="/tags/计算机/">计算机</a><small>1</small></li>
+  
+    <li><a href="/tags/语法/">语法</a><small>1</small></li>
+  
+    <li><a href="/tags/超算/">超算</a><small>1</small></li>
+  
+    <li><a href="/tags/软件/">软件</a><small>8</small></li>
+  
+  </ul>
+</div>
+
+
+    
+
+ </aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2020 ZeKyou
+  
+</div>
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+  <!--loveclick --> 
+  <script type="text/javascript" src="/js/love.js"></script>
+  <!--funny title -->
+  <script type="text/javascript" src="/js/FunnyTitle.js"></script>
+</body>
+</html>

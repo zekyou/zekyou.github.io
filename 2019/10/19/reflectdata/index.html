@@ -1,0 +1,325 @@
+<!DOCTYPE HTML>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  
+  <title>多次覆盖反射波法模拟数据处理 | ZeKyou&#39;s Blog</title>
+  <meta name="author" content="ZeKyou">
+  
+  <meta name="description" content="得到了多次覆盖的数据如何进行各种处理尤其是CDP道集的处理？">
+  
+  <meta name="keywords" content="CWPSU">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="多次覆盖反射波法模拟数据处理"/>
+  <meta property="og:site_name" content="ZeKyou&#39;s Blog"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="ZeKyou&#39;s Blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">ZeKyou&#39;s Blog</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article id="post-reflectdata" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      
+        <img src="https://static.2heng.xin/wp-content/uploads//2019/02/wallhaven-672007-1-1024x576.png">
+      
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2019-10-19T11:17:00.000Z"><a href="/2019/10/19/reflectdata/">2019-10-19</a></time>
+      
+      
+  
+    <h1 class="p-name title" itemprop="headline name">多次覆盖反射波法模拟数据处理</h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <div id="toc" class="toc-article">
+    <div class="toc-title">目录</div>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#null"><span class="toc-text">CWPSU模拟反射波数据处理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">前情提要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">预处理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text">加噪</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text">抽道选排</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">参数分析处理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text">频谱分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text">滤波</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text">速度谱</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">常规处理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text">动校正</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text">水平叠加</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">解释处理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text">偏移</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text"></span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">预告</span></a></li></ol></li></ol>
+</div>
+
+        
+        <h1><span id="cwpsu模拟反射波数据处理">CWPSU模拟反射波数据处理</span></h1><h2><span id="前情提要">前情提要</span></h2><p>之前我们获得一个dataraw.su的反射波模拟数据，我们还需要对它进行处理，以此来获得地层信息。对此有疑问的可以查看上次博客。<br>这是上次的链接：<br><a href="https://zekyou.github.io/2019/10/18/cwpsureflect/" target="_blank" rel="noopener">我是个链接</a><br>我们说过100道，25次覆盖。我们最初是打了25炮，这样只有4个点满足25次覆盖。4个点不足以反映地下介质的信息。因此：</p>
+<p><strong>我们调整nxs=49。保持其他的参数不变，即打了49炮，那么我们有（49-24）×4=100个满足25次覆盖的点了。</strong></p>
+<p>另外我们会在最后给出<strong>高度整</strong>合的shell脚本和<strong>刘猛学者</strong>的自动完成CDP覆盖次数的脚本。您可以<a href="#link1">点击</a>前去查看，不过我们还是<strong>建议您看完全文</strong>以便您<strong>修改部分参</strong>数使得让重复率降低，从而避免<strong>不必要的麻烦</strong>。</p>
+<h2><span id="预处理">预处理</span></h2><h3><span id="加噪">加噪</span></h3><p>我们用正演生成的数据是不含有噪声的数据，为此需要认为加一个噪声，显得很真实（确信了）</p>
+<p>我们键入</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">suaddnoise &lt;dataraw.su sn=70 noise=gauss seed=5 &gt;data.noise</span><br></pre></td></tr></table></figure>
+
+<p>Notes: sn 代表信噪比    noise代表噪声分布，这里选择高斯噪声    seed是随机分布种子（Matlab里应该也有相似的设定）</p>
+<p>结果如下：</p>
+<p>没加噪声</p>
+<p><img src="reflectdata1.png" alt="1571455970878"></p>
+<p>添加噪声：</p>
+<p><img src="reflectdata2.png" alt="1571456006435"></p>
+<p>其实除了显得真实没啥用。。。</p>
+<h3><span id="抽道选排">抽道选排</span></h3><p>我们需要将获得的4900道记录以CDP道集的形式展示出来。所以我们可以键入</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">suchw &lt;data.noise key1=cdp key2=gx key3=sx b=1 c=1 d=2 &gt;data.suchw</span><br></pre></td></tr></table></figure>
+
+<p>对于suchw的用法，大家可以参考自带的文档</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudoc suchw</span><br></pre></td></tr></table></figure>
+
+<p>这里限于篇幅不展开了</p>
+<p>这样相对于我们的记录又有了一个新的地标CDP，大家可以理解为乘坐高铁等车时地下的好几个颜色的地表，现在我们加了一个叫CDP的地标。</p>
+<p>我们希望乘客们按照CDP地标来排序，键入：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">susort&lt;data.suchw cdp &gt;data.cdp</span><br></pre></td></tr></table></figure>
+
+<p>我们查看CDP地标，看看那些地标前的人数满足25个</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sugethw&lt;data.cdp cdp</span><br></pre></td></tr></table></figure>
+<p>在这里我们安利一波刘猛学者的做法，他将终端打印出来的数据存入文件中，编写一个shell来计算每一个CDP出现的次数，这样子做到了自动化计算满足25次覆盖的点。</p>
+<p>我们看到在247（其实是247.5）到495这100个地标上有25个人</p>
+<p>我们将这些满足的地标单独取出来</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">suwind &lt;data.cdp key=cdp min=247 max=495 &gt; data.suc</span><br></pre></td></tr></table></figure>
+
+
+
+<p>我们展示247-260间的图像：</p>
+<p><img src="reflectdata3.png" alt="1571472026552"></p>
+<h2><span id="参数分析处理">参数分析处理</span></h2><h3><span id="频谱分析">频谱分析</span></h3><p>对于频谱分析，我们选取CDP=247的道集作为例子</p>
+<p>首先我们单独取出247的记录：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">suwind &lt;data.suc key=cdp min=247 max=247 &gt;data247.suc</span><br></pre></td></tr></table></figure>
+
+<p>键入：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">susort&lt;data247.suc gx | suxwigb</span><br></pre></td></tr></table></figure>
+
+<p>让25道记录按照检波点的距离以此排开来，作图如下：</p>
+<p><img src="reflectdata4.png" alt="1571472512144"></p>
+<p>我们用suspecfx进行频谱分析，设定时间域0-0.6s</p>
+<p>键入：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">suwind &lt;data247.suc tmin=0 tmax=0.6 |suspecfx | suxwigb</span><br></pre></td></tr></table></figure>
+
+<p><img src="reflectdata5.png" alt="1571472704464"></p>
+<p>可以看到频率大致分为两拨，一波在高频25-40Hz，应该是来自浅表的一层介质，另一波在5-20Hz，应该是深度一些的信息。</p>
+<p>我们同样保存一下频率信息，后面可能需要：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">suwind &lt;data247.suc tmin=0 tmax=0.6 |suspecfx &gt;data247.fre</span><br></pre></td></tr></table></figure>
+
+<h3><span id="滤波">滤波</span></h3><p>我们采取比较一般的带通滤波，设置4个参数，分别代表梯形的四个拐点</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sufilter &lt;data.suc f=5,10,35,40 amps=0,1,1,0 &gt;data.filter</span><br></pre></td></tr></table></figure>
+
+<p><img src="reflectdata6.png" alt="1571474551310"></p>
+<h3><span id="速度谱">速度谱</span></h3><p>原理参见《地震勘探》P211页，这里不展开了。</p>
+<p>我们给出suvelan的用法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">SUVELAN - compute stacking velocity semblance for cdp gathers</span><br><span class="line"></span><br><span class="line">suvelan &lt;stdin &gt;stdout [optional parameters]</span><br><span class="line"></span><br><span class="line">Optional Parameters:</span><br><span class="line">nv&#x3D;50                   number of velocities</span><br><span class="line">dv&#x3D;50.0                 velocity sampling interval</span><br><span class="line">fv&#x3D;1500.0               first velocity</span><br><span class="line">anis1&#x3D;0.0               quartic term, numerator of an extended quartic term</span><br><span class="line">anis2&#x3D;0.0               in denominator of an extended quartic term</span><br><span class="line">smute&#x3D;1.5               samples with NMO stretch exceeding smute are zeroed</span><br><span class="line">dtratio&#x3D;5               ratio of output to input time sampling intervals</span><br><span class="line">nsmooth&#x3D;dtratio*2+1     length of semblance num and den smoothing window</span><br><span class="line">verbose&#x3D;0               &#x3D;1 for diagnostic print on stderr</span><br><span class="line">pwr&#x3D;1.0                 semblance value to the power</span><br></pre></td></tr></table></figure>
+
+<p>我们需要的参数为nv dv fv分别是速度采样数，间隔，初始值。</p>
+<p>因为我们设的地层为1000，1700，2300</p>
+<p>所以我们三个参数设为nv=70 dv=20 fv=1000</p>
+<p>键入：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">suvelan &lt;data.filter nv=70 dv=20 fv=1000 &gt;data.velan</span><br></pre></td></tr></table></figure>
+
+
+
+<h2><span id="常规处理">常规处理</span></h2><h3><span id="动校正">动校正</span></h3><p>键入：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sunmo&lt;data.filter tnmo=0 vnmo=1000 &gt;data.nmo</span><br></pre></td></tr></table></figure>
+
+<p>其中vnmo=你速度谱分析的速度</p>
+<h3><span id="水平叠加">水平叠加</span></h3><p>键入</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">susort&lt;data.nmo |sustack &gt;data.stack key=cdp</span><br></pre></td></tr></table></figure>
+
+<p>你可画图</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">suxwigb&lt;data.stack</span><br></pre></td></tr></table></figure>
+
+<p><img src="reflectdata7.png" alt="1571479796375"></p>
+<h2><span id="解释处理">解释处理</span></h2><h3><span id="偏移">偏移</span></h3><p>键入：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sumigtk&lt;data.stack dxcdp=2.5 vmig=1000 &gt;data.mig</span><br></pre></td></tr></table></figure>
+
+<p>这里dxcdp=你cdp之间的间隔</p>
+<p>得到：</p>
+<p><img src="reflectdata8.png" alt="1571479771333"></p>
+<p>其实变化不大。</p>
+<h2><span id="结论"></span></h2><p>我们能够明显的看出有三层介质，但是我们的模型是中间凹的，我们的成像是只有左边凹的，可能有的同学认为我们的错误了，其实不然。</p>
+<p>因为我们的CDP起始点恰好位于我们的中心，这就导致了我们的成像只有模型的右边。</p>
+<p>如果你想获得一个完全匹配的地层，那么你可以设计CDP道集起始点在模型的起始点。需要设计偏移距为负值，当然这是后话了。</p>
+<p>我们在这里给出全部的自动化的脚本，您只需新建一个shell</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim sum.sh</span><br></pre></td></tr></table></figure>
+<p>把下列代码写入，再运行即可。<br>运行一下就可以获得全套数据，不过<strong>强烈建议修改部分参数</strong>使得<strong>重复率</strong>降低！</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">constant parameters</span></span><br><span class="line">dt=0.005</span><br><span class="line">nt=101</span><br><span class="line">ft=0.0</span><br><span class="line">kilounits=0</span><br><span class="line"></span><br><span class="line">nxo=100</span><br><span class="line">dxo=5</span><br><span class="line">fxo=5</span><br><span class="line"></span><br><span class="line">nxs=49</span><br><span class="line">dxs=10</span><br><span class="line">fxs=5</span><br><span class="line"><span class="meta">#</span><span class="bash">界面信息ref</span></span><br><span class="line">ref1="0.5:0.0,30;100.0,36;200.0,50;300,50;400,40;500,24"</span><br><span class="line">ref2="0.7:0,60;500,60"</span><br><span class="line">ref3="0.9:0,80;500,80"</span><br><span class="line"><span class="meta">#</span><span class="bash">生成原始文件dataraw.su</span></span><br><span class="line">susynlv &gt; dataraw.su nt=$nt dt=$dt ft=$ft dvdx=0 dvdz=0 nxo=$nxo dxo=$dxo fxo=$fxo nxs=$nxs dxs=$dxs fxs=$fxs ref=$ref1 ref=$ref2 ref=$ref3 v00=1000,1700,2300 kilounits=$kilounits verbose=1</span><br><span class="line"><span class="meta">#</span><span class="bash">添加噪声文件data.noise</span></span><br><span class="line">suaddnoise&lt;dataraw.su sn=70 noise=gauss seed=5 &gt;data.noise</span><br><span class="line"><span class="meta">#</span><span class="bash">添加CDP地标 文件data.suchw</span></span><br><span class="line">suchw&lt;data.noise key1=cdp key2=gx key3=sx b=1 c=1 d=2 &gt;data.suchw</span><br><span class="line"><span class="meta">#</span><span class="bash">按照CDP排序 文件data.cdp</span></span><br><span class="line">susort &lt;data.suchw cdp &gt;data.cdp</span><br><span class="line"><span class="meta">#</span><span class="bash">取出满足25次覆盖的点247-495，如何查看可以依据刘猛学者的shell(后面)</span></span><br><span class="line">suwind &lt;data.cdp key=cdp min=247 max=495 &gt;data.suc</span><br><span class="line"><span class="meta">#</span><span class="bash">单独取出247号做速度分析</span></span><br><span class="line">suwind &lt;data.suc key=cdp min=247 max=247 &gt;data247.suc</span><br><span class="line"><span class="meta">#</span><span class="bash">使247号按gx（检波点近远排列）文件data247.gx</span></span><br><span class="line">susort &lt;data247.suc gx &gt;data247.gx</span><br><span class="line"><span class="meta">#</span><span class="bash">对CDP=247进行频谱分析文件 data247.fre</span></span><br><span class="line">suwind&lt;data247.suc tmin=0 tmax=0.6 | suspecfx &gt;data247.fre</span><br><span class="line"><span class="meta">#</span><span class="bash">滤波 文件data.filter</span></span><br><span class="line">sufilter &lt;data.suc f=5,10,35,40 amps=0,1,1,0 &gt;data.filter</span><br><span class="line"><span class="meta">#</span><span class="bash">获得CDP=247的速度谱文件data247.velan</span></span><br><span class="line">suwind &lt;data.filter key=cdp min=247 max=247 | suvelan verbose=1 fv=800 dv=10 nv=200 pwr=2 &gt;data247.velan</span><br><span class="line"><span class="meta">#</span><span class="bash">动校正文件data.nmo</span></span><br><span class="line">sunmo&lt;data.filter tnmo=0 vnmo=1000 &gt;data.nmo</span><br><span class="line"><span class="meta">#</span><span class="bash">水平叠加文件data.stack</span></span><br><span class="line">susort&lt;data.nmo | sustack &gt;data.stack key=cdp</span><br><span class="line"><span class="meta">#</span><span class="bash">偏移文件data.mig</span></span><br><span class="line">sumigtk&lt;data.stack dxcdp=2.5 vmig=1000 &gt;data.mig</span><br><span class="line"><span class="meta">#</span><span class="bash">您如果需要绘制哪副图只需键入suxwigb&lt;您想绘制的图名字 即可</span></span><br><span class="line"><span class="meta">#</span><span class="bash">例如你想绘制最后的偏移图</span></span><br><span class="line">suxwigb&lt;data.mig</span><br></pre></td></tr></table></figure>
+<p>这里再给出刘猛学者的自动拾取满足覆盖要求点数的shell</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sugethw &lt;data.cdp cdp &gt;cdpsumfile</span><br><span class="line">awk '&#123;a[$0]++&#125;END&#123;for(i in a )&#123;print i,a[i] |"sort -r -k 2"&#125;&#125;' cdpsumfile</span><br></pre></td></tr></table></figure>
+<p>用法：<br>在终端执行该命令，即可显示。左边为CDP号，右边为覆盖次数</p>
+<h2><span id="预告">预告</span></h2><p>其实在速度谱图中，我们发现存在一些问题，一些参数不太匹配，目前还在处理中，不过无伤大雅，在这里我们向那些没有实践过就完全照抄，甚至误导他人，完全不解释参数，拼接图片的网上方法表示遗憾。因为，我们发现这些错误从08级就开始，我们希望它能够在此被终结！<br>那么关于CWPSU反射的内容就算是全部完结了，感谢猛哥等人给予的关键意见。前前后后好几篇CWPSU的博客，大家都可以参考，不过限于时间和水平，难免纰漏和错误。感谢大家的陪伴，再会！</p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/学术/">学术</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/地震/">地震</a>, <a href="/tags/软件/">软件</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+<section id="comment">
+  <h1 class="title">Comments</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://yoursite.com/2019/10/19/reflectdata/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="as_sitesearch" value="yoursite.com">
+  </form>
+</div>
+
+    
+  
+<div class="widget tag">
+  <h3 class="title">Categories</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/学术/">学术</a><small>6</small></li>
+  
+    <li><a href="/categories/技术/">技术</a><small>4</small></li>
+  
+    <li><a href="/categories/网络/">网络</a><small>3</small></li>
+  
+  </ul>
+</div>
+
+    
+  
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/Linux/">Linux</a><small>1</small></li>
+  
+    <li><a href="/tags/代理/">代理</a><small>1</small></li>
+  
+    <li><a href="/tags/地震/">地震</a><small>6</small></li>
+  
+    <li><a href="/tags/日语/">日语</a><small>1</small></li>
+  
+    <li><a href="/tags/计算机/">计算机</a><small>1</small></li>
+  
+    <li><a href="/tags/语法/">语法</a><small>1</small></li>
+  
+    <li><a href="/tags/超算/">超算</a><small>1</small></li>
+  
+    <li><a href="/tags/软件/">软件</a><small>8</small></li>
+  
+  </ul>
+</div>
+
+
+    
+
+ </aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2020 ZeKyou
+  
+</div>
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+  <!--loveclick --> 
+  <script type="text/javascript" src="/js/love.js"></script>
+  <!--funny title -->
+  <script type="text/javascript" src="/js/FunnyTitle.js"></script>
+</body>
+</html>

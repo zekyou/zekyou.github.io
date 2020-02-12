@@ -1,0 +1,258 @@
+<!DOCTYPE HTML>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  
+  <title>CWPSU中自定义地层模型模拟反射波 | ZeKyou&#39;s Blog</title>
+  <meta name="author" content="ZeKyou">
+  
+  <meta name="description" content="如何在CWPSU中生成自定义地层模型前情提要之前我们安装了CWPSU，需要模拟出反射数据，那么首先需要自定义一个模型，如何定义出一个模型？博主查阅了网上一些资料，不过都是东拼西凑，抄来抄去，从来没有原理性的解释。博主本着大家能够深入了解其原理，真正了解内核，而不是CTRL+C完就完事的需求，给大家摘">
+  
+  <meta name="keywords" content="地层模型">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="CWPSU中自定义地层模型模拟反射波"/>
+  <meta property="og:site_name" content="ZeKyou&#39;s Blog"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="ZeKyou&#39;s Blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">ZeKyou&#39;s Blog</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article id="post-suunif2" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2019-10-16T04:07:00.000Z"><a href="/2019/10/16/suunif2/">2019-10-16</a></time>
+      
+      
+  
+    <h1 class="p-name title" itemprop="headline name">CWPSU中自定义地层模型模拟反射波</h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <div id="toc" class="toc-article">
+    <div class="toc-title">目录</div>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#null"><span class="toc-text">如何在CWPSU中生成自定义地层模型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">前情提要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">一些符号说明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">UNIF2用法介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">Ximage用法简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">实战</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text">Model</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text">Code</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text">Result</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">预告</span></a></li></ol></li></ol>
+</div>
+
+        
+        <h1><span id="如何在cwpsu中生成自定义地层模型">如何在CWPSU中生成自定义地层模型</span></h1><h2><span id="前情提要">前情提要</span></h2><p>之前我们安装了CWPSU，需要模拟出反射数据，那么首先需要自定义一个模型，如何定义出一个模型？博主查阅了网上一些资料，不过都是东拼西凑，抄来抄去，从来没有原理性的解释。博主本着大家能够深入了解其原理，真正了解内核，而不是<strong>CTRL+C</strong>完就完事的需求，给大家摘了官方文档，同时做一些讲解和实战。不过限于知识水平，难免疏漏，还请批评指正！</p>
+<h2><span id="一些符号说明">一些符号说明</span></h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">A &lt; B  processA takes input from fileB</span><br><span class="line">A &gt; B  processA wirte on fileB</span><br><span class="line">A &gt;&gt; B processA appends to fileB</span><br><span class="line">A | B  output of A is input to B</span><br><span class="line">A &lt;&lt; B take input from following lines(B represents text)</span><br><span class="line">Tips:'|' is similar to Perl in which represents a pipe</span><br></pre></td></tr></table></figure>
+
+
+
+<h2><span id="unif2用法介绍">UNIF2用法介绍</span></h2><p> UNIF2 - generate a 2-D UNIFormly sampled velocity profile from a layered<br>         model. In each layer, velocity is a linear function of position.</p>
+<p><strong>格式</strong></p>
+<p>  unif2 &lt; infile &gt; outfile [parameters]</p>
+<p> <strong>必要参数:</strong><br> none</p>
+<p> <strong>可选参数:</strong><br> <strong>ninf</strong>=5  分界面数量<br> <strong>nx</strong>=100 x轴采样个数 (2nd dimension)<br> <strong>nz</strong>=100 z轴采样个数 (1st dimension)<br> <strong>dx</strong>=10          x sampling interval<br> <strong>dz</strong>=10          z sampling interval</p>
+<p> npmax=201      maximum number of points on interfaces</p>
+<p> fx=0.0 first x sample<br> fz=0.0 first z sample</p>
+<p> x0=0.0,0.0,…,        distance x at which v00 is specified<br> z0=0.0,0.0,…,        depth z at which v00 is specified<br> <strong>v00</strong>=1500,2000,2500…, velocity at each x0,z0 (m/sec)</p>
+<p> dvdx=0.0,0.0,…,      derivative of velocity with distance x (dv/dx)<br> dvdz=0.0,0.0,…,      derivative of velocity with depth z (dv/dz)</p>
+<p> <strong>method</strong>=linear          for linear interpolation of interface<br>                        =mono for monotonic cubic interpolation of interface<br>                        =akima for Akima’s cubic interpolation of interface<br>                        =spline for cubic spline interpolation of interface</p>
+<p> tfile=         =testfilename  if set, a sample input dataset is<br>                         output to “testfilename”.</p>
+<p>比较重要的，我们本次用得到的我用黑体加粗了。</p>
+<p> <strong>说明:</strong><br>关于infile=input file的说明</p>
+<p>我们需要定义写入一个model，这个的定义方式类似于Specfem2D，使用过这个软件的同学理解起来应该很简单。</p>
+<p>我们的model是由一系列的x，z坐标轴键字对构成的，第一列为x轴，第二列为z轴，分界面之间用1.0    -99999作为符号标记分开。例如：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">model</span></span><br><span class="line">0.0   0.0</span><br><span class="line">100.0 0.0</span><br><span class="line">1.0   -99999</span><br><span class="line">0.0   200</span><br><span class="line">100.0 200</span><br><span class="line">1.0   -99999</span><br></pre></td></tr></table></figure>
+
+<p>这个模型就代表了两个界面，他们都是平面。对于第一个界面，起始点坐标0.0，0.0。终点坐标100.0，0.0。我们将这两个点连起来就是界面了，当然它是表面。其他的类似，如果需要起伏界面，只需在内部加入更多的点即可。</p>
+<p>method就是控制点之间插值的方式。</p>
+<p> <strong>官方示例:</strong><br> unif2 tfile=testfilename    produces a 5 interface demonstration model<br> unif2 &lt; testfilename | psimage n1=100 n2=100 d1=10 d2=10 | …</p>
+<h2><span id="ximage用法简介">Ximage用法简介</span></h2><p>我们为了画出模型，还需要Ximage，不过这部分比较简单，直接给出说明</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line">Required Parameters:</span><br><span class="line">n1                      number of samples in 1st (fast) dimension</span><br><span class="line"></span><br><span class="line">Optional Parameters:</span><br><span class="line">d1=1.0          sampling interval in 1st dimension</span><br><span class="line">f1=0.0          first sample in 1st dimension</span><br><span class="line">n2=all          number of samples in 2nd (slow) dimension</span><br><span class="line">d2=1.0          sampling interval in 2nd dimension</span><br><span class="line">f2=0.0          first sample in 2nd dimension</span><br><span class="line">mpicks=/dev/tty         file to save mouse picks in</span><br><span class="line">perc=100.0              percentile used to determine clip</span><br><span class="line">clip=(perc percentile) clip used to determine bclip and wclip</span><br><span class="line">bperc=perc              percentile for determining black clip value</span><br><span class="line">wperc=100.0-perc        percentile for determining white clip value</span><br><span class="line">bclip=clip              data values outside of [bclip,wclip] are clipped</span><br><span class="line">wclip=-clip             data values outside of [bclip,wclip] are clipped</span><br><span class="line">balance=0               bclip &amp; wclip individually</span><br><span class="line">                        =1 set them to the same abs value</span><br><span class="line">                          if specified via perc (avoids colorbar skew)</span><br><span class="line">cmap=hsv\'n\' or rgb\'m\'      \'n\' is a number from 0 to 13</span><br><span class="line">                               \'m\' is a number from 0 to 11</span><br><span class="line">                               cmap=rgb0 is equal to cmap=gray</span><br><span class="line">                               cmap=hsv1 is equal to cmap=hue</span><br><span class="line">                               (compatibility to older versions)</span><br><span class="line">legend=0               =1 display the color scale</span><br><span class="line">units=         unit label for legend</span><br><span class="line">legendfont=times_roman10    font name for title</span><br><span class="line">verbose=1              =1 for info printed on stderr (0 for no info)</span><br><span class="line">xbox=50                x in pixels of upper left corner of window</span><br><span class="line">ybox=50                y in pixels of upper left corner of window</span><br><span class="line">wbox=550               width in pixels of window</span><br><span class="line">hbox=700               height in pixels of window</span><br><span class="line">lwidth=16              colorscale (legend) width in pixels</span><br><span class="line">lheight=hbox/3 colorscale (legend) height in pixels</span><br><span class="line">lx=3                   colorscale (legend) x-position in pixels</span><br><span class="line">ly=(hbox-lheight)/3   colorscale (legend) y-position in pixels</span><br><span class="line">x1beg=x1min            value at which axis 1 begins</span><br><span class="line">x1end=x1max            value at which axis 1 ends</span><br><span class="line">d1num=0.0              numbered tic interval on axis 1 (0.0 for automatic)</span><br><span class="line">f1num=x1min            first numbered tic on axis 1 (used if d1num not 0.0)</span><br><span class="line">n1tic=1                number of tics per numbered tic on axis 1</span><br><span class="line">grid1=none             grid lines on axis 1 - none, dot, dash, or solid</span><br><span class="line">label1=                label on axis 1</span><br><span class="line">x2beg=x2min            value at which axis 2 begins</span><br><span class="line">x2end=x2max            value at which axis 2 ends</span><br><span class="line">d2num=0.0              numbered tic interval on axis 2 (0.0 for automatic)</span><br><span class="line">f2num=x2min            first numbered tic on axis 2 (used if d2num not 0.0)</span><br><span class="line">n2tic=1                number of tics per numbered tic on axis 2</span><br><span class="line">grid2=none             grid lines on axis 2 - none, dot, dash, or solid</span><br><span class="line">label2=                label on axis 2</span><br><span class="line">labelfont=Erg14        font name for axes labels</span><br><span class="line">title=         title of plot</span><br><span class="line">titlefont=Rom22        font name for title</span><br><span class="line">windowtitle=ximage     title on window</span><br><span class="line">labelcolor=blue        color for axes labels</span><br><span class="line">titlecolor=red color for title</span><br><span class="line">gridcolor=blue color for grid lines</span><br><span class="line">style=seismic          normal (axis 1 horizontal, axis 2 vertical) or</span><br><span class="line">                       seismic (axis 1 vertical, axis 2 horizontal)</span><br><span class="line">blank=0                This indicates what portion of the lower range</span><br><span class="line">                       to blank out (make the background color).  The</span><br><span class="line">                       value should range from 0 to 1.</span><br><span class="line">plotfile=plotfile.ps  filename for interactive ploting (P)</span><br><span class="line">curve=curve1,curve2,...  file(s) containing points to draw curve(s)</span><br><span class="line">npair=n1,n2,n2,...            number(s) of pairs in each file</span><br><span class="line">curvecolor=color1,color2,...  color(s) for curve(s)</span><br><span class="line">blockinterp=0       whether to use block interpolation (0=no, 1=yes)</span><br></pre></td></tr></table></figure>
+
+<p>花里胡哨的一大堆，不过大多是画图的设置，使用过GMT的同学可能会有心得。我们其实需要用的比较少。</p>
+<h2><span id="实战">实战</span></h2><h3><span id="model">Model</span></h3><p>我们首先建立一个model</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim model</span><br></pre></td></tr></table></figure>
+
+<p>Input below parameters</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">our surface boundary</span></span><br><span class="line">0.0		0.0</span><br><span class="line">500.0	0.0</span><br><span class="line">1.0		-99999</span><br><span class="line"><span class="meta">#</span><span class="bash">our first boundary</span></span><br><span class="line">0.0		30.0</span><br><span class="line">100.0	36.0</span><br><span class="line">200.0	38.0</span><br><span class="line">300.0	40.0</span><br><span class="line">400.0	30.0</span><br><span class="line">500.0	24.0</span><br><span class="line">1.0		-99999</span><br><span class="line"><span class="meta">#</span><span class="bash">our second boundary</span></span><br><span class="line">0.0		60.0</span><br><span class="line">500.0	60.0</span><br><span class="line">1.0		-99999</span><br><span class="line"><span class="meta">#</span><span class="bash">our last boundary</span></span><br><span class="line">0.0		80.0</span><br><span class="line">500.0	80.0</span><br><span class="line">1.0		-99999</span><br></pre></td></tr></table></figure>
+
+<p><strong>Tips: Please remove the description lines when you copy the codes !</strong></p>
+<h3><span id="code">Code</span></h3><p>We establish a model.sh in the same way</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim model.sh</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">some constant parameters</span></span><br><span class="line">WP=600</span><br><span class="line">HP=400</span><br><span class="line">XP=0</span><br><span class="line">YP=0</span><br><span class="line">ninf=3</span><br><span class="line">nx=101</span><br><span class="line">fx=0</span><br><span class="line">dx=5</span><br><span class="line">nz=41</span><br><span class="line">fz=0</span><br><span class="line">dz=2</span><br><span class="line"><span class="meta">#</span><span class="bash">cwpsu code</span></span><br><span class="line">unif2 &lt;model ninf=$ninf nx=$nx nz=$nz dx=$dx dz=$dz v00=1000,2000,3700 | ximage n1=$nz f1=$fz d1=$dz n2=$nx f2=$fx d2=$dx windowtitle="Reflection Synthetic Model" \</span><br><span class="line">label1="Depth(m)" label2="Distance(m)" wbox=$WP hbox=$HP XP=$XP YP=$YP &amp;</span><br><span class="line">exit</span><br></pre></td></tr></table></figure>
+
+<h3><span id="result">Result</span></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh ./model.sh</span><br></pre></td></tr></table></figure>
+
+<p><img src="suunif2.png" alt="1571201945125"></p>
+<p>由于是在WSL里进行的，虽然安装了图形界面，不过<strong>Xming</strong>的画质还是很垃圾，各位在原生的Linux里的图应该比我的高清、漂亮多了！</p>
+<h2><span id="预告">预告</span></h2><p>那么本期就到这里了，对于完成模型之后如何进行<strong>数据的采集和处理</strong>我们下期再会！</p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/学术/">学术</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/地震/">地震</a>, <a href="/tags/软件/">软件</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+<section id="comment">
+  <h1 class="title">Comments</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://yoursite.com/2019/10/16/suunif2/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="as_sitesearch" value="yoursite.com">
+  </form>
+</div>
+
+    
+  
+<div class="widget tag">
+  <h3 class="title">Categories</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/学术/">学术</a><small>6</small></li>
+  
+    <li><a href="/categories/技术/">技术</a><small>4</small></li>
+  
+    <li><a href="/categories/网络/">网络</a><small>3</small></li>
+  
+  </ul>
+</div>
+
+    
+  
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/Linux/">Linux</a><small>1</small></li>
+  
+    <li><a href="/tags/代理/">代理</a><small>1</small></li>
+  
+    <li><a href="/tags/地震/">地震</a><small>6</small></li>
+  
+    <li><a href="/tags/日语/">日语</a><small>1</small></li>
+  
+    <li><a href="/tags/计算机/">计算机</a><small>1</small></li>
+  
+    <li><a href="/tags/语法/">语法</a><small>1</small></li>
+  
+    <li><a href="/tags/超算/">超算</a><small>1</small></li>
+  
+    <li><a href="/tags/软件/">软件</a><small>8</small></li>
+  
+  </ul>
+</div>
+
+
+    
+
+ </aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2020 ZeKyou
+  
+</div>
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+  <!--loveclick --> 
+  <script type="text/javascript" src="/js/love.js"></script>
+  <!--funny title -->
+  <script type="text/javascript" src="/js/FunnyTitle.js"></script>
+</body>
+</html>

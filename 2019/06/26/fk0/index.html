@@ -1,0 +1,314 @@
+<!DOCTYPE HTML>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  
+  <title>地震软件fk编译、运行报错解决办法 | ZeKyou&#39;s Blog</title>
+  <meta name="author" content="ZeKyou">
+  
+  <meta name="description" content="哈喽，大家好呀。第二篇博客出炉了，这次我们讲一讲和地震专业的事情吧。最近大作业使用的F-K软件，有很多朋友反映有很多错误，包括编译和编译后的一些运行问题，虽然说网上有一些解答，如Seisman的博客。但是博主去看了一下他的文章，主要是说的sachd程序编译不通过，需要添加数学库-lm，而博主和朋友们都没有这个问题，反而是其他的问题一堆。。。只好自己动手啦，那么本期就系统的讲解一下这些问题吧。">
+  
+  <meta name="keywords" content="地震学">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="地震软件fk编译、运行报错解决办法"/>
+  <meta property="og:site_name" content="ZeKyou&#39;s Blog"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="ZeKyou&#39;s Blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">ZeKyou&#39;s Blog</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article id="post-fk0" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2019-06-26T05:35:00.000Z"><a href="/2019/06/26/fk0/">2019-06-26</a></time>
+      
+      
+  
+    <h1 class="p-name title" itemprop="headline name">地震软件fk编译、运行报错解决办法</h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <div id="toc" class="toc-article">
+    <div class="toc-title">目录</div>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text">安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text">编译</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#null"><span class="toc-text">1、打开makefile</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#null"><span class="toc-text">2、配置CC和FC</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#null"><span class="toc-text">3、配置CFLAGS和FFLAGS（重点）</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">fk.pl文件报错（重点）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#null"><span class="toc-text">perl</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#null"><span class="toc-text">报错</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">总结</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#null"><span class="toc-text">下期预告</span></a></li></ol></li></ol>
+</div>
+
+        
+        <p>哈喽，大家好呀。第二篇博客出炉了，这次我们讲一讲和地震专业的事情吧。最近大作业使用的F-K软件，有很多朋友反映有很多错误，包括编译和编译后的一些运行问题，虽然说网上有一些解答，如Seisman的博客。但是博主去看了一下他的文章，主要是说的sachd程序编译不通过，需要添加数学库-lm，而博主和朋友们都没有这个问题，反而是其他的问题一堆。。。只好自己动手啦，那么本期就系统的讲解一下这些问题吧。<a id="more"></a></p>
+<hr>
+<h3><span id="安装">安装</span></h3><p>F-K软件是Prof. Lupei Zhu开发的一个用于计算 <strong>水平分层模型</strong> 下的理论格林函数并合成理论地震图的代码包。代码是开源的，可以直接编译使用。在这里给出下载链接。</p>
+<p><a href="http://www.eas.slu.edu/People/LZhu/downloads/fk3.2.tar" target="_blank" rel="noopener">fk3.2.tar</a></p>
+<p>下载后直接解压</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -xvf fk3.2.tar</span><br></pre></td></tr></table></figure>
+
+
+
+<h3><span id="编译">编译</span></h3><p>这里会出现几种情况，报一些错误，博主一一说明。</p>
+<h4><span id="1-打开makefile">1、打开makefile</span></h4><p>首先如果你<strong>安装</strong>了SAC，而且路径设置正确（一般都是正确的，即SACHOME填写正确）那么请将</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#CFLAGS=$(optimize) -DSAC_LIB </span></span><br><span class="line"><span class="comment">#SACLIB=-L$(SACHOME)/lib -lsac -lsacio</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>两行前的 <strong>#</strong> 去掉，变成</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CFLAGS=<span class="variable">$(optimize)</span> -DSAC_LIB </span><br><span class="line">SACLIB=-L<span class="variable">$(SACHOME)</span>/lib -lsac -lsacio</span><br></pre></td></tr></table></figure>
+
+
+
+<h4><span id="2-配置cc和fc">2、配置CC和FC</span></h4><p>这两个就是程序中C语言和Fortran程序的编译手段了，根据你电脑安装的编译器而不同，<strong>如果你没有什么特殊需求，本过程可以略过，直接调到第三步。</strong></p>
+<p>CC一般不用配置，大家电脑里一般都有gcc，FC的话如果你电脑里的编译器是gfortran那么你可以在开头加一行</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">FC=gfortran</span><br></pre></td></tr></table></figure>
+
+
+
+<p>其他的编译器可以自行百度，基本语法就是添加两句（xxxx为你的编译器）</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">FC=xxxx</span><br><span class="line"></span><br><span class="line">CC=xxxx</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h4><span id="3-配置cflags和fflags重点">3、配置CFLAGS和FFLAGS（重点）</span></h4><p>很多同学反应报错出现</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/usr/bin/ld: /usr/local/sac/lib/libsacio.a(math.o): relocation R_X86_64_32 against `.text' can not be used when making a PIE object; recompile with -fPIC</span><br><span class="line">/usr/bin/ld: 最后的链结失败: 输出不可表示的节</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>之类的问题</strong></p>
+<p>那么请你在<em>CFLAGS</em>和<em>FFLAGS</em>后面添加语句</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-fno-pie -no-pie -fPIC</span><br></pre></td></tr></table></figure>
+
+
+
+<p>即完整代码如下</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CFLAGS=<span class="variable">$(optimize)</span>  -DSAC_LIB  -fno-pie  -no-pie  -fPIC</span><br><span class="line"></span><br><span class="line">FFLAGS=<span class="variable">$(optimize)</span>  -fno-pie  -no-pie  -fPIC</span><br></pre></td></tr></table></figure>
+
+
+
+<p>那么到现在你可能还会出现错误，例如：</p>
+<blockquote>
+<p>aseries.h:22:72:</p>
+<pre><code>REAL vps(2,max_num_lay),den(max_num_lay),thk(max_num_lay),q(2,max_num_lay)
+                                                                 1</code></pre><p>Error: Expected another dimension in array declaration at (1)<br>trav.f:28:21:</p>
+<pre><code>read(*,*) thk(i),vps(1,i)</code></pre></blockquote>
+<p>这是由于Fortran语言的问题，我们知道Fortran早期版本中一行的字数和每列代表的含义是有规定的，朱教授或许是疏忽了，在<strong>aseries.h</strong>文件中</p>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">REAL</span> vps(<span class="number">2</span>,max_num_lay),den(max_num_lay),thk(max_num_lay),q(<span class="number">2</span>,max_num_lay)</span><br></pre></td></tr></table></figure>
+
+
+
+<p>这一行字数超限了，解决方法两个。</p>
+<p>1、更改这一行，变成两行。</p>
+<p>2、在FC=gfortran后面添加代码，最终如下</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">FC=gfortran -ffixed-line-length-none</span><br></pre></td></tr></table></figure>
+
+
+
+<p>编译成功！，是不是很开心呢，这个时候或许会弹出一个warning，不过不用管它。我们进入下一环节。</p>
+<h2><span id="fkpl文件报错重点">fk.pl文件报错（重点）</span></h2><h4><span id="perl">perl</span></h4><p>首先要确定你的电脑里有没有perl，终端输入：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">perl -v</span><br></pre></td></tr></table></figure>
+
+
+
+<p>看是否显示perl版本，如果提示没有perl，则安装一个，安装方法这里不多提了，百度一堆。</p>
+<h4><span id="报错">报错</span></h4><p>这个错误是很多同学都遇到了，难以解决的错，虽然说fk.pl是把几个程序结合起来的perl程序，坏掉了去把其他的程序一个个运行也可以，不过输入很冗长，尤其是fk。故在此还是费点心思找找错误吧。</p>
+<p>一般报错如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sh: 1: trav: not found</span><br><span class="line">sh: 1: trav: not found</span><br><span class="line">couldn't run fk</span><br></pre></td></tr></table></figure>
+
+
+
+<p>我们打开fk.pl的源码，找到这么几行：</p>
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="keyword">open</span>(REFL,<span class="string">"| $fk"</span>) <span class="keyword">or</span> <span class="keyword">die</span> <span class="string">"couldn't run $fk\n"</span>;</span><br><span class="line"></span><br><span class="line">&gt; <span class="keyword">open</span>(TRAV,<span class="string">"| trav &gt; junk.p"</span>)</span><br><span class="line"></span><br><span class="line">&gt; <span class="keyword">open</span>(TRAV,<span class="string">"| trav &gt; junk.s"</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+<p>都是和open有关的语句，perl通过open打开<strong>管道</strong>调用可执行程序，这里可<strong>不是打开文件</strong>哟，博主之前也以为是打开文件，就把前面的  <strong>|</strong>  删除了，结果不报错，但是什么结果也没有。。。</p>
+<p>报错提示执行程序无法找到，但是路径中确实存在，那么为什么会出现这种情况呢？相信大家都有过这样的经历，在Linux目录下明明存在一个可执行的程序，输入它的名字后显示找不到该程序，结果是自己忘了加<strong>./</strong>了，那么博主测试了一下更改上述代码如下：</p>
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="keyword">open</span>(REFL,<span class="string">"| ./$fk"</span>) <span class="keyword">or</span> <span class="keyword">die</span> <span class="string">"couldn't run $fk\n"</span>;</span><br><span class="line"></span><br><span class="line">&gt; <span class="keyword">open</span>(TRAV,<span class="string">"| ./trav &gt; junk.p"</span>)</span><br><span class="line"></span><br><span class="line">&gt; <span class="keyword">open</span>(TRAV,<span class="string">"| ./trav &gt; junk.s"</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+<p>带入例子</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./fk.pl -Mhk/20/k -N8/0.1 05 10 15 20 25 30 35 40 45 50 55 60 65 70 75 80</span><br></pre></td></tr></table></figure>
+
+
+
+<p>终端出现一系列计算，而且有了<strong>hk_20</strong>这个文件夹，结果显示可以运行fk.pl了！是不是解决了你的问题了呢！</p>
+<hr>
+<hr>
+<h2><span id="总结">总结</span></h2><p>那么好了，本期的fk软件编译和运行问题就到这里了，如果有幸帮到了你，那么博主十分高兴，如果你出现了其他的问题，欢迎在评论区留言或者私信博主一起讨论哟！</p>
+<p>另外不知道如何更改文件的，可以私信博主或是找其他人直接拷贝相关文件替换就行哦。</p>
+<h4><span id="下期预告">下期预告</span></h4><p>下期或许会出一期关于fk<strong>使用</strong>的博文，欢迎大家届时一起学习哈！谢谢关注！</p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/学术/">学术</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/地震/">地震</a>, <a href="/tags/软件/">软件</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+<section id="comment">
+  <h1 class="title">Comments</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://yoursite.com/2019/06/26/fk0/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="as_sitesearch" value="yoursite.com">
+  </form>
+</div>
+
+    
+  
+<div class="widget tag">
+  <h3 class="title">Categories</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/学术/">学术</a><small>6</small></li>
+  
+    <li><a href="/categories/技术/">技术</a><small>4</small></li>
+  
+    <li><a href="/categories/网络/">网络</a><small>3</small></li>
+  
+  </ul>
+</div>
+
+    
+  
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/Linux/">Linux</a><small>1</small></li>
+  
+    <li><a href="/tags/代理/">代理</a><small>1</small></li>
+  
+    <li><a href="/tags/地震/">地震</a><small>6</small></li>
+  
+    <li><a href="/tags/日语/">日语</a><small>1</small></li>
+  
+    <li><a href="/tags/计算机/">计算机</a><small>1</small></li>
+  
+    <li><a href="/tags/语法/">语法</a><small>1</small></li>
+  
+    <li><a href="/tags/超算/">超算</a><small>1</small></li>
+  
+    <li><a href="/tags/软件/">软件</a><small>8</small></li>
+  
+  </ul>
+</div>
+
+
+    
+
+ </aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2020 ZeKyou
+  
+</div>
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+  <!--loveclick --> 
+  <script type="text/javascript" src="/js/love.js"></script>
+  <!--funny title -->
+  <script type="text/javascript" src="/js/FunnyTitle.js"></script>
+</body>
+</html>

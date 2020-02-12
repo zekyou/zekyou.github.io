@@ -1,0 +1,452 @@
+<!DOCTYPE HTML>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  
+  <title>Page 2 | ZeKyou&#39;s Blog</title>
+  <meta name="author" content="ZeKyou">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+  <meta property="og:site_name" content="ZeKyou&#39;s Blog"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="ZeKyou&#39;s Blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">ZeKyou&#39;s Blog</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper">
+  <article id="post-cwpsu" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2019-10-13T05:35:00.000Z"><a href="/2019/10/13/cwpsu/">2019-10-13</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2019/10/13/cwpsu/">地震勘探软件CWPSU的安装</a></h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <div id="toc" class="toc-article">
+    <div class="toc-title">目录</div>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">建立目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">解压</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">配置环境变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">配置安装文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">安装</span></a></li></ol>
+</div>
+
+        
+        <p>大家好，最近实习需要用到CWPSU软件，就捣鼓了一下，网上有一些安装教程，不过大多不全，有的甚至还是错误的，今天就给大家好好梳理一下，顺便给WSL下的安装开一个路。</p>
+<h2><span id="建立目录">建立目录</span></h2><p>在/home/user下建立目录，例如cwpsu（其中<strong>user</strong> 为你LInux的用户名，例如zhangsan就是/home/zhangsan）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir cwpsu</span><br></pre></td></tr></table></figure>
+
+<h2><span id="解压">解压</span></h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -xvf filename.tar -Cyourdir</span><br></pre></td></tr></table></figure>
+
+<h2><span id="配置环境变量">配置环境变量</span></h2><p>在同样/home/user下输入</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim .bashrc</span><br></pre></td></tr></table></figure>
+
+<p>在最后加入两行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> CWPROOT=/home/user/su</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:/home/user/su/bin</span><br></pre></td></tr></table></figure>
+
+<p>然后更新bashrc或bash_profile（zsh同理，博主就是用的zsh）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> .bashrc</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> .bash_profile</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> .zshrc</span><br></pre></td></tr></table></figure>
+
+<p>依据自己情况选择</p>
+<p>值得注意的是有些Linux没有.bash_profile这个文件，可以看有没有.profile等之类的相似的文件。是一样的效果。例如博主的WSL里就是.profile所以第二行替换为</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> .profile</span><br></pre></td></tr></table></figure>
+
+<p>完成之后</p>
+<p>可以输入</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="variable">$CWPROOT</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$PATH</span></span><br></pre></td></tr></table></figure>
+
+<p>检测是否成功，若出现</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/home/user/su</span><br><span class="line">/home/user/su/bin</span><br></pre></td></tr></table></figure>
+
+<p>则说明成功了</p>
+<h2><span id="配置安装文件">配置安装文件</span></h2><p>这一步基本没什么操作，默认编译CC=gcc FC=gfortran都是用的最广的</p>
+<p>只需要在makefile文件里将</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#CWPROOT=</span></span><br></pre></td></tr></table></figure>
+
+<p>改成</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CWPROOT=/home/user/su</span><br></pre></td></tr></table></figure>
+
+<h2><span id="安装">安装</span></h2><p>直接</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make install</span><br></pre></td></tr></table></figure>
+
+<p>开始安装CWP主程序</p>
+<p>不过弹出一堆warning,眼睛都要花了。。。可以在zsh或是bash里调一下报错等级，不过问题不大。</p>
+<p>到这里只是安装了CWP主程序，其他的还都没有安装，如果这时你去测试网上抄来抄去的博客中的代码</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">suplane |suxwigb &amp;</span><br></pre></td></tr></table></figure>
+
+<p>的话，那么只会报错如下</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xwigb not found</span><br></pre></td></tr></table></figure>
+
+<p>等一系列错误，我们需要继续安装其他程序。</p>
+<p>不过在此之前你需要安装一系列包，不然就会报错</p>
+<p>所以建议把包装齐</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install libx11-dev libc6 freeglut3-dev libxt6 x11proto-print-dev libmotif-dev libxi-dev libxmu-dev</span><br></pre></td></tr></table></figure>
+
+<p>freeglut3-dev管mglinstall</p>
+<p>libmotif-dev管xminstall</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">make xtinstall</span><br><span class="line">make finstall </span><br><span class="line">make mglinstall</span><br><span class="line">make utils</span><br><span class="line">make xminstall</span><br><span class="line">make sfinstall</span><br></pre></td></tr></table></figure>
+
+<p>其中第二个是Fortran安装程序，有就不用装了，utils和sfintall不是必要的。</p>
+<p>在安装完后我们输入</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">suplane | suxwigb &amp;</span><br></pre></td></tr></table></figure>
+
+<p>出现一个窗口则代表成功了！</p>
+<p>不过在这里插一段，博主在WSL里安装后会出现</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh1:error:cannot connect to display!</span><br></pre></td></tr></table></figure>
+
+<p>这个是由于WSL没有图形界面造成的，需要安装一个图形界面。至于这部分我会换到下一个博文里详细讲解，详情见<a href="https://zekyou.github.io/2019/10/13/wslgui/" target="_blank" rel="noopener">此处</a>。</p>
+<p>博主重新回到Deepin里同样的安装步骤成功安装</p>
+<p><img src="cwpsuss.png" alt="1570954350343"></p>
+<p>关于使用方法，期待后续更新吧！</p>
+<p>再会！</p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+  <article id="post-v2ray0" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2019-08-14T13:35:00.000Z"><a href="/2019/08/14/v2ray0/">2019-08-14</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2019/08/14/v2ray0/">v2ray上网客户端报错问题的解决</a></h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <div id="toc" class="toc-article">
+    <div class="toc-title">目录</div>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text">前提摘要</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text">问题出现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text">解决方案</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#null"><span class="toc-text">修改代理设置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#null"><span class="toc-text">修改json</span></a></li></ol></li></ol>
+</div>
+
+        
+        <p>大家好呀，鸽了有一个多月。第三篇博客算是千呼万唤始出来呀。不过，之前的还是鸽了。。</p>
+<p>那么本次带来的是v2ray的客户端无法科学上网问题的解决方案。</p>
+<h3><span id="前提摘要">前提摘要</span></h3><p>v2ray是一款很好的科学上网的工具，一般分为服务器端和客户端两部分。理论是计算机的问题，那么博主为何会涉及到这方面的问题呢？原来博主的好朋友（友链里的River-li大佬）借给我一个配置好的v2ray服务器端，不过博主客户端配置不太会（博主太笨了。。）设置完代理后总还是无法上网，四处询问无果，不过最后总算是解决了问题，这里分享给大家，让有相同问题的大家少走弯路。</p>
+<h3><span id="问题出现">问题出现</span></h3><p>首先我们下好v2ray的客户端。</p>
+<p>去v2ray官网下载对应系统的安装包。</p>
+<p>这里以windows为例。</p>
+<p>在确定代理服务器设置（地址和端口）与config.json配置文件一致，运行v2ray.exe启动服务后抛出如下错误：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">**** rejected v2ray.com/core/proxy/socks: unknown Socks version: <span class="number">67</span></span><br></pre></td></tr></table></figure>
+
+<p>同时，无法正常上网。</p>
+<h3><span id="解决方案">解决方案</span></h3><p>我们在设置代理服务器时，习惯性的选择<strong>对所有协议均使用相同的代理服务器</strong></p>
+<p>在windows下，这样会使得我们的socks协议栏为空。如图:</p>
+<p><img src="v2ray_service.png" alt="1565791355578"></p>
+<p>而我们的config.json里inbounds中写到：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">"protocol":"socks"</span><br></pre></td></tr></table></figure>
+
+<p>我们需要同步这一选项</p>
+<h4><span id="修改代理设置">修改代理设置</span></h4><p>所以我们需要<strong>Internet属性</strong>中找到<strong>局域网（LAN）设置</strong>，再找到<strong>代理设置</strong>、高级里把<strong>对所有协议均使用相同的代理服务器</strong>前项的√去掉，同时，在socks（套接字）里输入你配置的地址和端口，确定即可。</p>
+<h4><span id="修改json">修改json</span></h4><p>我们只需要将json文件中Inbounds中</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">"protocol":"socks"</span><br></pre></td></tr></table></figure>
+
+<p>改为</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">"protocol":"http"</span><br></pre></td></tr></table></figure>
+
+
+
+<p>不论哪种解决方案都可以。</p>
+<p>这样我们就可以发现，我们可以正常上网了，v2ray命令行里也变成了accepted，大功告成！</p>
+<p><img src="v2ray_success.png" alt="1565792452919"></p>
+<p>最后还是要感谢River-li大大的技术支持！</p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+  <article id="post-fk0" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2019-06-26T05:35:00.000Z"><a href="/2019/06/26/fk0/">2019-06-26</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2019/06/26/fk0/">地震软件fk编译、运行报错解决办法</a></h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <p>哈喽，大家好呀。第二篇博客出炉了，这次我们讲一讲和地震专业的事情吧。最近大作业使用的F-K软件，有很多朋友反映有很多错误，包括编译和编译后的一些运行问题，虽然说网上有一些解答，如Seisman的博客。但是博主去看了一下他的文章，主要是说的sachd程序编译不通过，需要添加数学库-lm，而博主和朋友们都没有这个问题，反而是其他的问题一堆。。。只好自己动手啦，那么本期就系统的讲解一下这些问题吧。
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2019/06/26/fk0/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+  <article id="post-nihongo0" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2019-06-25T11:04:02.000Z"><a href="/2019/06/25/nihongo0/">2019-06-25</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2019/06/25/nihongo0/">日语中的まい及相关用法</a></h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <div id="toc" class="toc-article">
+    <div class="toc-title">目录</div>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">まい&#x2F;ではあるまいか</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text">~まい</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#null"><span class="toc-text">接续</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#null"><span class="toc-text">动词</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#null"><span class="toc-text">形容词</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#null"><span class="toc-text">形容动词&amp;名词</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#null"><span class="toc-text">含义</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text">~ではあるまいか</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#null"><span class="toc-text">接续</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#null"><span class="toc-text">动词</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#null"><span class="toc-text">形容动词&amp;名词</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#null"><span class="toc-text">含义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#null"><span class="toc-text">注意</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#null"><span class="toc-text">例句</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">~ではあるまいし</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#null"><span class="toc-text">接续</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#null"><span class="toc-text">动词</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#null"><span class="toc-text">名词</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#null"><span class="toc-text">含义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#null"><span class="toc-text">例句</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">总结&amp;习题</span></a></li></ol>
+</div>
+
+        
+        <p>哈喽，大家好呀。作为本博客的开门篇，我们今天不谈公式，不谈代码，我们来讲一讲简单、轻松的语言学习。</p>
+<p>博主最近发现日语语法中的<strong>~まい</strong>和<strong>~ではあるまいか</strong>以及<strong>~ではあるまいし</strong>比较容易搞混，颇有中文里“不会有错吧？”和“不会有错吧！”两种语调让你搞不清它到底有没有错(&gt;-&lt;)！而且后两个一般出现在又臭又长的句子里，影响整体理解。在这里分享一个博主的小经验。</p>
+<h2><span id="まいではあるまいか"><del>まい/</del>ではあるまいか</span></h2><h3><span id="~まい">~まい</span></h3><h4><span id="接续">接续</span></h4><p>~まい的继续可是说是挺复杂的，需要记忆。</p>
+<h5><span id="动词">动词</span></h5><p>五段动词：原形    </p>
+<p>一段动词<del>ない</del>    例：くれる——&gt;くれまい</p>
+<p>サ变动词　例：する——&gt;すまい</p>
+<p>カ变动词　例：来る——&gt;こまい</p>
+<h5><span id="形容词">形容词</span></h5><p><del>い</del>→くある</p>
+<h5><span id="形容动词amp名词">形容动词&amp;名词</span></h5><p>+ではある</p>
+<h4><span id="含义">含义</span></h4><p>一般译作<strong>不会······吧、不是······吧</strong>，这样说很容易混，博主建议直接替换成日文<strong>~ないだろう</strong>比较容易理解文章。</p>
+<hr>
+<h3><span id="~ではあるまいか">~ではあるまいか</span></h3><h4><span id="接续">接续</span></h4><h5><span id="动词">动词</span></h5><p>一般形（普通形）+の</p>
+<h5><span id="形容动词amp名词">形容动词&amp;名词</span></h5><p>+なの</p>
+<h4><span id="含义">含义</span></h4><p>与~まい基本一致。但是一般出现在长句当中，会一时转不过弯，建议直接替换成日文<em>ではないだろか</em>带入理解，很快就能够了解句子含义。</p>
+<h4><span id="注意">注意</span></h4><p>这里讲解一下上述两个的特点。它们两个都不用于敬体和过去式。一般<strong>不用</strong>第一人称做<strong>主语</strong>。其中<em>~ではあるまいか</em>是反问句式，相对前项表达一种说话人的<strong>推测</strong>和<strong>意见</strong>。</p>
+<h4><span id="例句">例句</span></h4><ol>
+<li><p>誰にも信じてくれまいが、これ本当の話だ。</p>
+</li>
+<li><p>このまま何もしないでいたら、いつまでも問題は解決しないのではあるまいか。</p>
+</li>
+<li><p>あの子はまだ小さいから、一人で行かせては迷子になるまいか心配だ。</p>
+<hr>
+</li>
+</ol>
+<h2><span id="~ではあるまいし">~ではあるまいし</span></h2><p>   这个其实是N1语法，不过在日常中或是动漫里还是会经常听到，所以稍微介绍一下，博主推荐这个用语感去记忆。</p>
+<h4><span id="接续">接续</span></h4><h5><span id="动词">动词</span></h5><p>   原形/た形+ の/ん</p>
+<h5><span id="名词">名词</span></h5><p>   无变化，直接加就好了</p>
+<h4><span id="含义">含义</span></h4><p>   一般带有し，都有表示原因、理由的含义，例如    <em>~あるし*。那么</em>~ではあるまいし*就译作”又不是······（所以······））“</p>
+<h4><span id="例句">例句</span></h4><p>   比较经典的句子就是：</p>
+<blockquote>
+<p>子供ではあるまいし、……</p>
+</blockquote>
+<p>   译：又不是小孩子，（所以）······</p>
+<p>   这个还是比较好学习的，博主建议用句子去记住它。</p>
+<hr>
+<h2><span id="总结amp习题">总结&amp;习题</span></h2><p>   那么讲解就到这里了，要注意的点是：</p>
+<p>   1、<em>~まい</em>的动词接续</p>
+<p>   2、<em>~ではあるまいか</em>接动词的时候不要忘记の，接名词和形容动词的时候不要忘记なの</p>
+<p>   3、<em>~ではあるまいか</em>一般用在询问和推测，有着委婉的语气</p>
+<p>   4、<em>~まい*和</em>~ではあるまいか*多用于书面语</p>
+<hr>
+<hr>
+<p>   问题1</p>
+<blockquote>
+<p><strong>彼から来るはずの連絡がない。事故にでも(    )</strong></p>
+<p><strong>a    あったではあるまい</strong></p>
+<p><strong>b    あったではあるまいか</strong></p>
+<p><strong>c    あったのではあるまいか</strong></p>
+</blockquote>
+<hr>
+<p>   问题2</p>
+<blockquote>
+<p><strong>宝くじを買った。どうせ(    )とは思ったが……</strong></p>
+<p><strong>a    当たるまい</strong></p>
+<p><strong>b    当たるに違いない</strong></p>
+<p><strong>c    当たらない恐れがある</strong></p>
+</blockquote>
+<hr>
+<p>   问题3</p>
+<blockquote>
+<p><strong>最近夫は一人で黙っていることが多い。何か悩みことが(    )</strong></p>
+<p><strong>a    あるのではあるまい</strong></p>
+<p><strong>b    あるに違いない</strong></p>
+<p><strong>c    ありかねない</strong></p>
+</blockquote>
+<hr>
+<p>   那么本期就到这里了，题目答案你可以写在评论区，与其他朋友一起讨论。文中难免有纰漏，还请批评指正。答案会在下期开头贴出哦！</p>
+<p>   感谢阅读！</p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+<nav id="pagination">
+  
+    <a href="/" class="alignleft prev">Prev</a>
+  
+  
+  <div class="clearfix"></div>
+</nav>
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="as_sitesearch" value="yoursite.com">
+  </form>
+</div>
+
+    
+  
+<div class="widget tag">
+  <h3 class="title">Categories</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/学术/">学术</a><small>6</small></li>
+  
+    <li><a href="/categories/技术/">技术</a><small>4</small></li>
+  
+    <li><a href="/categories/网络/">网络</a><small>3</small></li>
+  
+  </ul>
+</div>
+
+    
+  
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/Linux/">Linux</a><small>1</small></li>
+  
+    <li><a href="/tags/代理/">代理</a><small>1</small></li>
+  
+    <li><a href="/tags/地震/">地震</a><small>6</small></li>
+  
+    <li><a href="/tags/日语/">日语</a><small>1</small></li>
+  
+    <li><a href="/tags/计算机/">计算机</a><small>1</small></li>
+  
+    <li><a href="/tags/语法/">语法</a><small>1</small></li>
+  
+    <li><a href="/tags/超算/">超算</a><small>1</small></li>
+  
+    <li><a href="/tags/软件/">软件</a><small>8</small></li>
+  
+  </ul>
+</div>
+
+
+    
+
+ </aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2020 ZeKyou
+  
+</div>
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+  <!--loveclick --> 
+  <script type="text/javascript" src="/js/love.js"></script>
+  <!--funny title -->
+  <script type="text/javascript" src="/js/FunnyTitle.js"></script>
+</body>
+</html>
