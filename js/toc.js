@@ -17,10 +17,10 @@
 			$(window).scroll(function(){
 				var scrollTop = $(window).scrollTop();
 				if (scrollTop <minScrollTop){
-					$toc.css({'position':'absolute','top':'0px','right':'-400px'});
+					$toc.css({'position':'absolute','top':'0px'});
 				} else {
 				//	$toc.css({'position':'fixed','top':'20px','right':'50px'});
-					$toc.css({'top':scrollTop+'px'});
+					$toc.css({'top':scrollTop-150+'px'});
 				}
 			});
 		}
