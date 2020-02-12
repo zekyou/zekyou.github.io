@@ -7,7 +7,8 @@
   <meta name="author" content="ZeKyou">
   
   <meta name="description" content="利用CWPSU自建模型进行反射波法模拟数据拖了很久的反射波法终于出炉了。限于时间，本期只有数据的合成，用法的解释。对于数据后续的处理，放到明天再展开，同学们可以自己先捣鼓。由于有了数据，处理也会如鱼得水。
-前情提要为什么反射波法拖了这么久，其实还是因为一个矛盾：自建模型和线性数据的矛盾。此话怎讲呢，">
+前情提要为什么反射波法拖了这么久，其实还是因为一个矛盾：自建模型和线性数据的矛盾。此话怎讲呢，本人看了很多网上包括前辈们的操作，大抵相似，都是使用susynlv来做，不过susynlv是一个模拟线性地层的工具，那不就先前自建的各种崎岖模型就失去意义了吗？对此，网上很多攻略忽略了这一点，有的甚至还滥竽充数，分析的头头是道，结果前后矛盾。如果说只是单纯的模拟一个在深度和方向上完全线性的地层，那么很简单，直接用susynlv就可以做到，不过显然我们不想这么咸鱼。
+那么CWPSU提供了susynvxz和susynvxzcs等一系列可以输入模型的方法，这些方法参数众多，琢磨很久也没有完全摸透，索性放弃。不过之前在外网看到一个用trimodel做的模型，再用triseismic做的反射成像，图很漂亮：">
   
   <meta name="keywords" content="CWPSU">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -71,6 +72,9 @@
         <h1><span id="利用cwpsu自建模型进行反射波法模拟数据">利用CWPSU自建模型进行反射波法模拟数据</span></h1><p>拖了很久的反射波法终于出炉了。限于时间，本期只有数据的合成，用法的解释。对于数据后续的处理，放到明天再展开，同学们可以自己先捣鼓。由于有了数据，处理也会如鱼得水。</p>
 <h2><span id="前情提要">前情提要</span></h2><p>为什么反射波法拖了这么久，其实还是因为一个矛盾：自建模型和线性数据的矛盾。此话怎讲呢，本人看了很多网上包括前辈们的操作，<strong>大抵相似</strong>，都是使用susynlv来做，不过susynlv是一个模拟线性地层的工具，那不就先前自建的各种崎岖模型就失去意义了吗？对此，网上很多攻略忽略了这一点，有的甚至还<strong>滥竽充数</strong>，分析的头头是道，结果<strong>前后矛盾</strong>。如果说只是单纯的模拟一个在深度和方向上完全线性的地层，那么很简单，直接用susynlv就可以做到，不过显然我们不想这么<strong>咸鱼</strong>。</p>
 <p>那么CWPSU提供了susynvxz和susynvxzcs等一系列可以输入模型的方法，这些方法参数众多，琢磨很久也没有完全摸透，索性放弃。不过之前在外网看到一个用trimodel做的模型，再用triseismic做的反射成像，图很漂亮：</p>
+<a id="more"></a>
+
+
 <p><img src="cwpsureflect1.png" alt="cwpsureflect1"></p>
 <p><img src="cwpsureflect2.png" alt="cwpsureflect2"></p>
 <p>奈何不是多次覆盖。难以调用。</p>

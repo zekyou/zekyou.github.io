@@ -81,7 +81,10 @@
 </div>
 
         
-        <h1><span id="cwpsu模拟反射波数据处理">CWPSU模拟反射波数据处理</span></h1><h2><span id="前情提要">前情提要</span></h2><p>之前我们获得一个dataraw.su的反射波模拟数据，我们还需要对它进行处理，以此来获得地层信息。对此有疑问的可以查看上次博客。<br>这是上次的链接：<br><a href="https://zekyou.github.io/2019/10/18/cwpsureflect/" target="_blank" rel="noopener">我是个链接</a><br>我们说过100道，25次覆盖。我们最初是打了25炮，这样只有4个点满足25次覆盖。4个点不足以反映地下介质的信息。因此：</p>
+        <h1><span id="cwpsu模拟反射波数据处理">CWPSU模拟反射波数据处理</span></h1><h2><span id="前情提要">前情提要</span></h2><p>之前我们获得一个dataraw.su的反射波模拟数据，我们还需要对它进行处理，以此来获得地层信息。对此有疑问的可以查看上次博客。<br>这是上次的链接：<br><a href="https://zekyou.github.io/2019/10/18/cwpsureflect/" target="_blank" rel="noopener">我是个链接</a></p>
+<a id="more"></a>
+
+<p>我们说过100道，25次覆盖。我们最初是打了25炮，这样只有4个点满足25次覆盖。4个点不足以反映地下介质的信息。因此：</p>
 <p><strong>我们调整nxs=49。保持其他的参数不变，即打了49炮，那么我们有（49-24）×4=100个满足25次覆盖的点了。</strong></p>
 <p>另外我们会在最后给出<strong>高度整</strong>合的shell脚本和<strong>刘猛学者</strong>的自动完成CDP覆盖次数的脚本。您可以<a href="#link1">点击</a>前去查看，不过我们还是<strong>建议您看完全文</strong>以便您<strong>修改部分参</strong>数使得让重复率降低，从而避免<strong>不必要的麻烦</strong>。</p>
 <h2><span id="预处理">预处理</span></h2><h3><span id="加噪">加噪</span></h3><p>我们用正演生成的数据是不含有噪声的数据，为此需要认为加一个噪声，显得很真实（确信了）</p>

@@ -6,7 +6,7 @@
   <title>CWPSU中自定义地层模型模拟反射波 | ZeKyou&#39;s Blog</title>
   <meta name="author" content="ZeKyou">
   
-  <meta name="description" content="如何在CWPSU中生成自定义地层模型前情提要之前我们安装了CWPSU，需要模拟出反射数据，那么首先需要自定义一个模型，如何定义出一个模型？博主查阅了网上一些资料，不过都是东拼西凑，抄来抄去，从来没有原理性的解释。博主本着大家能够深入了解其原理，真正了解内核，而不是CTRL+C完就完事的需求，给大家摘">
+  <meta name="description" content="如何在CWPSU中生成自定义地层模型前情提要之前我们安装了CWPSU，需要模拟出反射数据，那么首先需要自定义一个模型，如何定义出一个模型？博主查阅了网上一些资料，不过都是东拼西凑，抄来抄去，从来没有原理性的解释。博主本着大家能够深入了解其原理，真正了解内核，而不是CTRL+C完就完事的需求，给大家摘了官方文档，同时做一些讲解和实战。不过限于知识水平，难免疏漏，还请批评指正！">
   
   <meta name="keywords" content="地层模型">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -68,6 +68,8 @@
 
         
         <h1><span id="如何在cwpsu中生成自定义地层模型">如何在CWPSU中生成自定义地层模型</span></h1><h2><span id="前情提要">前情提要</span></h2><p>之前我们安装了CWPSU，需要模拟出反射数据，那么首先需要自定义一个模型，如何定义出一个模型？博主查阅了网上一些资料，不过都是东拼西凑，抄来抄去，从来没有原理性的解释。博主本着大家能够深入了解其原理，真正了解内核，而不是<strong>CTRL+C</strong>完就完事的需求，给大家摘了官方文档，同时做一些讲解和实战。不过限于知识水平，难免疏漏，还请批评指正！</p>
+<a id="more"></a>
+
 <h2><span id="一些符号说明">一些符号说明</span></h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">A &lt; B  processA takes input from fileB</span><br><span class="line">A &gt; B  processA wirte on fileB</span><br><span class="line">A &gt;&gt; B processA appends to fileB</span><br><span class="line">A | B  output of A is input to B</span><br><span class="line">A &lt;&lt; B take input from following lines(B represents text)</span><br><span class="line">Tips:'|' is similar to Perl in which represents a pipe</span><br></pre></td></tr></table></figure>
 
 
