@@ -62,21 +62,21 @@
     </header>
     <div class="e-content entry" itemprop="articleBody">
       
-        <div id="toc" class="toc-article">
+        <div id="post-toc" class="post-toc" style="position: absolute; top:0px;">
     <div class="toc-title">目录</div>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">建立目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">解压</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">配置环境变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">配置安装文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">安装</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#建立目录"><span class="toc-text">建立目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解压"><span class="toc-text">解压</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置环境变量"><span class="toc-text">配置环境变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置安装文件"><span class="toc-text">配置安装文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装"><span class="toc-text">安装</span></a></li></ol>
 </div>
 
         
         <p>大家好，最近实习需要用到CWPSU软件，就捣鼓了一下，网上有一些安装教程，不过大多不全，有的甚至还是错误的，今天就给大家好好梳理一下，顺便给WSL下的安装开一个路。</p>
-<h2><span id="建立目录">建立目录</span></h2><p>在/home/user下建立目录，例如cwpsu（其中<strong>user</strong> 为你LInux的用户名，例如zhangsan就是/home/zhangsan）</p>
+<h2 id="建立目录"><a href="#建立目录" class="headerlink" title="建立目录"></a>建立目录</h2><p>在/home/user下建立目录，例如cwpsu（其中<strong>user</strong> 为你LInux的用户名，例如zhangsan就是/home/zhangsan）</p>
 <a id="more"></a>
 
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir cwpsu</span><br></pre></td></tr></table></figure>
 
-<h2><span id="解压">解压</span></h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -xvf filename.tar -Cyourdir</span><br></pre></td></tr></table></figure>
+<h2 id="解压"><a href="#解压" class="headerlink" title="解压"></a>解压</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -xvf filename.tar -Cyourdir</span><br></pre></td></tr></table></figure>
 
-<h2><span id="配置环境变量">配置环境变量</span></h2><p>在同样/home/user下输入</p>
+<h2 id="配置环境变量"><a href="#配置环境变量" class="headerlink" title="配置环境变量"></a>配置环境变量</h2><p>在同样/home/user下输入</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim .bashrc</span><br></pre></td></tr></table></figure>
 
 <p>在最后加入两行</p>
@@ -101,14 +101,14 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/home/user/su</span><br><span class="line">/home/user/su/bin</span><br></pre></td></tr></table></figure>
 
 <p>则说明成功了</p>
-<h2><span id="配置安装文件">配置安装文件</span></h2><p>这一步基本没什么操作，默认编译CC=gcc FC=gfortran都是用的最广的</p>
+<h2 id="配置安装文件"><a href="#配置安装文件" class="headerlink" title="配置安装文件"></a>配置安装文件</h2><p>这一步基本没什么操作，默认编译CC=gcc FC=gfortran都是用的最广的</p>
 <p>只需要在makefile文件里将</p>
 <figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#CWPROOT=</span></span><br></pre></td></tr></table></figure>
 
 <p>改成</p>
 <figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CWPROOT=/home/user/su</span><br></pre></td></tr></table></figure>
 
-<h2><span id="安装">安装</span></h2><p>直接</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>直接</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make install</span><br></pre></td></tr></table></figure>
 
 <p>开始安装CWP主程序</p>
@@ -196,58 +196,7 @@
 </section>
 
 </div></div>
-    <aside id="sidebar" class="alignright">
-  <div class="search">
-  <form action="//google.com/search" method="get" accept-charset="utf-8">
-    <input type="search" name="q" results="0" placeholder="Search">
-    <input type="hidden" name="as_sitesearch" value="yoursite.com">
-  </form>
-</div>
-
     
-  
-<div class="widget tag">
-  <h3 class="title">Categories</h3>
-  <ul class="entry">
-  
-    <li><a href="/categories/学术/">学术</a><small>6</small></li>
-  
-    <li><a href="/categories/技术/">技术</a><small>4</small></li>
-  
-    <li><a href="/categories/网络/">网络</a><small>3</small></li>
-  
-  </ul>
-</div>
-
-    
-  
-<div class="widget tag">
-  <h3 class="title">Tags</h3>
-  <ul class="entry">
-  
-    <li><a href="/tags/Linux/">Linux</a><small>1</small></li>
-  
-    <li><a href="/tags/代理/">代理</a><small>1</small></li>
-  
-    <li><a href="/tags/地震/">地震</a><small>6</small></li>
-  
-    <li><a href="/tags/日语/">日语</a><small>1</small></li>
-  
-    <li><a href="/tags/计算机/">计算机</a><small>1</small></li>
-  
-    <li><a href="/tags/语法/">语法</a><small>1</small></li>
-  
-    <li><a href="/tags/超算/">超算</a><small>1</small></li>
-  
-    <li><a href="/tags/软件/">软件</a><small>8</small></li>
-  
-  </ul>
-</div>
-
-
-    
-
- </aside>
     <div class="clearfix"></div>
   </div>
   <footer id="footer" class="inner"><div class="alignleft">
@@ -277,5 +226,7 @@
   <script type="text/javascript" src="/js/love.js"></script>
   <!--funny title -->
   <script type="text/javascript" src="/js/FunnyTitle.js"></script>
+  <!--toc -->
+  <script type='text/javascript' src="/js/toc.js"></script>
 </body>
 </html>

@@ -65,13 +65,13 @@
     </header>
     <div class="e-content entry" itemprop="articleBody">
       
-        <div id="toc" class="toc-article">
+        <div id="post-toc" class="post-toc" style="position: absolute; top:0px;">
     <div class="toc-title">目录</div>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#null"><span class="toc-text">前情提要</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#null"><span class="toc-text">WSL安装图形界面</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">WSL配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">Xming配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">检验</span></a></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前情提要"><span class="toc-text">前情提要</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#WSL安装图形界面"><span class="toc-text">WSL安装图形界面</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#安装"><span class="toc-text">安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#WSL配置"><span class="toc-text">WSL配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Xming配置"><span class="toc-text">Xming配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#检验"><span class="toc-text">检验</span></a></li></ol></li></ol>
 </div>
 
         
-        <h1><span id="前情提要">前情提要</span></h1><p>我们之前在WSL上安装CWPSU时，出现报错</p>
+        <h1 id="前情提要"><a href="#前情提要" class="headerlink" title="前情提要"></a>前情提要</h1><p>我们之前在WSL上安装CWPSU时，出现报错</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh1: cannot connect to display!</span><br></pre></td></tr></table></figure>
 
 <p>的情况，本期就来解决这个问题。</p>
@@ -81,12 +81,12 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install libx11-dev libc6 freeglut3-dev libmotif4 libxt6 x11proto-print-dev libmotif-dev libxi-dev libxmu-dev</span><br></pre></td></tr></table></figure>
 
 <p>我们需要做的，就是给WSL装一个图形界面。</p>
-<h1><span id="wsl安装图形界面">WSL安装图形界面</span></h1><p>网上基本有Xming和VNC的教程，有的说VNC会比较快些，不过博主没有用过，不太确定。</p>
+<h1 id="WSL安装图形界面"><a href="#WSL安装图形界面" class="headerlink" title="WSL安装图形界面"></a>WSL安装图形界面</h1><p>网上基本有Xming和VNC的教程，有的说VNC会比较快些，不过博主没有用过，不太确定。</p>
 <p>Xming比较简单，使用体验目前来讲也比较好，所以本文只对Xming做解释</p>
-<h2><span id="安装">安装</span></h2><p>首先到官网安装Xming，给出链接</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>首先到官网安装Xming，给出链接</p>
 <p><a href="https://nchc.dl.sourceforge.net/project/xming/Xming/6.9.0.31/Xming-6-9-0-31-setup.exe" target="_blank" rel="noopener">我是个链接</a></p>
 <p>下载好后直接安装</p>
-<h2><span id="wsl配置">WSL配置</span></h2><p>我们回到主目录，打开.bashrc或者.zshrc</p>
+<h2 id="WSL配置"><a href="#WSL配置" class="headerlink" title="WSL配置"></a>WSL配置</h2><p>我们回到主目录，打开.bashrc或者.zshrc</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim .bashrc</span><br></pre></td></tr></table></figure>
 
 <p>我们加入一行</p>
@@ -94,11 +94,11 @@
 
 <p>注意这里数字可以自己选，不过要记住，因为后面要配对</p>
 <p>这样我们就配置好了</p>
-<h2><span id="xming配置">Xming配置</span></h2><p>我们安装Xming过程中出现Display setting界面</p>
+<h2 id="Xming配置"><a href="#Xming配置" class="headerlink" title="Xming配置"></a>Xming配置</h2><p>我们安装Xming过程中出现Display setting界面</p>
 <p><img src="wslgui1.png" alt="10000"></p>
 <p>记得这个地方要和之前的一致，我们这里为0</p>
 <p>其他的基本就是直接下一步了</p>
-<h2><span id="检验">检验</span></h2><p>我们上次在WSL里安装了CWPSU，不过报错</p>
+<h2 id="检验"><a href="#检验" class="headerlink" title="检验"></a>检验</h2><p>我们上次在WSL里安装了CWPSU，不过报错</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh1:... cannot connect to display!</span><br></pre></td></tr></table></figure>
 
 <p>我们说这是因为WSL缺少图形界面，现在我们安装了图形界面，那么是时候检验它了。</p>
@@ -171,58 +171,7 @@
 </section>
 
 </div></div>
-    <aside id="sidebar" class="alignright">
-  <div class="search">
-  <form action="//google.com/search" method="get" accept-charset="utf-8">
-    <input type="search" name="q" results="0" placeholder="Search">
-    <input type="hidden" name="as_sitesearch" value="yoursite.com">
-  </form>
-</div>
-
     
-  
-<div class="widget tag">
-  <h3 class="title">Categories</h3>
-  <ul class="entry">
-  
-    <li><a href="/categories/学术/">学术</a><small>6</small></li>
-  
-    <li><a href="/categories/技术/">技术</a><small>4</small></li>
-  
-    <li><a href="/categories/网络/">网络</a><small>3</small></li>
-  
-  </ul>
-</div>
-
-    
-  
-<div class="widget tag">
-  <h3 class="title">Tags</h3>
-  <ul class="entry">
-  
-    <li><a href="/tags/Linux/">Linux</a><small>1</small></li>
-  
-    <li><a href="/tags/代理/">代理</a><small>1</small></li>
-  
-    <li><a href="/tags/地震/">地震</a><small>6</small></li>
-  
-    <li><a href="/tags/日语/">日语</a><small>1</small></li>
-  
-    <li><a href="/tags/计算机/">计算机</a><small>1</small></li>
-  
-    <li><a href="/tags/语法/">语法</a><small>1</small></li>
-  
-    <li><a href="/tags/超算/">超算</a><small>1</small></li>
-  
-    <li><a href="/tags/软件/">软件</a><small>8</small></li>
-  
-  </ul>
-</div>
-
-
-    
-
- </aside>
     <div class="clearfix"></div>
   </div>
   <footer id="footer" class="inner"><div class="alignleft">
@@ -252,5 +201,7 @@
   <script type="text/javascript" src="/js/love.js"></script>
   <!--funny title -->
   <script type="text/javascript" src="/js/FunnyTitle.js"></script>
+  <!--toc -->
+  <script type='text/javascript' src="/js/toc.js"></script>
 </body>
 </html>

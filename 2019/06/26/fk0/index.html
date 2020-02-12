@@ -61,9 +61,9 @@
     </header>
     <div class="e-content entry" itemprop="articleBody">
       
-        <div id="toc" class="toc-article">
+        <div id="post-toc" class="post-toc" style="position: absolute; top:0px;">
     <div class="toc-title">目录</div>
-    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text">安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text">编译</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#null"><span class="toc-text">1、打开makefile</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#null"><span class="toc-text">2、配置CC和FC</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#null"><span class="toc-text">3、配置CFLAGS和FFLAGS（重点）</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">fk.pl文件报错（重点）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#null"><span class="toc-text">perl</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#null"><span class="toc-text">报错</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">总结</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#null"><span class="toc-text">下期预告</span></a></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#安装"><span class="toc-text">安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#编译"><span class="toc-text">编译</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1、打开makefile"><span class="toc-text">1、打开makefile</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2、配置CC和FC"><span class="toc-text">2、配置CC和FC</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3、配置CFLAGS和FFLAGS（重点）"><span class="toc-text">3、配置CFLAGS和FFLAGS（重点）</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#fk-pl文件报错（重点）"><span class="toc-text">fk.pl文件报错（重点）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#perl"><span class="toc-text">perl</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#报错"><span class="toc-text">报错</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#下期预告"><span class="toc-text">下期预告</span></a></li></ol></li></ol>
 </div>
 
         
@@ -71,15 +71,15 @@
 <!--more-->
 
 <hr>
-<h3><span id="安装">安装</span></h3><p>F-K软件是Prof. Lupei Zhu开发的一个用于计算 <strong>水平分层模型</strong> 下的理论格林函数并合成理论地震图的代码包。代码是开源的，可以直接编译使用。在这里给出下载链接。</p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>F-K软件是Prof. Lupei Zhu开发的一个用于计算 <strong>水平分层模型</strong> 下的理论格林函数并合成理论地震图的代码包。代码是开源的，可以直接编译使用。在这里给出下载链接。</p>
 <p><a href="http://www.eas.slu.edu/People/LZhu/downloads/fk3.2.tar" target="_blank" rel="noopener">fk3.2.tar</a></p>
 <p>下载后直接解压</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -xvf fk3.2.tar</span><br></pre></td></tr></table></figure>
 
 
 
-<h3><span id="编译">编译</span></h3><p>这里会出现几种情况，报一些错误，博主一一说明。</p>
-<h4><span id="1-打开makefile">1、打开makefile</span></h4><p>首先如果你<strong>安装</strong>了SAC，而且路径设置正确（一般都是正确的，即SACHOME填写正确）那么请将</p>
+<h3 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h3><p>这里会出现几种情况，报一些错误，博主一一说明。</p>
+<h4 id="1、打开makefile"><a href="#1、打开makefile" class="headerlink" title="1、打开makefile"></a>1、打开makefile</h4><p>首先如果你<strong>安装</strong>了SAC，而且路径设置正确（一般都是正确的，即SACHOME填写正确）那么请将</p>
 <figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#CFLAGS=$(optimize) -DSAC_LIB </span></span><br><span class="line"><span class="comment">#SACLIB=-L$(SACHOME)/lib -lsac -lsacio</span></span><br></pre></td></tr></table></figure>
 
 
@@ -89,7 +89,7 @@
 
 
 
-<h4><span id="2-配置cc和fc">2、配置CC和FC</span></h4><p>这两个就是程序中C语言和Fortran程序的编译手段了，根据你电脑安装的编译器而不同，<strong>如果你没有什么特殊需求，本过程可以略过，直接调到第三步。</strong></p>
+<h4 id="2、配置CC和FC"><a href="#2、配置CC和FC" class="headerlink" title="2、配置CC和FC"></a>2、配置CC和FC</h4><p>这两个就是程序中C语言和Fortran程序的编译手段了，根据你电脑安装的编译器而不同，<strong>如果你没有什么特殊需求，本过程可以略过，直接调到第三步。</strong></p>
 <p>CC一般不用配置，大家电脑里一般都有gcc，FC的话如果你电脑里的编译器是gfortran那么你可以在开头加一行</p>
 <figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">FC=gfortran</span><br></pre></td></tr></table></figure>
 
@@ -102,7 +102,7 @@
 
 
 
-<h4><span id="3-配置cflags和fflags重点">3、配置CFLAGS和FFLAGS（重点）</span></h4><p>很多同学反应报错出现</p>
+<h4 id="3、配置CFLAGS和FFLAGS（重点）"><a href="#3、配置CFLAGS和FFLAGS（重点）" class="headerlink" title="3、配置CFLAGS和FFLAGS（重点）"></a>3、配置CFLAGS和FFLAGS（重点）</h4><p>很多同学反应报错出现</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/usr/bin/ld: /usr/local/sac/lib/libsacio.a(math.o): relocation R_X86_64_32 against `.text' can not be used when making a PIE object; recompile with -fPIC</span><br><span class="line">/usr/bin/ld: 最后的链结失败: 输出不可表示的节</span><br></pre></td></tr></table></figure>
 
 
@@ -137,13 +137,13 @@
 
 
 <p>编译成功！，是不是很开心呢，这个时候或许会弹出一个warning，不过不用管它。我们进入下一环节。</p>
-<h2><span id="fkpl文件报错重点">fk.pl文件报错（重点）</span></h2><h4><span id="perl">perl</span></h4><p>首先要确定你的电脑里有没有perl，终端输入：</p>
+<h2 id="fk-pl文件报错（重点）"><a href="#fk-pl文件报错（重点）" class="headerlink" title="fk.pl文件报错（重点）"></a>fk.pl文件报错（重点）</h2><h4 id="perl"><a href="#perl" class="headerlink" title="perl"></a>perl</h4><p>首先要确定你的电脑里有没有perl，终端输入：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">perl -v</span><br></pre></td></tr></table></figure>
 
 
 
 <p>看是否显示perl版本，如果提示没有perl，则安装一个，安装方法这里不多提了，百度一堆。</p>
-<h4><span id="报错">报错</span></h4><p>这个错误是很多同学都遇到了，难以解决的错，虽然说fk.pl是把几个程序结合起来的perl程序，坏掉了去把其他的程序一个个运行也可以，不过输入很冗长，尤其是fk。故在此还是费点心思找找错误吧。</p>
+<h4 id="报错"><a href="#报错" class="headerlink" title="报错"></a>报错</h4><p>这个错误是很多同学都遇到了，难以解决的错，虽然说fk.pl是把几个程序结合起来的perl程序，坏掉了去把其他的程序一个个运行也可以，不过输入很冗长，尤其是fk。故在此还是费点心思找找错误吧。</p>
 <p>一般报错如下：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sh: 1: trav: not found</span><br><span class="line">sh: 1: trav: not found</span><br><span class="line">couldn't run fk</span><br></pre></td></tr></table></figure>
 
@@ -168,9 +168,9 @@
 <p>终端出现一系列计算，而且有了<strong>hk_20</strong>这个文件夹，结果显示可以运行fk.pl了！是不是解决了你的问题了呢！</p>
 <hr>
 <hr>
-<h2><span id="总结">总结</span></h2><p>那么好了，本期的fk软件编译和运行问题就到这里了，如果有幸帮到了你，那么博主十分高兴，如果你出现了其他的问题，欢迎在评论区留言或者私信博主一起讨论哟！</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>那么好了，本期的fk软件编译和运行问题就到这里了，如果有幸帮到了你，那么博主十分高兴，如果你出现了其他的问题，欢迎在评论区留言或者私信博主一起讨论哟！</p>
 <p>另外不知道如何更改文件的，可以私信博主或是找其他人直接拷贝相关文件替换就行哦。</p>
-<h4><span id="下期预告">下期预告</span></h4><p>下期或许会出一期关于fk<strong>使用</strong>的博文，欢迎大家届时一起学习哈！谢谢关注！</p>
+<h4 id="下期预告"><a href="#下期预告" class="headerlink" title="下期预告"></a>下期预告</h4><p>下期或许会出一期关于fk<strong>使用</strong>的博文，欢迎大家届时一起学习哈！谢谢关注！</p>
 
       
     </div>
@@ -231,58 +231,7 @@
 </section>
 
 </div></div>
-    <aside id="sidebar" class="alignright">
-  <div class="search">
-  <form action="//google.com/search" method="get" accept-charset="utf-8">
-    <input type="search" name="q" results="0" placeholder="Search">
-    <input type="hidden" name="as_sitesearch" value="yoursite.com">
-  </form>
-</div>
-
     
-  
-<div class="widget tag">
-  <h3 class="title">Categories</h3>
-  <ul class="entry">
-  
-    <li><a href="/categories/学术/">学术</a><small>6</small></li>
-  
-    <li><a href="/categories/技术/">技术</a><small>4</small></li>
-  
-    <li><a href="/categories/网络/">网络</a><small>3</small></li>
-  
-  </ul>
-</div>
-
-    
-  
-<div class="widget tag">
-  <h3 class="title">Tags</h3>
-  <ul class="entry">
-  
-    <li><a href="/tags/Linux/">Linux</a><small>1</small></li>
-  
-    <li><a href="/tags/代理/">代理</a><small>1</small></li>
-  
-    <li><a href="/tags/地震/">地震</a><small>6</small></li>
-  
-    <li><a href="/tags/日语/">日语</a><small>1</small></li>
-  
-    <li><a href="/tags/计算机/">计算机</a><small>1</small></li>
-  
-    <li><a href="/tags/语法/">语法</a><small>1</small></li>
-  
-    <li><a href="/tags/超算/">超算</a><small>1</small></li>
-  
-    <li><a href="/tags/软件/">软件</a><small>8</small></li>
-  
-  </ul>
-</div>
-
-
-    
-
- </aside>
     <div class="clearfix"></div>
   </div>
   <footer id="footer" class="inner"><div class="alignleft">
@@ -312,5 +261,7 @@
   <script type="text/javascript" src="/js/love.js"></script>
   <!--funny title -->
   <script type="text/javascript" src="/js/FunnyTitle.js"></script>
+  <!--toc -->
+  <script type='text/javascript' src="/js/toc.js"></script>
 </body>
 </html>

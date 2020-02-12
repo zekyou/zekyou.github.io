@@ -63,33 +63,33 @@
     </header>
     <div class="e-content entry" itemprop="articleBody">
       
-        <div id="toc" class="toc-article">
+        <div id="post-toc" class="post-toc" style="position: absolute; top:0px;">
     <div class="toc-title">目录</div>
-    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text">前提摘要</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text">问题出现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text">解决方案</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#null"><span class="toc-text">修改代理设置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#null"><span class="toc-text">修改json</span></a></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#前提摘要"><span class="toc-text">前提摘要</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#问题出现"><span class="toc-text">问题出现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解决方案"><span class="toc-text">解决方案</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#修改代理设置"><span class="toc-text">修改代理设置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#修改json"><span class="toc-text">修改json</span></a></li></ol></li></ol>
 </div>
 
         
         <p>大家好呀，鸽了有一个多月。第三篇博客算是千呼万唤始出来呀。不过，之前的还是鸽了。。</p>
 <p>那么本次带来的是v2ray的客户端无法科学上网问题的解决方案。</p>
-<h3><span id="前提摘要">前提摘要</span></h3><p>v2ray是一款很好的科学上网的工具，一般分为服务器端和客户端两部分。理论是计算机的问题，那么博主为何会涉及到这方面的问题呢？原来博主的好朋友（友链里的River-li大佬）借给我一个配置好的v2ray服务器端，不过博主客户端配置不太会（博主太笨了。。）设置完代理后总还是无法上网，四处询问无果，不过最后总算是解决了问题，这里分享给大家，让有相同问题的大家少走弯路。</p>
+<h3 id="前提摘要"><a href="#前提摘要" class="headerlink" title="前提摘要"></a>前提摘要</h3><p>v2ray是一款很好的科学上网的工具，一般分为服务器端和客户端两部分。理论是计算机的问题，那么博主为何会涉及到这方面的问题呢？原来博主的好朋友（友链里的River-li大佬）借给我一个配置好的v2ray服务器端，不过博主客户端配置不太会（博主太笨了。。）设置完代理后总还是无法上网，四处询问无果，不过最后总算是解决了问题，这里分享给大家，让有相同问题的大家少走弯路。</p>
 <a id="more"></a>
 
-<h3><span id="问题出现">问题出现</span></h3><p>首先我们下好v2ray的客户端。</p>
+<h3 id="问题出现"><a href="#问题出现" class="headerlink" title="问题出现"></a>问题出现</h3><p>首先我们下好v2ray的客户端。</p>
 <p>去v2ray官网下载对应系统的安装包。</p>
 <p>这里以windows为例。</p>
 <p>在确定代理服务器设置（地址和端口）与config.json配置文件一致，运行v2ray.exe启动服务后抛出如下错误：</p>
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">**** rejected v2ray.com/core/proxy/socks: unknown Socks version: <span class="number">67</span></span><br></pre></td></tr></table></figure>
 
 <p>同时，无法正常上网。</p>
-<h3><span id="解决方案">解决方案</span></h3><p>我们在设置代理服务器时，习惯性的选择<strong>对所有协议均使用相同的代理服务器</strong></p>
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p>我们在设置代理服务器时，习惯性的选择<strong>对所有协议均使用相同的代理服务器</strong></p>
 <p>在windows下，这样会使得我们的socks协议栏为空。如图:</p>
 <p><img src="v2ray_service.png" alt="1565791355578"></p>
 <p>而我们的config.json里inbounds中写到：</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">"protocol":"socks"</span><br></pre></td></tr></table></figure>
 
 <p>我们需要同步这一选项</p>
-<h4><span id="修改代理设置">修改代理设置</span></h4><p>所以我们需要<strong>Internet属性</strong>中找到<strong>局域网（LAN）设置</strong>，再找到<strong>代理设置</strong>、高级里把<strong>对所有协议均使用相同的代理服务器</strong>前项的√去掉，同时，在socks（套接字）里输入你配置的地址和端口，确定即可。</p>
-<h4><span id="修改json">修改json</span></h4><p>我们只需要将json文件中Inbounds中</p>
+<h4 id="修改代理设置"><a href="#修改代理设置" class="headerlink" title="修改代理设置"></a>修改代理设置</h4><p>所以我们需要<strong>Internet属性</strong>中找到<strong>局域网（LAN）设置</strong>，再找到<strong>代理设置</strong>、高级里把<strong>对所有协议均使用相同的代理服务器</strong>前项的√去掉，同时，在socks（套接字）里输入你配置的地址和端口，确定即可。</p>
+<h4 id="修改json"><a href="#修改json" class="headerlink" title="修改json"></a>修改json</h4><p>我们只需要将json文件中Inbounds中</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">"protocol":"socks"</span><br></pre></td></tr></table></figure>
 
 <p>改为</p>
@@ -161,58 +161,7 @@
 </section>
 
 </div></div>
-    <aside id="sidebar" class="alignright">
-  <div class="search">
-  <form action="//google.com/search" method="get" accept-charset="utf-8">
-    <input type="search" name="q" results="0" placeholder="Search">
-    <input type="hidden" name="as_sitesearch" value="yoursite.com">
-  </form>
-</div>
-
     
-  
-<div class="widget tag">
-  <h3 class="title">Categories</h3>
-  <ul class="entry">
-  
-    <li><a href="/categories/学术/">学术</a><small>6</small></li>
-  
-    <li><a href="/categories/技术/">技术</a><small>4</small></li>
-  
-    <li><a href="/categories/网络/">网络</a><small>3</small></li>
-  
-  </ul>
-</div>
-
-    
-  
-<div class="widget tag">
-  <h3 class="title">Tags</h3>
-  <ul class="entry">
-  
-    <li><a href="/tags/Linux/">Linux</a><small>1</small></li>
-  
-    <li><a href="/tags/代理/">代理</a><small>1</small></li>
-  
-    <li><a href="/tags/地震/">地震</a><small>6</small></li>
-  
-    <li><a href="/tags/日语/">日语</a><small>1</small></li>
-  
-    <li><a href="/tags/计算机/">计算机</a><small>1</small></li>
-  
-    <li><a href="/tags/语法/">语法</a><small>1</small></li>
-  
-    <li><a href="/tags/超算/">超算</a><small>1</small></li>
-  
-    <li><a href="/tags/软件/">软件</a><small>8</small></li>
-  
-  </ul>
-</div>
-
-
-    
-
- </aside>
     <div class="clearfix"></div>
   </div>
   <footer id="footer" class="inner"><div class="alignleft">
@@ -242,5 +191,7 @@
   <script type="text/javascript" src="/js/love.js"></script>
   <!--funny title -->
   <script type="text/javascript" src="/js/FunnyTitle.js"></script>
+  <!--toc -->
+  <script type='text/javascript' src="/js/toc.js"></script>
 </body>
 </html>

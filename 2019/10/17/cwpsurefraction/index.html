@@ -66,13 +66,13 @@
     </header>
     <div class="e-content entry" itemprop="articleBody">
       
-        <div id="toc" class="toc-article">
+        <div id="post-toc" class="post-toc" style="position: absolute; top:0px;">
     <div class="toc-title">目录</div>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#null"><span class="toc-text">利用CWPSU绘制折射波法曲线</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">前情提要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">SG2格式转换SGY</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text">原生Linux</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text">WSL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text">Seg2fix</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">绘图</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text">增益</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#null"><span class="toc-text">高斯增益</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text">初至拾取</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">结果</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">预告</span></a></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#利用CWPSU绘制折射波法曲线"><span class="toc-text">利用CWPSU绘制折射波法曲线</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#前情提要"><span class="toc-text">前情提要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SG2格式转换SGY"><span class="toc-text">SG2格式转换SGY</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#原生Linux"><span class="toc-text">原生Linux</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#WSL"><span class="toc-text">WSL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Seg2fix"><span class="toc-text">Seg2fix</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#绘图"><span class="toc-text">绘图</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#增益"><span class="toc-text">增益</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#高斯增益"><span class="toc-text">高斯增益</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#初至拾取"><span class="toc-text">初至拾取</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结果"><span class="toc-text">结果</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#预告"><span class="toc-text">预告</span></a></li></ol></li></ol>
 </div>
 
         
-        <h1><span id="利用cwpsu绘制折射波法曲线">利用CWPSU绘制折射波法曲线</span></h1><p>本来这期是反射波的，但是反射波模拟需要点时间，这里先把折射波法的操作给大家过一遍。<br>网上有一些教程，不过基本缺失很多问题解决方案，或者压根就是不可行的，有些人用Matlab直接读取SG2，不过在之后的初至拾取很比较费事，而且用Matlab读取也不简单，一些小问题总是会出现，本博客给出了在CWPSU下的全程攻略，同时提供文件和程序，助您成功！</p>
+        <h1 id="利用CWPSU绘制折射波法曲线"><a href="#利用CWPSU绘制折射波法曲线" class="headerlink" title="利用CWPSU绘制折射波法曲线"></a>利用CWPSU绘制折射波法曲线</h1><p>本来这期是反射波的，但是反射波模拟需要点时间，这里先把折射波法的操作给大家过一遍。<br>网上有一些教程，不过基本缺失很多问题解决方案，或者压根就是不可行的，有些人用Matlab直接读取SG2，不过在之后的初至拾取很比较费事，而且用Matlab读取也不简单，一些小问题总是会出现，本博客给出了在CWPSU下的全程攻略，同时提供文件和程序，助您成功！</p>
 <p>那么我们主要是遇到两个问题：</p>
 <ul>
 <li><p>1 如何将sg2文件转化为sgy</p>
@@ -85,9 +85,9 @@
 <p>本期所用到的数据和程序在Github上给出</p>
 <p><a href="https://github.com/zekyou/CWPSURefraction" target="_blank" rel="noopener">这是个链接</a></p>
 <p>您可以前去下载，不过数据为本组所测，您可以根据需要增加噪声，以免给您带来不必要的困扰。</p>
-<h2><span id="前情提要">前情提要</span></h2><p>前面我们安装好了CWPSU，并先实现了一个简单的Model，但是如何将测量的数据用于实践，我们还没有起步，本期就最简单的折射波法进行解析。</p>
+<h2 id="前情提要"><a href="#前情提要" class="headerlink" title="前情提要"></a>前情提要</h2><p>前面我们安装好了CWPSU，并先实现了一个简单的Model，但是如何将测量的数据用于实践，我们还没有起步，本期就最简单的折射波法进行解析。</p>
 <p>我们采用的是相遇追逐的观测系统。偏移距分别是零偏和8米</p>
-<h2><span id="sg2格式转换sgy">SG2格式转换SGY</span></h2><h3><span id="原生linux">原生Linux</span></h3><p>我们野外的仪器采集的数据是SG2格式，但这种格式无法被CWPSU直接读取，CWPSU官网给出了转化插件程序，在src/Third_Part/seg2segy/中。我们在该目录下编译</p>
+<h2 id="SG2格式转换SGY"><a href="#SG2格式转换SGY" class="headerlink" title="SG2格式转换SGY"></a>SG2格式转换SGY</h2><h3 id="原生Linux"><a href="#原生Linux" class="headerlink" title="原生Linux"></a>原生Linux</h3><p>我们野外的仪器采集的数据是SG2格式，但这种格式无法被CWPSU直接读取，CWPSU官网给出了转化插件程序，在src/Third_Part/seg2segy/中。我们在该目录下编译</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make remake</span><br></pre></td></tr></table></figure>
 
 <p>之后再键入</p>
@@ -95,7 +95,7 @@
 
 <p>即可在该目录下获得第一炮的sgy文件filename.sgy</p>
 <p>由于博主没有在原生的Linux下进行该步骤，不确保该步骤的可行性，大家可以反馈给我，如果您没有通过该方法成功转化格式，请看下列步骤</p>
-<h3><span id="wsl">WSL</span></h3><p>博主在WSL里编译了seg2segy程序，不过格式转化一直不成功。无奈只好键入</p>
+<h3 id="WSL"><a href="#WSL" class="headerlink" title="WSL"></a>WSL</h3><p>博主在WSL里编译了seg2segy程序，不过格式转化一直不成功。无奈只好键入</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc seg2segy</span><br></pre></td></tr></table></figure>
 
 <p>获得a.out</p>
@@ -107,14 +107,14 @@
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./seg2segy.exe filename.sg2 <span class="number">1</span></span><br></pre></td></tr></table></figure>
 
 <p>博主在这里直接给出编译好的exe，在上述链接中可以获得。</p>
-<h3><span id="seg2fix">Seg2fix</span></h3><p>官方还给出了一个修复sg2文件的程序，如果您的sg2文件是有损的，或是无法被该程序识别的，您可以使用它，您可以在同样的目录下键入</p>
+<h3 id="Seg2fix"><a href="#Seg2fix" class="headerlink" title="Seg2fix"></a>Seg2fix</h3><p>官方还给出了一个修复sg2文件的程序，如果您的sg2文件是有损的，或是无法被该程序识别的，您可以使用它，您可以在同样的目录下键入</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc -o seg2fix.c seg2fix</span><br></pre></td></tr></table></figure>
 
 <p>来获得可执行程序。再键入</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./seg2fix filename.sg2</span><br></pre></td></tr></table></figure>
 
 <p>同样，如果您无法使用该方法，上述链接也给出了seg2fix.exe。用法与seg2segy相同。</p>
-<h2><span id="绘图">绘图</span></h2><h3><span id="增益">增益</span></h3><p>我们获得原始数据会存在后面的检波点振幅过小而无法准确拾取初至。我们需要增益使得图像好看一些。</p>
+<h2 id="绘图"><a href="#绘图" class="headerlink" title="绘图"></a>绘图</h2><h3 id="增益"><a href="#增益" class="headerlink" title="增益"></a>增益</h3><p>我们获得原始数据会存在后面的检波点振幅过小而无法准确拾取初至。我们需要增益使得图像好看一些。</p>
 <p>我们首先绘制原始数据，键入</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">segyread tape=refract1.sgy endian=0 | suxwigb &amp;</span><br></pre></td></tr></table></figure>
 
@@ -127,7 +127,7 @@
 <p>增益图像：</p>
 <p><img src="cwpsurefract2.png" alt="1571280637301"></p>
 <p>我们看出还是对比很明显的。如果不增益，图像很难看。</p>
-<h4><span id="高斯增益">高斯增益</span></h4><p>我们在用同样的方法绘制refract3时发现增益后的图像不是很明显，为此我们需要使用不同的增益方法，博主结果探索，发现高斯增益的图像最漂亮。给出代码</p>
+<h4 id="高斯增益"><a href="#高斯增益" class="headerlink" title="高斯增益"></a>高斯增益</h4><p>我们在用同样的方法绘制refract3时发现增益后的图像不是很明显，为此我们需要使用不同的增益方法，博主结果探索，发现高斯增益的图像最漂亮。给出代码</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">segyread tape=refract3.sgy endian=0 | sugain gagc=1 |suxwigb &amp;</span><br></pre></td></tr></table></figure>
 
 <p>给出对比</p>
@@ -136,15 +136,15 @@
 <p>高斯增益：</p>
 <p><img src="cwpsurefract4.png" alt="1571280850568"></p>
 <p>我们是为了拾取初至，那么我们只关注上方的质量，明显高斯增益要漂亮。</p>
-<h3><span id="初至拾取">初至拾取</span></h3><p>在CWPSU中拾取是十分方便的，我们绘制出图形后，在图形中将鼠标放在道上，按下S键，系统就可以将您鼠标所在道数和坐标给到终端中。</p>
+<h3 id="初至拾取"><a href="#初至拾取" class="headerlink" title="初至拾取"></a>初至拾取</h3><p>在CWPSU中拾取是十分方便的，我们绘制出图形后，在图形中将鼠标放在道上，按下S键，系统就可以将您鼠标所在道数和坐标给到终端中。</p>
 <p><img src="cwpsurefract5.png" alt="1571281070613"></p>
 <p>为了拾取准确，我们可以放大指定窗口，框住您要放大的地区就可以，效果如下：</p>
 <p><img src="cwpsurefract6.png" alt="1571281150677"></p>
-<h2><span id="结果">结果</span></h2><p>之后我们就可以将数据复制到excel中，用Matlab或是GMT绘制曲线，效果如下：</p>
+<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p>之后我们就可以将数据复制到excel中，用Matlab或是GMT绘制曲线，效果如下：</p>
 <p><img src="cwpsurefract7.png" alt="rfall"></p>
 <p><img src="cwpsurefract8.png" alt="rf"></p>
 <p>除了一号曲线有些特殊外，其他和教材符合的很好。<br>这应该是一号线拾取的问题，我们重新拾取1、2号线的初至波，同时1号线改用高斯增益更加明显。得到结果如下：<br><img src="cwprefract10.png" alt="rfnew"><br>这个就很漂亮了！</p>
-<h2><span id="预告">预告</span></h2><p>那么本期就到这里了，本次的所有数据和程序您都可以在<a href="https://github.com/zekyou/CWPSURefraction" target="_blank" rel="noopener">链接</a>中找到，附有READ说明。</p>
+<h2 id="预告"><a href="#预告" class="headerlink" title="预告"></a>预告</h2><p>那么本期就到这里了，本次的所有数据和程序您都可以在<a href="https://github.com/zekyou/CWPSURefraction" target="_blank" rel="noopener">链接</a>中找到，附有READ说明。</p>
 <p>下期我们将继续探讨反射波法的模拟实验，敬请关注！</p>
 
       
@@ -206,58 +206,7 @@
 </section>
 
 </div></div>
-    <aside id="sidebar" class="alignright">
-  <div class="search">
-  <form action="//google.com/search" method="get" accept-charset="utf-8">
-    <input type="search" name="q" results="0" placeholder="Search">
-    <input type="hidden" name="as_sitesearch" value="yoursite.com">
-  </form>
-</div>
-
     
-  
-<div class="widget tag">
-  <h3 class="title">Categories</h3>
-  <ul class="entry">
-  
-    <li><a href="/categories/学术/">学术</a><small>6</small></li>
-  
-    <li><a href="/categories/技术/">技术</a><small>4</small></li>
-  
-    <li><a href="/categories/网络/">网络</a><small>3</small></li>
-  
-  </ul>
-</div>
-
-    
-  
-<div class="widget tag">
-  <h3 class="title">Tags</h3>
-  <ul class="entry">
-  
-    <li><a href="/tags/Linux/">Linux</a><small>1</small></li>
-  
-    <li><a href="/tags/代理/">代理</a><small>1</small></li>
-  
-    <li><a href="/tags/地震/">地震</a><small>6</small></li>
-  
-    <li><a href="/tags/日语/">日语</a><small>1</small></li>
-  
-    <li><a href="/tags/计算机/">计算机</a><small>1</small></li>
-  
-    <li><a href="/tags/语法/">语法</a><small>1</small></li>
-  
-    <li><a href="/tags/超算/">超算</a><small>1</small></li>
-  
-    <li><a href="/tags/软件/">软件</a><small>8</small></li>
-  
-  </ul>
-</div>
-
-
-    
-
- </aside>
     <div class="clearfix"></div>
   </div>
   <footer id="footer" class="inner"><div class="alignleft">
@@ -287,5 +236,7 @@
   <script type="text/javascript" src="/js/love.js"></script>
   <!--funny title -->
   <script type="text/javascript" src="/js/FunnyTitle.js"></script>
+  <!--toc -->
+  <script type='text/javascript' src="/js/toc.js"></script>
 </body>
 </html>

@@ -574,22 +574,14 @@ article footer .addthis iframe {
 #sidebar {
   width: 270px;
   line-height: 1.8em;
+  position: fixed;
+  right: 150px;
 }
 @media screen and (max-width: 900px) {
   #sidebar {
     float: none;
     width: 100%;
   }
-}
-#sidebar .toc {
-  background: #fff;
-  -webkit-box-shadow: 1px 2px 3px #ddd;
-  box-shadow: 1px 2px 3px #ddd;
-  margin-bottom: 30px;
-  word-wrap: break-word;
-}
-#sidebar .toc a {
-  text-indent: 10px;
 }
 #sidebar .widget {
   background: #fff;
@@ -834,4 +826,41 @@ pre .clojure .title {
 }
 pre .deletion {
   color: #dc322f;
+}
+.post-toc {
+  background-color: #fff;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  right: -400px;
+  width: 350px;
+  height: auto;
+  z-index: 98;
+}
+.post-toc .toc {
+  background-color: #eee;
+  list-style: none;
+  padding: 10px;
+}
+.post-toc .toc-item {
+  list-style: none;
+}
+.post-toc .toc-title {
+  text-align: center;
+  font-size: 24px;
+}
+.post-toc ol {
+  margin: 1;
+  width: 290px;
+}
+.post-toc li {
+  font-size: 18px;
+}
+.post-toc li ol il a {
+  font-size: 16px;
+  color: #ffc1c1;
+}
+@media screen and (max-width: 640px) {
+  .post-toc {
+    display: none;
+  }
 }
