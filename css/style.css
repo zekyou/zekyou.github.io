@@ -291,6 +291,9 @@ article .entry h6,
 article .entry .video-container {
   margin-top: 15px;
 }
+article .entry p {
+  font-size: 14.5px;
+}
 article .entry table {
   border-collapse: collapse;
   border-spacing: 0;
@@ -337,10 +340,9 @@ article .entry pre {
 }
 article .entry code {
   background: #eee;
-  color: #666;
   padding: 0 5px;
   margin: 0 2px;
-  font-size: 0.9em;
+  font-size: 1.2em;
   border: 1px solid #ddd;
   border-radius: 3px;
 }
@@ -378,7 +380,6 @@ article .entry dl dl {
 article .entry h1,
 article .entry h2 {
   font-weight: normal;
-  border-bottom: 1px solid #ddd;
   padding-bottom: 10px;
   margin-top: 20px;
 }
@@ -387,6 +388,15 @@ article .entry h4,
 article .entry h5,
 article .entry h6 {
   font-weight: normal;
+  text-indent: 8px;
+  border-left: 5px solid #ad63dc;
+}
+article .entry h1 {
+  border-bottom: 1.5px solid #449d90;
+}
+article .entry h2 {
+  border-left: 7px solid #0ff;
+  text-indent: 10px;
 }
 article .entry img,
 article .entry video {
@@ -574,7 +584,7 @@ article footer .addthis iframe {
 #sidebar {
   width: 270px;
   line-height: 1.8em;
-  position: fixed;
+  position: absolute;
   right: 150px;
 }
 @media screen and (max-width: 900px) {
@@ -713,12 +723,13 @@ article footer .addthis iframe {
   color: #258fb8;
 }
 figure.highlight {
-  background: #eee;
+  background: #21252b;
+  -webkit-box-shadow: 0 10px 30px 0 rgba(0,0,0,0.4);
+  box-shadow: 0 10px 30px 0 rgba(0,0,0,0.4);
   border: 1px solid #ddd;
   margin-top: 15px;
   padding: 7px 15px;
-  border-radius: 2px;
-  text-shadow: 0 0 1px #fff;
+  border-radius: 12px;
   line-height: 1.6;
   overflow: auto;
   position: relative;
@@ -737,6 +748,7 @@ figure.highlight pre {
   border: none;
   padding: 0;
   margin: 0;
+  background: #1e1e1e;
 }
 figure.highlight table {
   margin-top: 0;
@@ -747,11 +759,17 @@ figure.highlight .gutter {
   padding-right: 15px;
   border-right: 1px solid #ddd;
   text-align: right;
+  font-size: 14.5px;
+  color: #e1e1e1;
+  text-shadow: 0;
 }
 figure.highlight .code {
   padding-left: 15px;
   border-left: 1px solid #fff;
-  color: #666;
+  color: #e1e1e1;
+  font-size: 14.5px;
+  font-weight: bolder;
+  text-shadow: 0;
 }
 figure.highlight .line {
   height: 20px;
