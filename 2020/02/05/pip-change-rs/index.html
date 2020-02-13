@@ -3,13 +3,17 @@
 <head>
   <meta charset="utf-8">
   
-  <title>pip_change_rs | ZeKyou&#39;s Blog</title>
+  <title>pip国内下载慢 换源 | ZeKyou&#39;s Blog</title>
   <meta name="author" content="ZeKyou">
+  
+  <meta name="description" content="临时使用12pip install xxx -i https://pypi.tuna.tsinghua.edu.cn/simple some-packagepip install xxx -i https://mirrors.ustc.edu.cn/pypi/web/simple
+
+默认使用1pip">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="pip_change_rs"/>
+  <meta property="og:title" content="pip国内下载慢 换源"/>
   <meta property="og:site_name" content="ZeKyou&#39;s Blog"/>
 
   
@@ -49,11 +53,11 @@
     <header>
       
         <div class="icon"></div>
-        <time class="dt-published" datetime="2020-02-11T04:40:51.000Z"><a href="/2020/02/11/pip-change-rs/">2020-02-11</a></time>
+        <time class="dt-published" datetime="2020-02-04T15:00:00.000Z"><a href="/2020/02/05/pip-change-rs/">2020-02-05</a></time>
       
       
   
-    <h1 class="p-name title" itemprop="headline name">pip_change_rs</h1>
+    <h1 class="p-name title" itemprop="headline name">pip国内下载慢 换源</h1>
   
 
     </header>
@@ -61,11 +65,16 @@
       
         <div id="post-toc" class="post-toc" style="position: absolute; top:0px;">
     <div class="toc-title">目录</div>
-    
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#临时使用"><span class="toc-text">临时使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#默认使用"><span class="toc-text">默认使用</span></a></li></ol>
 </div>
 
         
-        
+        <h2 id="临时使用"><a href="#临时使用" class="headerlink" title="临时使用"></a>临时使用</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pip install xxx -i https://pypi.tuna.tsinghua.edu.cn/simple some-package</span><br><span class="line">pip install xxx -i https://mirrors.ustc.edu.cn/pypi/web/simple</span><br></pre></td></tr></table></figure>
+
+<h2 id="默认使用"><a href="#默认使用" class="headerlink" title="默认使用"></a>默认使用</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip config set global.index-url https://pypi.tuna.tsing.edu.cn/simple</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip config set global.index-url https://mirrors.ustc.edu.cn/pypi/web/simple</span><br></pre></td></tr></table></figure>
+
       
     </div>
     <footer>
@@ -73,10 +82,15 @@
         
   
   <div class="categories">
-    <a href="/categories/技术/">技术</a>
+    <a href="/categories/计算机/">计算机</a>
   </div>
 
         
+  
+  <div class="tags">
+    <a href="/tags/Tips/">Tips</a>, <a href="/tags/Python/">Python</a>
+  </div>
+
         
   <div class="addthis addthis_toolbox addthis_default_style">
     
@@ -99,25 +113,32 @@
   </div>
 </article>
 
-<section id="comment">
-  <h1 class="title">Comments</h1>
-
-  
-      <div id="fb-root"></div>
+        
+            <section id="comments" class="comments">
+              <style>
+                .comments{margin:30px;padding:10px;background:#fff}
+                @media screen and (max-width:800px){.comments{margin:auto;padding:10px;background:#fff}}
+              </style>
+              <div id="vcomment" class="comment"></div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+<script src="https://cdnjs.loli.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
-  (function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
-    fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));
+    var notify = '' == true ? true : false;
+    var verify = '' == true ? true : false;
+    new Valine({
+        av: AV,
+        el: '#vcomment',
+        notify: notify,
+        app_id: "FxifHotxQ7S9NDoby5WuNq8e-MdYXbMMI",
+        app_key: "yPgl2PoBYqmiUXvQhsgdP7SX",
+        placeholder: "",
+        avatar:"",
+    });
 </script>
 
-<div class="fb-comments" data-href="http://yoursite.com/2020/02/11/pip-change-rs/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
-      
-  
-</section>
+          </section>
+        
 
 </div></div>
     

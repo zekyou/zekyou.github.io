@@ -3,13 +3,15 @@
 <head>
   <meta charset="utf-8">
   
-  <title>fortran | ZeKyou&#39;s Blog</title>
+  <title>Fortran编程知识杂货店 | ZeKyou&#39;s Blog</title>
   <meta name="author" content="ZeKyou">
+  
+  <meta name="description" content="本栏目开设的目的主要是为了记录一些学过或是见过的语法，算是个备忘录（自用）">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="fortran"/>
+  <meta property="og:title" content="Fortran编程知识杂货店"/>
   <meta property="og:site_name" content="ZeKyou&#39;s Blog"/>
 
   
@@ -53,7 +55,7 @@
       
       
   
-    <h1 class="p-name title" itemprop="headline name">fortran</h1>
+    <h1 class="p-name title" itemprop="headline name">Fortran编程知识杂货店</h1>
   
 
     </header>
@@ -61,11 +63,63 @@
       
         <div id="post-toc" class="post-toc" style="position: absolute; top:0px;">
     <div class="toc-title">目录</div>
-    
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#数组"><span class="toc-text">数组</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#动态数组"><span class="toc-text">动态数组</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#赋值"><span class="toc-text">赋值</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#文件"><span class="toc-text">文件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#WRITE"><span class="toc-text">WRITE</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#OPEN"><span class="toc-text">OPEN</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#READ"><span class="toc-text">READ</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#字符串"><span class="toc-text">字符串</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#拼接"><span class="toc-text">拼接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#转化"><span class="toc-text">转化</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#子程序"><span class="toc-text">子程序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#编译"><span class="toc-text">编译</span></a></li></ol>
 </div>
 
         
-        
+        <p>本栏目开设的目的主要是为了记录一些学过或是见过的语法，算是个备忘录（自用）<a id="more"></a></p>
+<h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><h3 id="动态数组"><a href="#动态数组" class="headerlink" title="动态数组"></a>动态数组</h3><p>动态数组的定义为</p>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">integer</span>,<span class="keyword">allocatable</span>::time(:)</span><br><span class="line"><span class="built_in">allocate</span>(time(N))</span><br><span class="line"><span class="built_in">deallocate</span>(time)</span><br></pre></td></tr></table></figure>
+
+<p>多维只需添加逗号隔开</p>
+<h3 id="赋值"><a href="#赋值" class="headerlink" title="赋值"></a>赋值</h3><p>利用data</p>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">integer</span> a(<span class="number">3</span>)</span><br><span class="line"><span class="keyword">data</span> a /<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>/</span><br><span class="line"></span><br><span class="line"><span class="keyword">integer</span> b(<span class="number">3</span>)</span><br><span class="line"><span class="keyword">data</span> b/<span class="number">3</span>*<span class="number">1</span>/ <span class="comment">!denote three elements are all 1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">integer</span> c(<span class="number">3</span>)</span><br><span class="line"><span class="keyword">integer</span> i</span><br><span class="line"><span class="keyword">data</span>(c(i),i=<span class="number">2</span>,<span class="number">3</span>)/<span class="number">4</span>,<span class="number">5</span> <span class="comment">!denote that element 2 and 3 are 4 and 5 respectively</span></span><br></pre></td></tr></table></figure>
+
+<p>不利用data</p>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">integer</span>::d(<span class="number">3</span>)=(/<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>/) <span class="comment">!there shouldn't be anything between '(' and '/'</span></span><br></pre></td></tr></table></figure>
+
+<p>这里需要特别说明的是</p>
+<p><strong>data语句不会循环重复赋初值</strong>，因此在循环体，例如求和计算需要每次赋值为0的时候，不能够在循环体内使用data，这样起不到效果的，还是需要</p>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">do</span> i=<span class="number">1</span>,n</span><br><span class="line">	a(i)=<span class="number">0</span></span><br><span class="line"><span class="keyword">end</span> <span class="keyword">do</span></span><br><span class="line"><span class="comment">!而不是</span></span><br><span class="line"><span class="keyword">data</span> a/n*<span class="number">0</span>/<span class="comment">!无效果</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="文件"><a href="#文件" class="headerlink" title="文件"></a>文件</h2><h3 id="WRITE"><a href="#WRITE" class="headerlink" title="WRITE"></a>WRITE</h3><p>如果想打印不换行，可以</p>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">write</span>(*,<span class="string">'(i2,$)'</span>) xxx</span><br><span class="line"><span class="built_in">write</span>(*,<span class="string">'(i2\)'</span>) xxx</span><br><span class="line"><span class="built_in">write</span>(*,<span class="string">'(i2)'</span>,<span class="keyword">advance</span>=<span class="string">'no'</span>) xxx</span><br></pre></td></tr></table></figure>
+
+<h3 id="OPEN"><a href="#OPEN" class="headerlink" title="OPEN"></a>OPEN</h3><p>遇到</p>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bad <span class="keyword">integer</span> for intem1 <span class="keyword">in</span> list input</span><br></pre></td></tr></table></figure>
+
+<p>也可能是循环中文件打开没有close导致的</p>
+<hr>
+<p>想要在文件后继续输入，不覆盖写入</p>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">open(<span class="keyword">unit</span>,<span class="keyword">file</span>=<span class="string">'xxx'</span>,<span class="keyword">position</span>=<span class="string">'append'</span>)</span><br><span class="line">close(<span class="keyword">unit</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<p>重复顺序读取文件时，可以使用</p>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">open(<span class="number">1</span>,<span class="keyword">file</span>=<span class="string">'filename.txt'</span>,<span class="keyword">position</span>=<span class="string">'rewind'</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<h3 id="READ"><a href="#READ" class="headerlink" title="READ"></a>READ</h3><p>在do-while循环中，如果需要读到文件末尾结束，标记语句需要在循环体外部</p>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">t=.true.</span><br><span class="line"><span class="keyword">do</span> <span class="keyword">while</span>(t)</span><br><span class="line">	xxx</span><br><span class="line">	read(<span class="number">1</span>,*,<span class="keyword">end</span>=<span class="number">100</span>) xxx</span><br><span class="line">	xxx</span><br><span class="line"><span class="keyword">end</span> <span class="keyword">do</span></span><br><span class="line"><span class="number">100</span> t=.false.</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h2><h3 id="拼接"><a href="#拼接" class="headerlink" title="拼接"></a>拼接</h3><figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a=<span class="string">'filename'</span></span><br><span class="line">b=<span class="string">'.txt'</span></span><br><span class="line">c=a//b <span class="comment">!c='filename.txt'</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="转化"><a href="#转化" class="headerlink" title="转化"></a>转化</h3><p>1、整数</p>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">integer</span> a</span><br><span class="line"><span class="keyword">character</span>*<span class="number">4</span> astr</span><br><span class="line"><span class="keyword">character</span>*<span class="number">20</span> dir</span><br><span class="line">a=<span class="number">2</span></span><br><span class="line"><span class="built_in">write</span>(astr,<span class="string">'(i2)'</span>) a <span class="comment">!now astr is a string ' 2'</span></span><br><span class="line">dir=<span class="string">'dir'</span>//<span class="built_in">trim</span>(<span class="built_in">adjustl</span>(astr))//<span class="string">'.txt'</span></span><br><span class="line"><span class="comment">!dir=dir2.txt</span></span><br></pre></td></tr></table></figure>
+
+<p>实数其实也一样</p>
+<h2 id="子程序"><a href="#子程序" class="headerlink" title="子程序"></a>子程序</h2><h2 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h2>
       
     </div>
     <footer>
@@ -73,10 +127,15 @@
         
   
   <div class="categories">
-    <a href="/categories/技术/">技术</a>
+    <a href="/categories/计算机/">计算机</a>
   </div>
 
         
+  
+  <div class="tags">
+    <a href="/tags/Fortran/">Fortran</a>, <a href="/tags/编程/">编程</a>
+  </div>
+
         
   <div class="addthis addthis_toolbox addthis_default_style">
     
@@ -99,25 +158,32 @@
   </div>
 </article>
 
-<section id="comment">
-  <h1 class="title">Comments</h1>
-
-  
-      <div id="fb-root"></div>
+        
+            <section id="comments" class="comments">
+              <style>
+                .comments{margin:30px;padding:10px;background:#fff}
+                @media screen and (max-width:800px){.comments{margin:auto;padding:10px;background:#fff}}
+              </style>
+              <div id="vcomment" class="comment"></div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+<script src="https://cdnjs.loli.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
-  (function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
-    fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));
+    var notify = '' == true ? true : false;
+    var verify = '' == true ? true : false;
+    new Valine({
+        av: AV,
+        el: '#vcomment',
+        notify: notify,
+        app_id: "FxifHotxQ7S9NDoby5WuNq8e-MdYXbMMI",
+        app_key: "yPgl2PoBYqmiUXvQhsgdP7SX",
+        placeholder: "",
+        avatar:"",
+    });
 </script>
 
-<div class="fb-comments" data-href="http://yoursite.com/2019/12/01/fortran/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
-      
-  
-</section>
+          </section>
+        
 
 </div></div>
     

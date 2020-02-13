@@ -44,33 +44,34 @@
 </header>
   <div id="content" class="inner">
     <div id="main-col" class="alignleft"><div id="wrapper">
-  <article id="post-icon-make" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <article id="post-pyqt5_pack" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   
   <div class="post-content">
     <header>
       
         <div class="icon"></div>
-        <time class="dt-published" datetime="2020-02-12T08:31:33.156Z"><a href="/2020/02/12/icon-make/">2020-02-12</a></time>
+        <time class="dt-published" datetime="2020-02-09T15:00:00.000Z"><a href="/2020/02/10/pyqt5_pack/">2020-02-10</a></time>
       
       
   
-    <h1 class="title"><a href="/2020/02/12/icon-make/">icon_make</a></h1>
+    <h1 class="title"><a href="/2020/02/10/pyqt5_pack/">PyQ5打包exe</a></h1>
   
 
     </header>
     <div class="e-content entry" itemprop="articleBody">
       
-        <div id="post-toc" class="post-toc" style="position: absolute; top:0px;">
-    <div class="toc-title">目录</div>
-    
-</div>
+        <p>写好了python代码，如何打包成可执行的exe软件是需要考虑的问题。这里我们使用pyinstaller进行打包。</p>
+<h2 id="安装pyinstaller"><a href="#安装pyinstaller" class="headerlink" title="安装pyinstaller"></a>安装pyinstaller</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install pyinstaller</span><br></pre></td></tr></table></figure>
 
-        
-        
+<p>网速慢的话可以换源，教程<a href="https://zekyou.github.io/2020/02/05/pip-change-rs/" target="_blank" rel="noopener">Link</a>
       
     </div>
     <footer>
       
+        
+          <div class="alignleft">
+            <a href="/2020/02/10/pyqt5_pack/#more" class="more-link">Read More</a>
+          </div>
         
         
       
@@ -87,27 +88,97 @@
     <header>
       
         <div class="icon"></div>
-        <time class="dt-published" datetime="2020-02-11T04:40:51.000Z"><a href="/2020/02/11/pip-change-rs/">2020-02-11</a></time>
+        <time class="dt-published" datetime="2020-02-04T15:00:00.000Z"><a href="/2020/02/05/pip-change-rs/">2020-02-05</a></time>
       
       
   
-    <h1 class="title"><a href="/2020/02/11/pip-change-rs/">pip_change_rs</a></h1>
+    <h1 class="title"><a href="/2020/02/05/pip-change-rs/">pip国内下载慢 换源</a></h1>
   
 
     </header>
     <div class="e-content entry" itemprop="articleBody">
       
-        <div id="post-toc" class="post-toc" style="position: absolute; top:0px;">
-    <div class="toc-title">目录</div>
-    
-</div>
+        <h2 id="临时使用"><a href="#临时使用" class="headerlink" title="临时使用"></a>临时使用</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pip install xxx -i https://pypi.tuna.tsinghua.edu.cn/simple some-package</span><br><span class="line">pip install xxx -i https://mirrors.ustc.edu.cn/pypi/web/simple</span><br></pre></td></tr></table></figure>
 
-        
-        
+<h2 id="默认使用"><a href="#默认使用" class="headerlink" title="默认使用"></a>默认使用</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip config set global.index-url https://pypi.tuna.tsing.edu.cn/simple</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip config set global.index-url https://mirrors.ustc.edu.cn/pypi/web/simple</span><br></pre></td></tr></table></figure>
+
       
     </div>
     <footer>
       
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+  <article id="post-icon_make" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2020-01-09T15:00:00.000Z"><a href="/2020/01/10/icon_make/">2020-01-10</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2020/01/10/icon_make/">图片白色透明化以及转化ico格式</a></h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <p>我们在设计软件时总是需要用到一些自己自定义的图标或是控件图。有时候我们希望去除白色部分，将它变为透明的。</p>
+<p>首先我们去百度图片搜索自己喜欢的图片。
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2020/01/10/icon_make/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+  <article id="post-sac" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2020-01-05T15:00:00.000Z"><a href="/2020/01/06/sac/">2020-01-06</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2020/01/06/sac/">SAC软件简要教程</a></h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <h2 id="启动与退出"><a href="#启动与退出" class="headerlink" title="启动与退出"></a>启动与退出</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sac <span class="comment">#start</span></span><br><span class="line">quit|q <span class="comment">#exit. And you can also use 'exit', 'done' to exit sac but not promoted</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2020/01/06/sac/#more" class="more-link">Read More</a>
+          </div>
         
         
       
@@ -128,23 +199,21 @@
       
       
   
-    <h1 class="title"><a href="/2019/12/14/gmt/">gmt</a></h1>
+    <h1 class="title"><a href="/2019/12/14/gmt/">GMT绘图攻略</a></h1>
   
 
     </header>
     <div class="e-content entry" itemprop="articleBody">
       
-        <div id="post-toc" class="post-toc" style="position: absolute; top:0px;">
-    <div class="toc-title">目录</div>
-    
-</div>
-
-        
-        
+        <p>GMT可以绘制很多复杂的图形，无论是论文还是报告中都是非常用，但同时它也很复杂，想要学号记住很难。因此，博主开设了这个栏目，一来向大家提供帮助，而来自己也可以加深理解。
       
     </div>
     <footer>
       
+        
+          <div class="alignleft">
+            <a href="/2019/12/14/gmt/#more" class="more-link">Read More</a>
+          </div>
         
         
       
@@ -165,23 +234,21 @@
       
       
   
-    <h1 class="title"><a href="/2019/12/01/fortran/">fortran</a></h1>
+    <h1 class="title"><a href="/2019/12/01/fortran/">Fortran编程知识杂货店</a></h1>
   
 
     </header>
     <div class="e-content entry" itemprop="articleBody">
       
-        <div id="post-toc" class="post-toc" style="position: absolute; top:0px;">
-    <div class="toc-title">目录</div>
-    
-</div>
-
-        
-        
+        <p>本栏目开设的目的主要是为了记录一些学过或是见过的语法，算是个备忘录（自用）
       
     </div>
     <footer>
       
+        
+          <div class="alignleft">
+            <a href="/2019/12/01/fortran/#more" class="more-link">Read More</a>
+          </div>
         
         
       
@@ -353,80 +420,6 @@
 
 
 
-  <article id="post-suunif2" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time class="dt-published" datetime="2019-10-16T04:07:00.000Z"><a href="/2019/10/16/suunif2/">2019-10-16</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2019/10/16/suunif2/">CWPSU中自定义地层模型模拟反射波</a></h1>
-  
-
-    </header>
-    <div class="e-content entry" itemprop="articleBody">
-      
-        <h1 id="如何在CWPSU中生成自定义地层模型"><a href="#如何在CWPSU中生成自定义地层模型" class="headerlink" title="如何在CWPSU中生成自定义地层模型"></a>如何在CWPSU中生成自定义地层模型</h1><h2 id="前情提要"><a href="#前情提要" class="headerlink" title="前情提要"></a>前情提要</h2><p>之前我们安装了CWPSU，需要模拟出反射数据，那么首先需要自定义一个模型，如何定义出一个模型？博主查阅了网上一些资料，不过都是东拼西凑，抄来抄去，从来没有原理性的解释。博主本着大家能够深入了解其原理，真正了解内核，而不是<strong>CTRL+C</strong>完就完事的需求，给大家摘了官方文档，同时做一些讲解和实战。不过限于知识水平，难免疏漏，还请批评指正！</p>
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2019/10/16/suunif2/#more" class="more-link">Read More</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-  <article id="post-wslgui" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time class="dt-published" datetime="2019-10-13T09:35:00.000Z"><a href="/2019/10/13/wslgui/">2019-10-13</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2019/10/13/wslgui/">WSL安装图形界面及CWPSU的运行</a></h1>
-  
-
-    </header>
-    <div class="e-content entry" itemprop="articleBody">
-      
-        <h1 id="前情提要"><a href="#前情提要" class="headerlink" title="前情提要"></a>前情提要</h1><p>我们之前在WSL上安装CWPSU时，出现报错</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh1: cannot connect to display!</span><br></pre></td></tr></table></figure>
-
-<p>的情况，本期就来解决这个问题。</p>
-<p>我们已经安装好了CWPSU所需要的依赖包</p>
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2019/10/13/wslgui/#more" class="more-link">Read More</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
 <nav id="pagination">
   
   
@@ -447,17 +440,59 @@
     
   
 <div class="widget tag">
+  <h3 class="title">Recent Posts</h3>
+  <ul class="entry">
+    
+      <li>
+        <a href="/2020/02/10/pyqt5_pack/">PyQ5打包exe</a>
+      </li>
+    
+      <li>
+        <a href="/2020/02/05/pip-change-rs/">pip国内下载慢 换源</a>
+      </li>
+    
+      <li>
+        <a href="/2020/01/10/icon_make/">图片白色透明化以及转化ico格式</a>
+      </li>
+    
+      <li>
+        <a href="/2020/01/06/sac/">SAC软件简要教程</a>
+      </li>
+    
+      <li>
+        <a href="/2019/12/14/gmt/">GMT绘图攻略</a>
+      </li>
+    
+  </ul>
+</div>
+
+    
+  
+<div class="widget tag">
   <h3 class="title">Categories</h3>
   <ul class="entry">
   
-    <li><a href="/categories/学术/">学术</a><small>6</small></li>
+    <li><a href="/categories/兴趣/">兴趣</a><small>1</small></li>
   
-    <li><a href="/categories/技术/">技术</a><small>4</small></li>
+    <li><a href="/categories/学术/">学术</a><small>7</small></li>
   
-    <li><a href="/categories/网络/">网络</a><small>3</small></li>
+    <li><a href="/categories/工具/">工具</a><small>1</small></li>
+  
+    <li><a href="/categories/计算机/">计算机</a><small>6</small></li>
   
   </ul>
 </div>
+
+    
+  
+<div class="widget tagcloud">
+  <h3 class="title">Tag Cloud</h3>
+  <div class="entry">
+    <a href="/tags/Fortran/" style="font-size: 10px;">Fortran</a> <a href="/tags/GMT/" style="font-size: 10px;">GMT</a> <a href="/tags/Linux/" style="font-size: 13.33px;">Linux</a> <a href="/tags/PS/" style="font-size: 10px;">PS</a> <a href="/tags/PyQt5/" style="font-size: 10px;">PyQt5</a> <a href="/tags/Python/" style="font-size: 13.33px;">Python</a> <a href="/tags/SAC/" style="font-size: 10px;">SAC</a> <a href="/tags/Tips/" style="font-size: 16.67px;">Tips</a> <a href="/tags/%E5%9C%B0%E9%9C%87/" style="font-size: 20px;">地震</a> <a href="/tags/%E6%94%BB%E7%95%A5/" style="font-size: 10px;">攻略</a> <a href="/tags/%E6%97%A5%E8%AF%AD/" style="font-size: 10px;">日语</a> <a href="/tags/%E7%BC%96%E7%A8%8B/" style="font-size: 10px;">编程</a> <a href="/tags/%E8%B6%85%E7%AE%97/" style="font-size: 10px;">超算</a> <a href="/tags/%E8%BD%AF%E4%BB%B6/" style="font-size: 20px;">软件</a>
+  </div>
+</div>
+
+
 
     
   
@@ -465,21 +500,33 @@
   <h3 class="title">Tags</h3>
   <ul class="entry">
   
-    <li><a href="/tags/Linux/">Linux</a><small>1</small></li>
+    <li><a href="/tags/Fortran/">Fortran</a><small>1</small></li>
   
-    <li><a href="/tags/代理/">代理</a><small>1</small></li>
+    <li><a href="/tags/GMT/">GMT</a><small>1</small></li>
   
-    <li><a href="/tags/地震/">地震</a><small>6</small></li>
+    <li><a href="/tags/Linux/">Linux</a><small>2</small></li>
+  
+    <li><a href="/tags/PS/">PS</a><small>1</small></li>
+  
+    <li><a href="/tags/PyQt5/">PyQt5</a><small>1</small></li>
+  
+    <li><a href="/tags/Python/">Python</a><small>2</small></li>
+  
+    <li><a href="/tags/SAC/">SAC</a><small>1</small></li>
+  
+    <li><a href="/tags/Tips/">Tips</a><small>3</small></li>
+  
+    <li><a href="/tags/地震/">地震</a><small>7</small></li>
+  
+    <li><a href="/tags/攻略/">攻略</a><small>1</small></li>
   
     <li><a href="/tags/日语/">日语</a><small>1</small></li>
   
-    <li><a href="/tags/计算机/">计算机</a><small>1</small></li>
-  
-    <li><a href="/tags/语法/">语法</a><small>1</small></li>
+    <li><a href="/tags/编程/">编程</a><small>1</small></li>
   
     <li><a href="/tags/超算/">超算</a><small>1</small></li>
   
-    <li><a href="/tags/软件/">软件</a><small>8</small></li>
+    <li><a href="/tags/软件/">软件</a><small>7</small></li>
   
   </ul>
 </div>

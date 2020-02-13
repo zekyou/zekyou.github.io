@@ -222,25 +222,32 @@
   </div>
 </article>
 
-<section id="comment">
-  <h1 class="title">Comments</h1>
-
-  
-      <div id="fb-root"></div>
+        
+            <section id="comments" class="comments">
+              <style>
+                .comments{margin:30px;padding:10px;background:#fff}
+                @media screen and (max-width:800px){.comments{margin:auto;padding:10px;background:#fff}}
+              </style>
+              <div id="vcomment" class="comment"></div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+<script src="https://cdnjs.loli.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
-  (function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
-    fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));
+    var notify = '' == true ? true : false;
+    var verify = '' == true ? true : false;
+    new Valine({
+        av: AV,
+        el: '#vcomment',
+        notify: notify,
+        app_id: "FxifHotxQ7S9NDoby5WuNq8e-MdYXbMMI",
+        app_key: "yPgl2PoBYqmiUXvQhsgdP7SX",
+        placeholder: "",
+        avatar:"",
+    });
 </script>
 
-<div class="fb-comments" data-href="http://yoursite.com/2019/10/19/reflectdata/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
-      
-  
-</section>
+          </section>
+        
 
 </div></div>
     

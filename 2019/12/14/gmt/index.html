@@ -3,13 +3,15 @@
 <head>
   <meta charset="utf-8">
   
-  <title>gmt | ZeKyou&#39;s Blog</title>
+  <title>GMT绘图攻略 | ZeKyou&#39;s Blog</title>
   <meta name="author" content="ZeKyou">
+  
+  <meta name="description" content="GMT可以绘制很多复杂的图形，无论是论文还是报告中都是非常用，但同时它也很复杂，想要学号记住很难。因此，博主开设了这个栏目，一来向大家提供帮助，而来自己也可以加深理解。">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="gmt"/>
+  <meta property="og:title" content="GMT绘图攻略"/>
   <meta property="og:site_name" content="ZeKyou&#39;s Blog"/>
 
   
@@ -53,7 +55,7 @@
       
       
   
-    <h1 class="p-name title" itemprop="headline name">gmt</h1>
+    <h1 class="p-name title" itemprop="headline name">GMT绘图攻略</h1>
   
 
     </header>
@@ -61,11 +63,108 @@
       
         <div id="post-toc" class="post-toc" style="position: absolute; top:0px;">
     <div class="toc-title">目录</div>
-    
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#坐标轴"><span class="toc-text">坐标轴</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2D"><span class="toc-text">2D</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3D"><span class="toc-text">3D</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#坐标单位"><span class="toc-text">坐标单位</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#色标与图例"><span class="toc-text">色标与图例</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#色标"><span class="toc-text">色标</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#图例"><span class="toc-text">图例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#光照"><span class="toc-text">光照</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#断层滑动分布三维图"><span class="toc-text">断层滑动分布三维图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#震源球的绘制"><span class="toc-text">震源球的绘制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#添加说明文字"><span class="toc-text">添加说明文字</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#绘制断层"><span class="toc-text">绘制断层</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#绘制图中图"><span class="toc-text">绘制图中图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#绘制彩色图"><span class="toc-text">绘制彩色图</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#格式转化"><span class="toc-text">格式转化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#读取-出文件操作"><span class="toc-text">读取&#x2F;出文件操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#绘制CPT"><span class="toc-text">绘制CPT</span></a></li></ol></li></ol>
 </div>
 
         
-        
+        <p>GMT可以绘制很多复杂的图形，无论是论文还是报告中都是非常用，但同时它也很复杂，想要学号记住很难。因此，博主开设了这个栏目，一来向大家提供帮助，而来自己也可以加深理解。<a id="more"></a></p>
+<h2 id="坐标轴"><a href="#坐标轴" class="headerlink" title="坐标轴"></a>坐标轴</h2><h3 id="2D"><a href="#2D" class="headerlink" title="2D"></a>2D</h3><p>1、设置坐标轴带箭头</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gmt gmtset MAP_FRAME_TYPE = graph</span><br></pre></td></tr></table></figure>
+
+<p>2、设置标注在内部</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gmt gmtset MAP_FRAME_TYPE = inside</span><br></pre></td></tr></table></figure>
+
+<p>3、调整坐标轴的方向，一般来说GMT绘图是左小右大，下小上大，不过我们如果需要坐标轴反向的话，例如在表示深度时，常常需要向下为大</p>
+<p>我们需要在-J中设置，没错，不是-B，这里很多同学可能找错地方了。</p>
+<p>我们只需设置</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-JX-4i/4i <span class="comment">#represent that x axis reversal</span></span><br><span class="line"><span class="comment">#similarly we can set </span></span><br><span class="line">-JZ-4i    <span class="comment">#represent that z axis reversal</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3D"><a href="#3D" class="headerlink" title="3D"></a>3D</h3><p>绘制三维坐标时，可以选择</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">-BZ #plot the z axis with scale and callout</span><br><span class="line">-Bz #plot the z axis only with scale</span><br><span class="line">-Bz1234 #by default ,z axis will only be plotted one time at left-down</span><br><span class="line">        #so you can select 1234 reprensent plot the other z axises </span><br><span class="line">        #counterclock</span><br></pre></td></tr></table></figure>
+
+<p>我们在绘制三维图时，常常需要添加Z轴，但默认是绘制左下角的轴，但根据我们一般的观测视角，绘图会使得其他的轴全部反向，这时就需要绘制左上角的轴</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-BZ4 <span class="comment">#这样就可以了</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="坐标单位"><a href="#坐标单位" class="headerlink" title="坐标单位"></a>坐标单位</h3><p>在绘制坐标单位时，使用+l参数</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">-Bxa3g1+ldepth</span><br><span class="line"><span class="comment">#if label contains ' ',then use "" </span></span><br><span class="line">-Bxa3g1+l<span class="string">"wave velocity(km/s)"</span></span><br><span class="line"><span class="comment">#如果单位里含有上下标，使用转义符</span></span><br><span class="line">@+:开启/关闭上标</span><br><span class="line">@-:开启/关闭下标</span><br><span class="line">@_:开启/关闭下划线</span><br><span class="line">@<span class="comment">#:开启关闭小型大写字母</span></span><br><span class="line">@:&lt;size&gt;: :切换另一字体大小</span><br><span class="line">@%&lt;font&gt;%:切换另一字体</span><br><span class="line">@;&lt;color&gt;;:切换另一字体颜色</span><br><span class="line">@@:打印@本身</span><br><span class="line">例如：</span><br><span class="line">-Bxa3g1+l<span class="string">"density(kg/m@+3@+)"</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="色标与图例"><a href="#色标与图例" class="headerlink" title="色标与图例"></a>色标与图例</h2><h3 id="色标"><a href="#色标" class="headerlink" title="色标"></a>色标</h3><p>色标绘制使用psscale</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gmt psscale -Dx1i/1i+e+ml+w2i/0.2i+o1c/2c -Ccpt.cpt -J -K -S -Ba1+l<span class="string">"bar"</span> &gt;ps.ps</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">-D的选项有很多，先说附加项</span><br><span class="line"></span><br><span class="line">1、上下加一个三角形：在-D中加一个&#39;+e&#39; or &#39;eb&#39; for bottom only and &#39;ef&#39; for front only</span><br><span class="line"></span><br><span class="line">2、把标注放到另一边：在-D中加一个&#39;+ml&#39;</span><br><span class="line"></span><br><span class="line">3、调整色标的走向：+h(horizonal) +v(vertical)</span><br><span class="line"></span><br><span class="line">4、在原点处再次偏移：+o</span><br></pre></td></tr></table></figure>
+
+
+
+<p>这里主要说一下几点，首先是色标的位置</p>
+<p>这里使用-D说明位置，有5种分别是g|j|n|x|J</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">-Dg:use the position used <span class="keyword">in</span> data </span><br><span class="line"><span class="comment">#for example -Dg135/24 represent 135E 24N</span></span><br><span class="line">-Dx:use the position used <span class="keyword">in</span> basemap</span><br><span class="line"><span class="comment">#for example -Dx7.5i/1c </span></span><br><span class="line">-Dj:指定修饰物上的锚点，有9种，分别是L(left),R(rigth),T(top),B(bottom),M(middle)，C(center)的组合</span><br><span class="line"><span class="comment">#vertical use C horizonal use M</span></span><br><span class="line"><span class="comment">#-R and -J needed</span></span><br><span class="line">-Dn:使用归一化坐标，X，Y均从0-1</span><br><span class="line">-DJ:与-Dj呈镜像，在需要绘制在底图之外时使用</span><br></pre></td></tr></table></figure>
+
+<p>其次是修饰色标</p>
+<p>主要有给色标去除中间黑线-S</p>
+<h3 id="图例"><a href="#图例" class="headerlink" title="图例"></a>图例</h3><p>图例使用pslegend</p>
+<p>主要使用的参数有</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">gmt pslegeng -R -J -Dx+w&lt;width&gt;&lt;height&gt; -F &lt;&lt;EOF &gt;ps.ps</span><br><span class="line"><span class="comment">#</span></span><br><span class="line">D 0.1i 1p</span><br><span class="line">H 16 Times-Roman LEGEND</span><br><span class="line">S 0.6i - 1i - thick,blue,dashed/solid/dotted 1.2i Vp</span><br><span class="line">L 14 Times-Roman C Earthquakes &gt; Mw4</span><br><span class="line">EOF</span><br><span class="line"><span class="comment">#description</span></span><br><span class="line"><span class="comment">#-F是绘制一个图例框，可以使用-F+g&lt;fill&gt;+p&lt;pen&gt;加上背景和框，一般使用-F+gazure3+p0.2p,black</span></span><br><span class="line"><span class="comment">#-D是为了调整图例的位置，参见上述，其中-Dx是以地图为基准的，而GMT默认地图偏移1i/1i,+w为必须</span></span><br><span class="line"><span class="comment">##表示略去开头是#的行数</span></span><br><span class="line"><span class="comment">#D表示绘制一条线，指明左右与图例框的距离和字号</span></span><br><span class="line"><span class="comment">#H绘制一个图例的标题，需要指明字号，字体，标题</span></span><br><span class="line"><span class="comment">#S绘制一个图形，线段等，参见-S，指明中心与左侧距离，图形，长度/尺寸，填充，pen，标号的偏移，标号</span></span><br><span class="line"><span class="comment">#L绘制一个文字，和H类似，不过可以用LCR表示左对齐，中对齐，右对齐</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="光照"><a href="#光照" class="headerlink" title="光照"></a>光照</h3><p>-I选项是非常常用的</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-I&lt;size&gt;</span><br><span class="line"><span class="comment">#size are from -1 to 1</span></span><br></pre></td></tr></table></figure>
+
+<p>在绘制彩色图时，不加光照就是原色调，加光照，值越大越白</p>
+<h2 id="断层滑动分布三维图"><a href="#断层滑动分布三维图" class="headerlink" title="断层滑动分布三维图"></a>断层滑动分布三维图</h2><p>在做大地震震源分析时，常常需要给出断层的三维滑动分布，我们可以利用psxyz做到。目前关于psxyz的语法和实例不过，中文社区甚至没有翻译过来。这里博主给大家开一个路</p>
+<p>我们的思想是利用psxyz绘制一个个矩形框，根据每个矩形框的滑移值来绘制图像。</p>
+<p>我们以USGS给出的20181130地震断层模型文件param.txt作为源文件</p>
+<p>首先需要把它变成能够被GMT拾取的文件格式， 即</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt; -Z&lt;slip&gt;</span><br><span class="line">lons1 lons2 deps1</span><br><span class="line">lons2 lons2 deps2</span><br><span class="line">lone1 lone1 depe1</span><br><span class="line">lone2 lone2 depe2</span><br><span class="line">&gt; -Z&lt;slip&gt;</span><br><span class="line">...</span><br><span class="line">...</span><br><span class="line">..</span><br></pre></td></tr></table></figure>
+
+<p>程序可以自己编，不是很难，注意-Z和slip之间不能有空格，这里用一个<em>trim</em>和<em>adjustl</em>函数就可以解决了。<strong>如果还有问题，可以联系博主获取支持</strong>。</p>
+<p>这样我们就可以键入</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/bin/bash                                                                 R=-150.6/-149.3/61/62/0/60                                                           txt=plot2018                </span></span><br><span class="line">gmt psxyz <span class="variable">$txt</span>.txt -R<span class="variable">$R</span> -JX6i/4i -Jz-0.2 -BSWZ2 -Bxa0.3+lLontitude -Bya0.2+lLatitude -Bza20+lDepth   -p210/35 -K -I0.7 -L -Cpsxyz.cpt -W0.5p,black &gt;psxyz.ps</span><br></pre></td></tr></table></figure>
+
+<p>来得到断层的滑移分布图了</p>
+<h2 id="震源球的绘制"><a href="#震源球的绘制" class="headerlink" title="震源球的绘制"></a>震源球的绘制</h2><p>基本格式是</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">gmt psmeca -R -J -Sa<span class="variable">$size</span> -C1.2p -Gcyan -K &lt;&lt;EOF &gt;&gt;<span class="variable">$nameps</span>.ps</span><br><span class="line">lon lat depth strike dip rake Mw newX newY label</span><br></pre></td></tr></table></figure>
+
+<p>注意绘制震源球的方式有很多中，比较常用的是-Sa和-Sz两种</p>
+<p>-Sa：指定3参数和震级即可，绘制出来的图，压缩和拉伸边界有明显的黑线</p>
+<p>-Sz：指定地震矩张量的分量，一般是gCMT提供的数据来源是这样的，绘制出来的图没有边界黑线</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-C:指定震源位置和图中位置的连线参数</span><br><span class="line">-G:指定压缩区域的颜色</span><br><span class="line">-F:指定压缩轴和伸张轴的属性</span><br></pre></td></tr></table></figure>
+
+<h2 id="添加说明文字"><a href="#添加说明文字" class="headerlink" title="添加说明文字"></a>添加说明文字</h2><p>基本语句是：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">gmt pstext -R -J -K -F+f22p,7,blue+a70 &lt;&lt;EOF &gt;&gt;<span class="variable">$nameps</span>.ps</span><br><span class="line">x y label</span><br><span class="line">EOF</span><br><span class="line">-F:指定了文字的很多信息，</span><br><span class="line">	+f:指定文字的大小，字体，颜色</span><br><span class="line">	+a:指定文字的角度（以逆时针旋转为正）</span><br><span class="line"><span class="comment">#个人使用来看，基本是</span></span><br><span class="line">	海洋水域的标识使用</span><br><span class="line">		7号字体，blue</span><br><span class="line">	陆上构造标识（如半岛，盆地）使用</span><br><span class="line">		28号字体，black</span><br><span class="line">	城市名使用</span><br><span class="line">		31号字体，black	</span><br><span class="line">	断层名使用</span><br><span class="line">		1号字体，12p，black</span><br><span class="line">以上仅供参考</span><br></pre></td></tr></table></figure>
+
+<h2 id="绘制断层"><a href="#绘制断层" class="headerlink" title="绘制断层"></a>绘制断层</h2><p>一些不知道参数的断层可以去官网查询，得到kmz或者shp文件在GoogleEarth中打开，逐个描点得到坐标。</p>
+<p>基本语法是利用psxy</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#绘制简单的线</span></span><br><span class="line">gmt psxy -R -J -W&lt;pen&gt; -K &lt;&lt;EOF &gt;&gt;<span class="variable">$nameps</span>.ps</span><br><span class="line">x y</span><br><span class="line">x y</span><br><span class="line">x y</span><br><span class="line">EOF</span><br><span class="line"><span class="comment">#绘制带符号的断层</span></span><br><span class="line">gmt psxy -R -J -W&lt;pen&gt; -Gblack -Sf2c/0.07i+t+l -K &lt;&lt;EOF &gt;&gt;<span class="variable">$nameps</span>.ps</span><br><span class="line">-Sf是专门绘制断层的参数，2c表示每2cm回一个标记0.07i表示标记大小</span><br><span class="line">	+t:表示绘制的标记是三角形</span><br><span class="line">	+l:表示绘制的标记在左侧/右侧是+r</span><br><span class="line">	+b:是矩形</span><br><span class="line">	+c:是圆形</span><br><span class="line">	+s:绘制左旋和右旋</span><br><span class="line">		注意2c可以换成负数，则表示绘制图形的个数，不过此时无法使用-o选项了</span><br><span class="line">	+o&lt;size&gt;:绘制时让初始符号偏移距离</span><br><span class="line">-G:符号填充色</span><br></pre></td></tr></table></figure>
+
+<h2 id="绘制图中图"><a href="#绘制图中图" class="headerlink" title="绘制图中图"></a>绘制图中图</h2><p>在一些论文中经常需要给某一个地方的大范围说明图，我们绘制时可以</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">gmt psbasemap -R<span class="variable">$Rbig</span> -J -Bse -K -X&lt;pos&gt; -Y&lt;pos&gt; &gt;&gt;<span class="variable">$nameps</span>.ps</span><br><span class="line">gmt pscoast   -R<span class="variable">$Rbig</span> -J -Bse -K -O -Dl -W1/0.5p -N1 -Ggray &gt;&gt;<span class="variable">$nameps</span>.ps</span><br><span class="line">gmt psxy      -R<span class="variable">$Rbig</span> -J -W&lt;pen&gt; -L -O &lt;&lt;EOF &gt;&gt;<span class="variable">$nameps</span>.ps</span><br><span class="line">x y</span><br><span class="line">...</span><br><span class="line">EOF</span><br><span class="line"><span class="comment">#先绘制底图，注意根据图的位置选择</span></span><br><span class="line">	-Bse或是其他的轴的特性，也可以选择是否绘制标尺</span><br><span class="line"><span class="comment">#绘制海岸线时</span></span><br><span class="line">	-D选项一般选的比较低，一共5级</span><br><span class="line">		f&lt;full&gt;   h&lt;high&gt;  i&lt;intellectual&gt; l&lt;low&gt; c</span><br><span class="line">	-N有四级，1就是国界了，2州界。。。</span><br><span class="line">	-W绘制水域相关，先设置等级，再设画笔，否则默认画笔</span><br><span class="line">	-G选择陆地颜色</span><br><span class="line"><span class="comment">#绘制大图选框</span></span><br><span class="line">	基本就是利用psxy，注意选择</span><br><span class="line">	-L使得图形围起来成一个矩形框</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="绘制彩色图"><a href="#绘制彩色图" class="headerlink" title="绘制彩色图"></a>绘制彩色图</h2><h3 id="格式转化"><a href="#格式转化" class="headerlink" title="格式转化"></a>格式转化</h3><p>我们取一个最一般的情况，我们有一个txt文件（或者dat），里面的信息是包含lon,lat,value,….分别是第1～3列，当然还包含其他列的信息。</p>
+<p>我们首先需要转化为grd文件或者nc文件。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">gmt surface filename.txt -R -T0.01 -I0.1/0.1 -i0,1,2 -C0.001 -Gfilename.grd</span><br><span class="line"><span class="comment">#-I表示插值密度</span></span><br><span class="line"><span class="comment">#-C表示收敛值</span></span><br><span class="line"><span class="comment">#-T表示张力系数，在0~1之间，控制曲率曲面</span></span><br><span class="line"><span class="comment">#-i是通用选取文件的参数，表示选取文件中的文件列数，从0起算，同时可以做一些运算</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="读取-出文件操作"><a href="#读取-出文件操作" class="headerlink" title="读取/出文件操作"></a>读取/出文件操作</h3><p>主要是-i和-o的操作</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">-i0,1,2</span><br><span class="line"><span class="comment">#表示取文件的1,2,3列</span></span><br><span class="line">-i0-2</span><br><span class="line"><span class="comment">#与上式相同</span></span><br><span class="line">-i2+s2+o10+l</span><br><span class="line"><span class="comment">#表示取第3列，并对它先乘2，再加10，最后取log10</span></span><br></pre></td></tr></table></figure>
+
+<p>对于-o，与-i相同，不过没有运算</p>
+<p>另外，一些小符号可以是的输入的x，y交换，即相当于-i1,0</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-:</span><br></pre></td></tr></table></figure>
+
+<p>还有-h可以略去开头多少行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">gmt ... -h3</span><br><span class="line"><span class="comment">#表示前三行不读取</span></span><br></pre></td></tr></table></figure>
+
+<p>-s则可以选择数据中还有NaN的处理方法</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">gmt select input.dat -s</span><br><span class="line"><span class="comment">#若第三列还有NaN，则不输出</span></span><br><span class="line">.... -sa</span><br><span class="line"><span class="comment">#只要有NaN，就不输出</span></span><br><span class="line">.... -sr</span><br><span class="line"><span class="comment">#只输出含有NaN的行</span></span><br><span class="line">.... -s2,3</span><br><span class="line"><span class="comment">#抑制3,4列的NaN数据</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="绘制CPT"><a href="#绘制CPT" class="headerlink" title="绘制CPT"></a>绘制CPT</h3><p>使用</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">gmt makecpt -Cblue,cyan,green,yellow,red -T-1/1-0.05 -Z -D &gt;cpt.cpt</span><br><span class="line"><span class="comment">#-C表示色域</span></span><br><span class="line"><span class="comment">#-T表示值域</span></span><br><span class="line"><span class="comment">#-Z表示颜色连续</span></span><br><span class="line"><span class="comment">#-D表示越界颜色取最大值颜色</span></span><br><span class="line"><span class="comment">#其中-C有很多内置的色彩搭配，默认是rainbow，具体可以参考</span></span><br><span class="line"><span class="comment">#http://soliton.vm.bytemark.co.uk/pub/cpt-city/</span></span><br></pre></td></tr></table></figure>
+
+
       
     </div>
     <footer>
@@ -73,10 +172,15 @@
         
   
   <div class="categories">
-    <a href="/categories/技术/">技术</a>
+    <a href="/categories/学术/">学术</a>
   </div>
 
         
+  
+  <div class="tags">
+    <a href="/tags/GMT/">GMT</a>, <a href="/tags/攻略/">攻略</a>
+  </div>
+
         
   <div class="addthis addthis_toolbox addthis_default_style">
     
@@ -99,25 +203,32 @@
   </div>
 </article>
 
-<section id="comment">
-  <h1 class="title">Comments</h1>
-
-  
-      <div id="fb-root"></div>
+        
+            <section id="comments" class="comments">
+              <style>
+                .comments{margin:30px;padding:10px;background:#fff}
+                @media screen and (max-width:800px){.comments{margin:auto;padding:10px;background:#fff}}
+              </style>
+              <div id="vcomment" class="comment"></div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+<script src="https://cdnjs.loli.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
-  (function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
-    fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));
+    var notify = '' == true ? true : false;
+    var verify = '' == true ? true : false;
+    new Valine({
+        av: AV,
+        el: '#vcomment',
+        notify: notify,
+        app_id: "FxifHotxQ7S9NDoby5WuNq8e-MdYXbMMI",
+        app_key: "yPgl2PoBYqmiUXvQhsgdP7SX",
+        placeholder: "",
+        avatar:"",
+    });
 </script>
 
-<div class="fb-comments" data-href="http://yoursite.com/2019/12/14/gmt/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
-      
-  
-</section>
+          </section>
+        
 
 </div></div>
     
