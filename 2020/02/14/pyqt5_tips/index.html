@@ -1,0 +1,256 @@
+<!DOCTYPE HTML>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  
+  <title>细数PyQt5中遇到的坑 | ZeKyou&#39;s Blog</title>
+  <meta name="author" content="ZeKyou">
+  
+  <meta name="description" content="​        之前因为说要搞一个自制的文献管理的软件，所以捣鼓了两下PyQt，遇到了不少的坑，遂作此记录，以来备忘，二来分享。">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="细数PyQt5中遇到的坑"/>
+  <meta property="og:site_name" content="ZeKyou&#39;s Blog"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="ZeKyou&#39;s Blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">ZeKyou&#39;s Blog</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+      <li><a href="/">Resource</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article id="post-pyqt5_tips" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2020-02-13T15:00:00.000Z"><a href="/2020/02/14/pyqt5_tips/">2020-02-14</a></time>
+      
+      
+  
+    <h1 class="p-name title" itemprop="headline name">细数PyQt5中遇到的坑</h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <div id="post-toc" class="post-toc" style="position: absolute; top:0px;">
+    <div class="toc-title">目录</div>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#起步"><span class="toc-text">起步</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#安装PyQt5"><span class="toc-text">安装PyQt5</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配合PyCharm"><span class="toc-text">配合PyCharm</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#QMainWindow"><span class="toc-text">QMainWindow</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#MenuBar和StatusBar"><span class="toc-text">MenuBar和StatusBar</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#打开-创建文件功能"><span class="toc-text">打开&#x2F;创建文件功能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#状态栏"><span class="toc-text">状态栏</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#快捷键"><span class="toc-text">快捷键</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#TextBrowser"><span class="toc-text">TextBrowser</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#LineEdit"><span class="toc-text">LineEdit</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#pushButton"><span class="toc-text">pushButton</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#radioButton"><span class="toc-text">radioButton</span></a></li></ol>
+</div>
+
+        
+        <p>​        之前因为说要搞一个自制的文献管理的软件，所以捣鼓了两下PyQt，遇到了不少的坑，遂作此记录，以来备忘，二来分享。<a id="more"></a></p>
+<h1 id="起步"><a href="#起步" class="headerlink" title="起步"></a>起步</h1><h2 id="安装PyQt5"><a href="#安装PyQt5" class="headerlink" title="安装PyQt5"></a>安装PyQt5</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip3 install pyqt5 -i https://pypi.tuna.tsinghua.edu.cn/simple</span><br></pre></td></tr></table></figure>
+
+<h2 id="配合PyCharm"><a href="#配合PyCharm" class="headerlink" title="配合PyCharm"></a>配合PyCharm</h2><p>在PyCharm里添加两个工具，方便开发。</p>
+<ul>
+<li><p>Qt Designer #拖控件式操作，类似AndroidStudio，方便前期初步定下框架</p>
+</li>
+<li><p>PyUic #将在Designer里做好的框架直接编译成python，方便后续编辑美化</p>
+<p>添加方法如下：</p>
+</li>
+</ul>
+<blockquote>
+<p>File–&gt;Settings–&gt;Tools–&gt;External Tools</p>
+</blockquote>
+<p>点击加号，弹出如下：以PyUIC为例</p>
+<p><img src="pyqt_pyuic.png" alt="pyqt_pyuic"></p>
+<p>Program就是程序所在地，Arguments填入宏</p>
+<blockquote>
+<p>$FileName$ -o $FileNameWithoutExtension$.py</p>
+</blockquote>
+<p>Designer则只需要Program填写。</p>
+<h1 id="QMainWindow"><a href="#QMainWindow" class="headerlink" title="QMainWindow"></a>QMainWindow</h1><p>起初仿照网上的教程，写的是QWidget，结果发现不能添加MenuBar，设置Icon等操作。所以主界面还是要用mainWindow。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Form.setWindowIcon(QIcon(<span class="string">'main.ico'</span>))<span class="comment">#set Icon</span></span><br><span class="line">Form.setStyleSheet(<span class="string">'QMainWindow&#123;border-image:url(bg2.jpg);&#125;'</span>)<span class="comment"># set background picture</span></span><br><span class="line">Form.setWindowOpacity(<span class="number">0.85</span>) <span class="comment">#set UI(all) opacity</span></span><br></pre></td></tr></table></figure>
+
+<p>之后就是在PyUIC转化后的代码后面加上：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> __name__==<span class="string">"__main__"</span>:</span><br><span class="line">    <span class="keyword">import</span> sys</span><br><span class="line">    app=QtWidgets.QApplication(sys.argv)</span><br><span class="line">    mainForm=QtWidgets.QMainWindow()</span><br><span class="line">    ui=Ui_mainForm()</span><br><span class="line">    ui.setupUi(mainForm)</span><br><span class="line">    mainForm.show()</span><br><span class="line">    sys.exit(app.exec_())</span><br></pre></td></tr></table></figure>
+
+<h2 id="MenuBar和StatusBar"><a href="#MenuBar和StatusBar" class="headerlink" title="MenuBar和StatusBar"></a>MenuBar和StatusBar</h2><p>menubar就是我们使用软件最上面的一栏，</p>
+<blockquote>
+<p>File    Edit    Tools    Help</p>
+</blockquote>
+<p>之类的，我们希望能在这上面增加功能</p>
+<p>在mainwindow里设置menubar和statusbar如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">self.menubar = QtWidgets.QMenuBar(MainWindow)</span><br><span class="line">self.menubar.setGeometry(QtCore.QRect(<span class="number">0</span>, <span class="number">0</span>, <span class="number">1003</span>, <span class="number">26</span>))</span><br><span class="line">self.menubar.setObjectName(<span class="string">"menubar"</span>)</span><br><span class="line">MainWindow.setMenuBar(self.menubar)</span><br><span class="line">self.statusbar = QtWidgets.QStatusBar(MainWindow)</span><br><span class="line">self.statusbar.setObjectName(<span class="string">"statusbar"</span>)</span><br><span class="line">MainWindow.setStatusBar(self.statusbar)</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="打开-创建文件功能"><a href="#打开-创建文件功能" class="headerlink" title="打开/创建文件功能"></a>打开/创建文件功能</h3><p>引入</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> PyQt5.QtWidgets <span class="keyword">import</span> QFileDialog</span><br></pre></td></tr></table></figure>
+
+<p>打开文件是在menubar上的操作，所以</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">self.menuFile = QtWidgets.QMenu(self.menubar)</span><br><span class="line">self.menuFile.setObjectName(<span class="string">"menuFile"</span>)</span><br><span class="line">self.menubar.addAction(self.menuFile.menuAction())</span><br></pre></td></tr></table></figure>
+
+<p>我们希望是上面有个File，点一下，出现两个选项，一个New，一个Open</p>
+<p>添加</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">self.actionNew = QtWidgets.QAction(Form)<span class="comment">#new action</span></span><br><span class="line">self.actionNew.setObjectName(<span class="string">"actionNew"</span>)</span><br><span class="line">self.actionOpen = QtWidgets.QAction(Form)</span><br><span class="line">self.actionOpen.setObjectName(<span class="string">"actionOpen"</span>)</span><br><span class="line">self.menuFile.addAction(self.actionNew)<span class="comment">#link action with menu</span></span><br><span class="line">self.actionOpen.triggered.connect(self.action_open)<span class="comment">#menu use triggered to link</span></span><br><span class="line">self.menuFile.addAction(self.actionOpen)</span><br><span class="line">self.actionNew.triggered.connect(self.action_new)</span><br></pre></td></tr></table></figure>
+
+<p>Define action_new and action_open</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">action_new</span><span class="params">(self)</span>:</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        fname,_ = QFileDialog.getSaveFileName(<span class="literal">None</span>,<span class="string">'Save File'</span>,os.getcwd(),<span class="string">'All Files(*);;NumPy Files(*.npy)'</span>,<span class="string">'NumPy Files(*.npy)'</span>)</span><br><span class="line">        self.textBrowser_14.setText(fname)</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        self.textBrowser_15.setText(<span class="string">'Error in saving file'</span>)</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">action_open</span><span class="params">(self)</span>:</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        fname,_ = QFileDialog.getOpenFileName(<span class="literal">None</span>,<span class="string">'Select File'</span>,os.getcwd(),<span class="string">'All Files(*);;NumPy Files(*.npy)'</span>,<span class="string">'NumPy Files(*.npy)'</span>)</span><br><span class="line">        self.textBrowser_14.setText(fname)</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        self.textBrowser_15.setText(<span class="string">'Error in opening file'</span>)</span><br></pre></td></tr></table></figure>
+
+<p>​        因为QFileDialog没有找到创建，所以使用了save，但效果是一样的，</p>
+<blockquote>
+<p>os.getcwd() #获取当前目录</p>
+</blockquote>
+<p>fname是文件名（含路径），第二个参数是类型，这里不需要所以用_省略了，函数里的第一个参数确定有无父级，网上很多是self，不过我测试的self，程序就崩溃，所以使用None。</p>
+<h3 id="状态栏"><a href="#状态栏" class="headerlink" title="状态栏"></a>状态栏</h3><p>让状态栏显示文字使用</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">self.statusbar.showMessage(string,time)<span class="comment">#the unit of time is ms(1/1000s)</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="快捷键"><a href="#快捷键" class="headerlink" title="快捷键"></a>快捷键</h1><p>快捷键定义需要在retranslateUi函数后面，不然一些非组合键的快捷键会失效</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">self.xxx.setShortcut(<span class="string">'ctrl+w'</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="TextBrowser"><a href="#TextBrowser" class="headerlink" title="TextBrowser"></a>TextBrowser</h1><p>一般用的多的就是传递字符串</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">self.textBrowser.setText(string)</span><br><span class="line">self.textBrowser.toPlainText()<span class="comment">#important</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="LineEdit"><a href="#LineEdit" class="headerlink" title="LineEdit"></a>LineEdit</h1><p>字符串传递使用</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">self.lineEdit.text()</span><br></pre></td></tr></table></figure>
+
+<p>获取焦点/光标</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">self.lineEdit.clearFocus()</span><br><span class="line">self.lineEdit.setFocus()</span><br></pre></td></tr></table></figure>
+
+<h1 id="pushButton"><a href="#pushButton" class="headerlink" title="pushButton"></a>pushButton</h1><p>链接槽函数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">self.pushButton.clicked.connect(self.xxx)<span class="comment">#不带参数</span></span><br><span class="line">self.pushButton.clicked.connect(<span class="keyword">lambda</span>:self.xxx(para))<span class="comment">#带参数</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="radioButton"><a href="#radioButton" class="headerlink" title="radioButton"></a>radioButton</h1><p>初始默认</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">self.radioButton.setChecked(<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+
+<p>点击</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">self.radioButton.clicked.connect(self.xxx)</span><br><span class="line">self.radioButton.clicked.connect(<span class="keyword">lambda</span>:self.xxx(para))</span><br></pre></td></tr></table></figure>
+
+<p>判断是否选择</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">self.radioButton.isChecked() <span class="comment">#boolean</span></span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/计算机/">计算机</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/Python/">Python</a>, <a href="/tags/PyQt5/">PyQt5</a>, <a href="/tags/攻略/">攻略</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+        
+            <section id="comment" class="comment">
+              <h1 class="title">Comments</h1>
+              <div class="valine_comment"></div>
+<!--载入js，在</body>之前插入即可-->
+<!--Leancloud 操作库:-->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<!--Valine 的核心代码库-->
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+  var notify = 'false' == true ? true : false;
+  var verify = 'false' == true ? true : false;
+  new Valine({
+      // AV 对象来自上面引入av-min.js(老司机们不要开车➳♡゛扎心了老铁)
+      av: AV,
+      el: '.valine_comment',
+      emoticon_url: 'https://cloud.panjunwen.com/alu',
+      emoticon_list: ["狂汗.png","不说话.png","汗.png","坐等.png","献花.png","不高兴.png","中刀.png","害羞.png","皱眉.png","小眼睛.png","暗地观察.png"],
+      app_id: 'wWOSPBUffJoJz5qeVL0drVLC-MdYXbMMI',
+      app_key: 'VgDB2Nt89reberaVG9mddVDa',
+      placeholder: 'I say...'
+    });
+</script>
+
+          </section>
+        
+
+</div></div>
+    
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2020 ZeKyou
+  
+</div>
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+  <!--loveclick --> 
+  <script type="text/javascript" src="/js/love.js"></script>
+  <!--funny title -->
+  <script type="text/javascript" src="/js/FunnyTitle.js"></script>
+  <!--toc -->
+  <script type='text/javascript' src="/js/toc.js"></script>
+</body>
+</html>
