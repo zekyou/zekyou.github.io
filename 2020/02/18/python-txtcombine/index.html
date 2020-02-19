@@ -1,0 +1,255 @@
+<!DOCTYPE HTML>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  
+  <title>Python实现类似文件合并 | ZeKyou&#39;s Blog</title>
+  <meta name="author" content="ZeKyou">
+  
+  <meta name="description" content="​        之前MPI并行计算，由于涉及到I/O，所以采用了分散文件，但是后续的计算还是需要把文件组合起来，感觉这个虽然简单，但是还是蛮常用的，所以记录一下
+采用Python语言，怕涉及的工作量大，所以给出了一个多进程的版本，速度快些">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Python实现类似文件合并"/>
+  <meta property="og:site_name" content="ZeKyou&#39;s Blog"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="ZeKyou&#39;s Blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">ZeKyou&#39;s Blog</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+      <li><a href="/">Resource</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article id="post-python-txtcombine" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2020-02-18T09:19:49.000Z"><a href="/2020/02/18/python-txtcombine/">2020-02-18</a></time>
+      
+      
+  
+    <h1 class="p-name title" itemprop="headline name">Python实现类似文件合并</h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <div id="post-toc" class="post-toc" style="position: absolute; top:0px;">
+    <div class="toc-title">目录</div>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#核心程序"><span class="toc-text">核心程序</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Open"><span class="toc-text">Open</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#File"><span class="toc-text">File</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#并行程序"><span class="toc-text">并行程序</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#删除用过文件"><span class="toc-text">删除用过文件</span></a></li></ol></li></ol>
+</div>
+
+        
+        <p>​        之前MPI并行计算，由于涉及到I/O，所以采用了分散文件，但是后续的计算还是需要把文件组合起来，感觉这个虽然简单，但是还是蛮常用的，所以记录一下</p>
+<p>采用Python语言，怕涉及的工作量大，所以给出了一个多进程的版本，速度快些<a id="more"></a></p>
+<h1 id="核心程序"><a href="#核心程序" class="headerlink" title="核心程序"></a>核心程序</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    fp = open(typestr,<span class="string">'r'</span>)</span><br><span class="line"><span class="keyword">except</span>:</span><br><span class="line">    <span class="keyword">continue</span></span><br><span class="line"><span class="keyword">for</span> line <span class="keyword">in</span> fp:</span><br><span class="line">    fq = open(fileini,<span class="string">'a'</span>)</span><br><span class="line">    fq.write(line)</span><br><span class="line">fp.close()</span><br><span class="line">fq.close()</span><br></pre></td></tr></table></figure>
+
+<p>这里再贴出Python中open的mode类：</p>
+<h2 id="Open"><a href="#Open" class="headerlink" title="Open"></a>Open</h2><table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>r</td>
+<td>以只读方式打开文件。文件的指针将会放在文件的开头。这是默认模式。</td>
+</tr>
+<tr>
+<td>rb</td>
+<td>以二进制格式打开一个文件用于只读。文件指针将会放在文件的开头。这是默认模式。</td>
+</tr>
+<tr>
+<td>r+</td>
+<td>打开一个文件用于读写。文件指针将会放在文件的开头。</td>
+</tr>
+<tr>
+<td>rb+</td>
+<td>以二进制格式打开一个文件用于读写。文件指针将会放在文件的开头。</td>
+</tr>
+<tr>
+<td>w</td>
+<td>打开一个文件只用于写入。如果该文件已存在则打开文件，并从开头开始编辑，即原有内容会被删除。如果该文件不存在，创建新文件。</td>
+</tr>
+<tr>
+<td>wb</td>
+<td>以二进制格式打开一个文件只用于写入。如果该文件已存在则打开文件，并从开头开始编辑，即原有内容会被删除。如果该文件不存在，创建新文件。</td>
+</tr>
+<tr>
+<td>w+</td>
+<td>打开一个文件用于读写。如果该文件已存在则打开文件，并从开头开始编辑，即原有内容会被删除。如果该文件不存在，创建新文件。</td>
+</tr>
+<tr>
+<td>wb+</td>
+<td>以二进制格式打开一个文件用于读写。如果该文件已存在则打开文件，并从开头开始编辑，即原有内容会被删除。如果该文件不存在，创建新文件。</td>
+</tr>
+<tr>
+<td>a</td>
+<td>打开一个文件用于追加。如果该文件已存在，文件指针将会放在文件的结尾。也就是说，新的内容将会被写入到已有内容之后。如果该文件不存在，创建新文件进行写入。</td>
+</tr>
+<tr>
+<td>ab</td>
+<td>以二进制格式打开一个文件用于追加。如果该文件已存在，文件指针将会放在文件的结尾。也就是说，新的内容将会被写入到已有内容之后。如果该文件不存在，创建新文件进行写入。</td>
+</tr>
+<tr>
+<td>a+</td>
+<td>打开一个文件用于读写。如果该文件已存在，文件指针将会放在文件的结尾。文件打开时会是追加模式。如果该文件不存在，创建新文件用于读写。</td>
+</tr>
+<tr>
+<td>ab+</td>
+<td>以二进制格式打开一个文件用于追加。如果该文件已存在，文件指针将会放在文件的结尾。如果该文件不存在，创建新文件用于读写。</td>
+</tr>
+</tbody></table>
+<h2 id="File"><a href="#File" class="headerlink" title="File"></a>File</h2><p>file对象的方法：</p>
+<ul>
+<li><strong>file.read([size])</strong>：size 未指定则返回整个文件，如果文件大小 &gt;2 倍内存则有问题，f.read()读到文件尾时返回””(空字串)。</li>
+<li><strong>file.readline()</strong>：返回一行。</li>
+<li><strong>file.readlines([size])</strong> ：返回包含size行的列表, size 未指定则返回全部行。</li>
+<li><strong>for line in f: print line</strong> ：通过迭代器访问。</li>
+<li><strong>f.write(“hello\n”)</strong>：如果要写入字符串以外的数据,先将他转换为字符串。</li>
+<li><strong>f.tell()</strong>：返回一个整数,表示当前文件指针的位置(就是到文件头的比特数)。</li>
+<li><strong>f.seek(偏移量,[起始位置])</strong>：用来移动文件指针。<ul>
+<li>偏移量: 单位为比特，可正可负</li>
+<li>起始位置: 0 - 文件头, 默认值; 1 - 当前位置; 2 - 文件尾</li>
+</ul>
+</li>
+<li><strong>f.close()</strong> 关闭文件</li>
+</ul>
+<h1 id="并行程序"><a href="#并行程序" class="headerlink" title="并行程序"></a>并行程序</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> multiprocessing <span class="keyword">import</span> Process</span><br><span class="line"><span class="comment">#class txtCombine():</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">txtMain</span><span class="params">(strarr)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> strini <span class="keyword">in</span> strarr:</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">15</span>):</span><br><span class="line">            strtwo = strini + str(i)</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">5</span>):</span><br><span class="line">                typestr = getpath(strtwo,j)</span><br><span class="line">                fileini = getpath(strini,j)</span><br><span class="line">                <span class="keyword">try</span>:</span><br><span class="line">                    fp = open(typestr,<span class="string">'r'</span>)</span><br><span class="line">                <span class="keyword">except</span>:</span><br><span class="line">                    <span class="keyword">continue</span></span><br><span class="line">                <span class="keyword">for</span> line <span class="keyword">in</span> fp:</span><br><span class="line">                    fq = open(fileini,<span class="string">'a'</span>)</span><br><span class="line">                    fq.write(line)</span><br><span class="line">                fp.close()</span><br><span class="line">                fq.close()</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getpath</span><span class="params">(typestr,num)</span>:</span></span><br><span class="line">    header=<span class="string">r'D:\Program\psgrnpscmp\Model2\gf20160124'</span>+<span class="string">'\\'</span></span><br><span class="line">    <span class="keyword">if</span> num == <span class="number">1</span>:</span><br><span class="line">        trail = <span class="string">'.cl'</span></span><br><span class="line">    <span class="keyword">elif</span> num == <span class="number">2</span>:</span><br><span class="line">        trail = <span class="string">'.ds'</span></span><br><span class="line">    <span class="keyword">elif</span> num == <span class="number">3</span>:</span><br><span class="line">        trail = <span class="string">'.ep'</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        trail = <span class="string">'.ss'</span></span><br><span class="line">    typestr = header+typestr+trail</span><br><span class="line">    <span class="keyword">return</span> typestr</span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">   <span class="comment"># txtC = txtCombine()</span></span><br><span class="line">   <span class="comment"># txtC.txtMain()</span></span><br><span class="line">    typearr = [<span class="string">'uz'</span>,<span class="string">'ur'</span>,<span class="string">'ut'</span>,<span class="string">'szz'</span>,<span class="string">'srr'</span>,<span class="string">'stt'</span>,<span class="string">'szr'</span>,<span class="string">'srt'</span>\</span><br><span class="line">                ,<span class="string">'stz'</span>,<span class="string">'tr'</span>,<span class="string">'tt'</span>,<span class="string">'rot'</span>,<span class="string">'gd'</span>,<span class="string">'gr'</span>]</span><br><span class="line">    p1 = Process(target=txtMain, args=(typearr[<span class="number">0</span>:<span class="number">4</span>],))</span><br><span class="line">    p2 = Process(target=txtMain, args=(typearr[<span class="number">4</span>:<span class="number">8</span>],))</span><br><span class="line">    p3 = Process(target=txtMain, args=(typearr[<span class="number">8</span>:<span class="number">12</span>],))</span><br><span class="line">    p4 = Process(target=txtMain, args=(typearr[<span class="number">12</span>:<span class="number">14</span>],))</span><br><span class="line">    p1.start()</span><br><span class="line">    p2.start()</span><br><span class="line">    p3.start()</span><br><span class="line">    p4.start()</span><br></pre></td></tr></table></figure>
+
+<p>​        多少个进程可以根据自己需要和自身电脑性能来定制，这里只给出4进程。</p>
+<h2 id="删除用过文件"><a href="#删除用过文件" class="headerlink" title="删除用过文件"></a>删除用过文件</h2><p>如果需要拼接完后删除。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line">os.remove(path) <span class="comment">#remove file</span></span><br><span class="line">os.rmdir(path) <span class="comment">#remove filedirectory</span></span><br><span class="line">os.unlink(path) <span class="comment">#similar to remove. But this one will report an error when delete a file using</span></span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/学术/">学术</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/Python/">Python</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+        
+            <section id="comment" class="comment">
+              <h1 class="title">Comments</h1>
+              <div class="valine_comment"></div>
+<!--载入js，在</body>之前插入即可-->
+<!--Leancloud 操作库:-->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<!--Valine 的核心代码库-->
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+  var notify = 'false' == true ? true : false;
+  var verify = 'false' == true ? true : false;
+  new Valine({
+      // AV 对象来自上面引入av-min.js(老司机们不要开车➳♡゛扎心了老铁)
+      av: AV,
+      el: '.valine_comment',
+      emoticon_url: 'https://cloud.panjunwen.com/alu',
+      emoticon_list: ["狂汗.png","不说话.png","汗.png","坐等.png","献花.png","不高兴.png","中刀.png","害羞.png","皱眉.png","小眼睛.png","暗地观察.png"],
+      app_id: 'wWOSPBUffJoJz5qeVL0drVLC-MdYXbMMI',
+      app_key: 'VgDB2Nt89reberaVG9mddVDa',
+      placeholder: 'I say...'
+    });
+</script>
+
+          </section>
+        
+
+</div></div>
+    
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2020 ZeKyou
+  
+</div>
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+  <!--loveclick --> 
+  <script type="text/javascript" src="/js/love.js"></script>
+  <!--funny title -->
+  <script type="text/javascript" src="/js/FunnyTitle.js"></script>
+  <!--toc -->
+  <script type='text/javascript' src="/js/toc.js"></script>
+</body>
+</html>

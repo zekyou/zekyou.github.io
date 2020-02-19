@@ -1,0 +1,212 @@
+<!DOCTYPE HTML>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  
+  <title>并行计算 | ZeKyou&#39;s Blog</title>
+  <meta name="author" content="ZeKyou">
+  
+  <meta name="description" content="​        在很多科学计算中，并行计算可以极大的缩短计算时间，提高资源的利用率。如果配合服务器、超算中心，并行计算更是不可或缺。博主一个Fotran程序，同样的计算过程，单核计算费时50h，不过改变代码，利用MPI并行，直接15核跑起来，就只需要2000s。这里就并行计算Mark一下">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="并行计算"/>
+  <meta property="og:site_name" content="ZeKyou&#39;s Blog"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="ZeKyou&#39;s Blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">ZeKyou&#39;s Blog</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+      <li><a href="/">Resource</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article id="post-pc" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2020-02-18T07:11:10.000Z"><a href="/2020/02/18/pc/">2020-02-18</a></time>
+      
+      
+  
+    <h1 class="p-name title" itemprop="headline name">并行计算</h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <div id="post-toc" class="post-toc" style="position: absolute; top:0px;">
+    <div class="toc-title">目录</div>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Fortran-C"><span class="toc-text">Fortran&#x2F;C</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Python"><span class="toc-text">Python</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#threading"><span class="toc-text">threading</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#multiprocessing"><span class="toc-text">multiprocessing</span></a></li></ol></li></ol>
+</div>
+
+        
+        <p>​        在很多科学计算中，并行计算可以极大的缩短计算时间，提高资源的利用率。如果配合服务器、超算中心，并行计算更是不可或缺。博主一个Fotran程序，同样的计算过程，单核计算费时50h，不过改变代码，利用MPI并行，直接15核跑起来，就只需要2000s。这里就并行计算Mark一下<a id="more"></a></p>
+<h1 id="Fortran-C"><a href="#Fortran-C" class="headerlink" title="Fortran/C"></a>Fortran/C</h1><p>博主一般使用Fortran，使用的并行计算接口是MPI，不过这个C语言也是一样的。</p>
+<h1 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h1><p>Python并行计算相对来讲就简单多了。</p>
+<h2 id="threading"><a href="#threading" class="headerlink" title="threading"></a>threading</h2><p>threading模块的Thread通过多线程实现了并行计算。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> threading</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>generate a Thread object</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">run</span><span class="params">(num)</span></span></span><br><span class="line"><span class="function">	<span class="title">print</span><span class="params">(num)</span></span></span><br><span class="line"><span class="function">    </span></span><br><span class="line">task1 = threading.Thread(target = run, args = (1), name = 'taksk1')</span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">这个类需要提供：</span></span><br><span class="line"><span class="string">target参数用来输入你要执行的的函数。注意不是调用，所以函数后面不加括号</span></span><br><span class="line"><span class="string">args输入前面run需要输入的实参</span></span><br><span class="line"><span class="string">name参量输入名称，可以不提供，threading自动命名</span></span><br><span class="line"><span class="string">返回一个task1的实例</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line">task1.start() <span class="comment">#start thread</span></span><br><span class="line">task1.join() <span class="comment">#start next line until task1 finished</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Other Method</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">threading.currentThread() <span class="comment"># 返回当前的线程变量。</span></span><br><span class="line">threading.enumerate() <span class="comment"># 返回一个包含正在运行的线程的list。。</span></span><br><span class="line">threading.activeCount() <span class="comment"># 返回正在运行的线程数量，与len(threading.enumerate())有相同的结果。</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="multiprocessing"><a href="#multiprocessing" class="headerlink" title="multiprocessing"></a>multiprocessing</h2><p>python的多线程无法利用多核优势，多进程各自内存互不干预，在io计算时有很多好处。</p>
+<ul>
+<li>Import</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> multiprocessing <span class="keyword">import</span> Process</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Usage</li>
+</ul>
+<ol>
+<li><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">run</span><span class="params">(name)</span>:</span></span><br><span class="line">    print(name)</span><br><span class="line">p1=Process(target=run,args=(<span class="string">'anne'</span>,)) <span class="comment">#必须加,号 </span></span><br><span class="line">p2=Process(target=run,args=(<span class="string">'alice'</span>,))</span><br><span class="line">p3=Process(target=run,args=(<span class="string">'biantai'</span>,))</span><br><span class="line">p4=Process(target=run,args=(<span class="string">'haha'</span>,))</span><br><span class="line"></span><br><span class="line">p1.start()</span><br><span class="line">p2.start()</span><br><span class="line">p3.start()</span><br><span class="line">p4.start()</span><br></pre></td></tr></table></figure>
+</li>
+<li></li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Run</span><span class="params">(Process)</span>:</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self,name)</span>:</span></span><br><span class="line">        super().__init__()</span><br><span class="line">        self.name = name</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">run</span><span class="params">(self)</span>:</span></span><br><span class="line">		print(%self.name)</span><br><span class="line">        </span><br><span class="line">p1 = Run(<span class="string">'one'</span>)</span><br><span class="line">p2 = Run(<span class="string">'two'</span>)</span><br><span class="line">p1.start()</span><br><span class="line">p2.start()</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<ul>
+<li>Method</li>
+</ul>
+<p>同样Process也有join方法</p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/计算机/">计算机</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/Python/">Python</a>, <a href="/tags/MPI/">MPI</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+        
+            <section id="comment" class="comment">
+              <h1 class="title">Comments</h1>
+              <div class="valine_comment"></div>
+<!--载入js，在</body>之前插入即可-->
+<!--Leancloud 操作库:-->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<!--Valine 的核心代码库-->
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+  var notify = 'false' == true ? true : false;
+  var verify = 'false' == true ? true : false;
+  new Valine({
+      // AV 对象来自上面引入av-min.js(老司机们不要开车➳♡゛扎心了老铁)
+      av: AV,
+      el: '.valine_comment',
+      emoticon_url: 'https://cloud.panjunwen.com/alu',
+      emoticon_list: ["狂汗.png","不说话.png","汗.png","坐等.png","献花.png","不高兴.png","中刀.png","害羞.png","皱眉.png","小眼睛.png","暗地观察.png"],
+      app_id: 'wWOSPBUffJoJz5qeVL0drVLC-MdYXbMMI',
+      app_key: 'VgDB2Nt89reberaVG9mddVDa',
+      placeholder: 'I say...'
+    });
+</script>
+
+          </section>
+        
+
+</div></div>
+    
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2020 ZeKyou
+  
+</div>
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+  <!--loveclick --> 
+  <script type="text/javascript" src="/js/love.js"></script>
+  <!--funny title -->
+  <script type="text/javascript" src="/js/FunnyTitle.js"></script>
+  <!--toc -->
+  <script type='text/javascript' src="/js/toc.js"></script>
+</body>
+</html>
