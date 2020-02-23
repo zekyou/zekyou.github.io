@@ -1,0 +1,160 @@
+<!DOCTYPE HTML>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  
+  <title>Shell脚本杂货店 | ZeKyou&#39;s Blog</title>
+  <meta name="author" content="ZeKyou">
+  
+  <meta name="description" content="​        在Linux下处理一些文件时，如果熟悉掌握一些shell脚本，动作会快很多。下面给出一些常用的技法以备忘。">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Shell脚本杂货店"/>
+  <meta property="og:site_name" content="ZeKyou&#39;s Blog"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="ZeKyou&#39;s Blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">ZeKyou&#39;s Blog</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+      <li><a href="/">Resource</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article id="post-shell" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2020-02-22T15:00:00.000Z"><a href="/2020/02/23/shell/">2020-02-23</a></time>
+      
+      
+  
+    <h1 class="p-name title" itemprop="headline name">Shell脚本杂货店</h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <div id="post-toc" class="post-toc" style="position: absolute; top:0px;">
+    <div class="toc-title">目录</div>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ls"><span class="toc-text">ls</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#文件"><span class="toc-text">文件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#压缩"><span class="toc-text">压缩</span></a></li></ol>
+</div>
+
+        
+        <p>​        在Linux下处理一些文件时，如果熟悉掌握一些shell脚本，动作会快很多。下面给出一些常用的技法以备忘。</p>
+<a id="more"></a>
+
+<h1 id="ls"><a href="#ls" class="headerlink" title="ls"></a>ls</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ls abc* &gt; xxx.txt </span><br><span class="line">ls|grep "xx" &gt; xxx.txt</span><br></pre></td></tr></table></figure>
+
+<h1 id="文件"><a href="#文件" class="headerlink" title="文件"></a>文件</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">for i in `seq 1 10`</span><br><span class="line">do</span><br><span class="line">	if test ! -s xxx;then #-s: return true while exist and not empty;</span><br><span class="line">		rm xxx</span><br><span class="line">	fi</span><br><span class="line">	if test ! -e xxx;then #-e: return true while exist</span><br><span class="line">		touch xxx</span><br><span class="line">	fi</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+
+<h1 id="压缩"><a href="#压缩" class="headerlink" title="压缩"></a>压缩</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">-c: 建立压缩档案</span><br><span class="line">-x：解压</span><br><span class="line">-t：查看内容</span><br><span class="line">-r：向压缩归档文件末尾追加文件</span><br><span class="line">-u：更新原压缩包中的文件</span><br><span class="line"></span><br><span class="line">这五个是独立的命令，压缩解压都要用到其中一个，可以和别的命令连用但只能用其中一个。下面的参数是根据需要在压缩或解压档案时可选的。</span><br><span class="line">-z：有gzip属性的</span><br><span class="line">-j：有bz2属性的</span><br><span class="line">-Z：有compress属性的</span><br><span class="line">-v：显示所有过程</span><br><span class="line">-O：将文件解开到标准输出</span><br><span class="line"></span><br><span class="line">下面的参数-f是必须的</span><br><span class="line"></span><br><span class="line">-f: 使用档案名字，切记，这个参数是最后一个参数，后面只能接档案名。</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tar -cvf xxx.tar cmp* #files contain cmp string will be compressed</span><br><span class="line">tar -xvf xxx.tar</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/计算机/">计算机</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/Tips/">Tips</a>, <a href="/tags/Linux/">Linux</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+</div></div>
+    
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2020 ZeKyou
+  
+</div>
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+  <!--loveclick --> 
+  <script type="text/javascript" src="/js/love.js"></script>
+  <!--funny title -->
+  <script type="text/javascript" src="/js/FunnyTitle.js"></script>
+  <!--toc -->
+  <script type='text/javascript' src="/js/toc.js"></script>
+</body>
+</html>
