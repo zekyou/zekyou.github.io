@@ -240,7 +240,7 @@
     <div class="e-content entry" itemprop="articleBody">
       
         <h1 id="Notes-for-Seismic-Ambient-Noise"><a href="#Notes-for-Seismic-Ambient-Noise" class="headerlink" title="Notes for Seismic Ambient Noise"></a>Notes for Seismic Ambient Noise</h1><h2 id="Introduce-PSDPDF"><a href="#Introduce-PSDPDF" class="headerlink" title="Introduce/PSDPDF"></a>Introduce/PSDPDF</h2><ol>
-<li><p>Natural noise is particularly strong in the microseism band(0.04-0.2Hz)<br>p.xv</p>
+<li>Natural noise is particularly strong in the microseism band(0.04-0.2Hz)<br>p.xv
       
     </div>
     <footer>
@@ -552,5 +552,22 @@
   <script type="text/javascript" src="/js/FunnyTitle.js"></script>
   <!--toc -->
   <script type='text/javascript' src="/js/toc.js"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
 </body>
 </html>

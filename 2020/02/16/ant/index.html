@@ -71,10 +71,9 @@ Natural noise is particularly strong in the microseism band(0.04-0.2Hz)p.xv">
 
         
         <h1 id="Notes-for-Seismic-Ambient-Noise"><a href="#Notes-for-Seismic-Ambient-Noise" class="headerlink" title="Notes for Seismic Ambient Noise"></a>Notes for Seismic Ambient Noise</h1><h2 id="Introduce-PSDPDF"><a href="#Introduce-PSDPDF" class="headerlink" title="Introduce/PSDPDF"></a>Introduce/PSDPDF</h2><ol>
-<li><p>Natural noise is particularly strong in the microseism band(0.04-0.2Hz)<br>p.xv</p>
-<a id="more"></a>  </li>
-<li><p>At short periods(0.1-1s)—&gt;human-generated</p>
-<p>intermediate periods(1-30s)—&gt;microseisms(many order higher)</p>
+<li>Natural noise is particularly strong in the microseism band(0.04-0.2Hz)<br>p.xv<a id="more"></a>  </li>
+<li><p>At short periods(0.1-1s)—-&gt;human-generated</p>
+<p>intermediate periods(1-30s)—-&gt;microseisms(many order higher)</p>
 <p>long-periods(30-500s)ocean infragravity waves</p>
 </li>
 <li><p>Short-period. Attenuate within several kilometers in distance and depth.</p>
@@ -83,7 +82,7 @@ Natural noise is particularly strong in the microseism band(0.04-0.2Hz)p.xv">
 <p>Wind</p>
 </li>
 <li><p>Mid-period</p>
-<p>Microseisms. unaffected by common anthropogenic noise sources. Strong surface wind–&gt;ocean swell–&gt;microseisms energy. Whether is generated in shallow water or deep is still a question. Can propagate hundreds to thousands of kilometers.</p>
+<p>Microseisms. unaffected by common anthropogenic noise sources. Strong surface wind—&gt;ocean swell—&gt;microseisms energy. Whether is generated in shallow water or deep is still a question. Can propagate hundreds to thousands of kilometers.</p>
 <p>Extra- Tropical Storms/Tropical Cyclones.(非热带风暴/热带气旋). short and mid periods are increase but low in long-periods. earthquake signals generate high long-period surface wave power.</p>
 <p>Sea Ice. In winter, sea ice dampens ocean wave heights and short-period microseism power is reduced</p>
 </li>
@@ -125,47 +124,59 @@ Natural noise is particularly strong in the microseism band(0.04-0.2Hz)p.xv">
 <li>Precursory noise is generated at the zero lag time. Signal of interest will be the latest signal. And the trailing noise is followed by the useful signal</li>
 <li>RMS is root mean square, which is represented by</li>
 </ul>
-<p>$$<br>RMS=\sqrt{\frac 1n \sum_{i=1}^n x^2_i}<br>$$</p>
-<ul>
-<li><p>complex conjugate in frequency domain is correlation in time domain</p>
-</li>
-<li><p>Ambient noise propagates over long distance typically originates in the oceans</p>
-</li>
+<script type="math/tex; mode=display">
+RMS=\sqrt{\frac 1n \sum_{i=1}^n x^2_i}</script><ul>
+<li>complex conjugate in frequency domain is correlation in time domain</li>
+<li>Ambient noise propagates over long distance typically originates in the oceans</li>
 <li><p>Two data -&gt;remove instruments response -&gt;remove mean -&gt;remove trend -&gt;band pass</p>
 </li>
 <li><p>For slower rate to cross-correlation, time domain weight functions are used. The downside is the loss of the meaningful amplitude information.</p>
 </li>
-<li><p>For those who are interested in amplitude, binary time domain weighting  scheme can be used: 0 for time periods  of earthquakes or IR and 1 for other periods</p>
-</li>
+<li>For those who are interested in amplitude, binary time domain weighting  scheme can be used: 0 for time periods  of earthquakes or IR and 1 for other periods</li>
 </ul>
 <h3 id="Pre-Process"><a href="#Pre-Process" class="headerlink" title="Pre-Process"></a>Pre-Process</h3><h3 id="Post-Process"><a href="#Post-Process" class="headerlink" title="Post-Process"></a>Post-Process</h3><ul>
-<li><p>sign function:<br>$$<br>sgn(x)=<br>\begin{cases}<br>1, &amp;if\ x&gt;0\<br>0, &amp;if\ x=0\<br>-1,&amp;if\ x&lt;0<br>\end{cases}<br>$$</p>
-</li>
+<li><p>sign function:</p>
+<script type="math/tex; mode=display">
+sgn(x)=
+\begin{cases}
+1, &if\ x>0\\
+0, &if\ x=0\\
+-1,&if\ x<0
+\end{cases}</script></li>
 <li><p>Hilbert transform is just a convolution with</p>
 </li>
 </ul>
-<p>$$<br>h(t)=\frac 1\pi \int_{-\infty}^\infty \frac {x(t)}{t-\tau}d\tau<br>$$</p>
-<ul>
+<script type="math/tex; mode=display">
+h(t)=\frac 1\pi \int_{-\infty}^\infty \frac {x(t)}{t-\tau}d\tau</script><ul>
 <li><p>Surface Wave Dispersion</p>
 <ol>
-<li><p>correlation function s(t) Fourier transform:<br>$$<br>S(\omega) = \int_{-\infty}^\infty s(t)exp(i\omega t)dt<br>$$</p>
-</li>
-<li><p>Analytic signal:<br>$$<br>S_a (\omega) = S(\omega)(1+sgn(\omega)) \<br>s_a(t) = s(t)+ih(t) = A(t)exp(i\phi(t))<br>$$</p>
-</li>
-<li><p>Gaussian filter with center frequencies $ \omega _0 $:<br>$$<br>S_a(\omega,\omega_0) = S(\omega)(1+sgn(\omega))G(\omega-\omega_0) \<br>G(\omega-\omega_0) = exp(-\alpha(\frac {\omega-\omega_0}{\omega_0})^2)<br>$$<br>where $ \alpha$ is tunable parameter that defines the complementary resolutions in the time and frequency domain and is commonly made range dependent. </p>
+<li><p>correlation function s(t) Fourier transform:</p>
+<script type="math/tex; mode=display">
+S(\omega) = \int_{-\infty}^\infty s(t)exp(i\omega t)dt</script></li>
+<li><p>Analytic signal:</p>
+<script type="math/tex; mode=display">
+S_a (\omega) = S(\omega)(1+sgn(\omega)) \\
+s_a(t) = s(t)+ih(t) = A(t)exp(i\phi(t))</script></li>
+<li><p>Gaussian filter with center frequencies $ \omega _0 $:</p>
+<script type="math/tex; mode=display">
+S_a(\omega,\omega_0) = S(\omega)(1+sgn(\omega))G(\omega-\omega_0) \\
+G(\omega-\omega_0) = exp(-\alpha(\frac {\omega-\omega_0}{\omega_0})^2)</script><p>where $ \alpha$ is tunable parameter that defines the complementary resolutions in the time and frequency domain and is commonly made range dependent. </p>
 </li>
 <li><p>Inverse Fourier transforming each band-passed function $ S_a(\omega,\omega_0) $ back to the time domain yields the 2D envelope function, $ A(t,\omega_0)$ and phase function $ \phi(t,\omega_0)$. Group velocity is measured from $ A(t,\omega_0)$, phase velocity from $ \phi(t,\omega_0)$.</p>
 </li>
-<li><p>Group velocity:<br>$$<br>U(\omega) = \frac r{t_g},where\ r \ is\ interstation\ distance<br>$$<br>$ t_g$ is measured using the peak of the envelope function at each center frequency. If the speed changes rapidly with center frequency. Center frequency be replaced by the so-called “instantaneous frequency” $ \omega = [\partial \phi(t,\omega_0)/\partial t]_{t=t_g}$.</p>
+<li><p>Group velocity:</p>
+<script type="math/tex; mode=display">
+U(\omega) = \frac r{t_g},where\ r \ is\ interstation\ distance</script><p>$ t_g$ is measured using the peak of the envelope function at each center frequency. If the speed changes rapidly with center frequency. Center frequency be replaced by the so-called “instantaneous frequency” $ \omega = [\partial \phi(t,\omega_0)/\partial t]_{t=t_g}$.</p>
 </li>
-<li><p>Phase velocity:<br>$$<br>\phi(t,\omega)=kr-\omega t+\pi/2-\pi/4+n\cdot2\pi \<br>c=\frac \omega k=\frac {r\omega}{\phi(\omega,t_g)+\omega t_g-\pi/4-n\cdot2\pi}<br>$$</p>
-</li>
+<li><p>Phase velocity:</p>
+<script type="math/tex; mode=display">
+\phi(t,\omega)=kr-\omega t+\pi/2-\pi/4+n\cdot2\pi \\
+c=\frac \omega k=\frac {r\omega}{\phi(\omega,t_g)+\omega t_g-\pi/4-n\cdot2\pi}</script></li>
 <li><p>n is more easily resolved at longer periods, and once it is known for a station-pair at any frequency it is known for all frequencies. Phase speed is typically determined more reliably than group speed.</p>
 </li>
 <li><p>Because of the far field approximation, in time domain, interstation that distance less than 2 wavelengths will be discarded or frequency-domain dispersion measurements. </p>
 </li>
-<li><p>Methods like time-domain normalization and frequency whitening methods presented here are not linear, which means the order of application of the time-domain and frequency-domain filters matters.</p>
-</li>
+<li>Methods like time-domain normalization and frequency whitening methods presented here are not linear, which means the order of application of the time-domain and frequency-domain filters matters.</li>
 </ol>
 </li>
 <li><p>Continental Love Waves</p>
@@ -179,8 +190,7 @@ Natural noise is particularly strong in the microseism band(0.04-0.2Hz)p.xv">
 <li>Finally, the cross-correlations are rotated into the Radial (R) and Transverse (T) components,<br>each of which point in the same direction at both stations. Rotating after cross-correlation is computationally more efficient than rotating before cross-correlation.</li>
 </ul>
 </li>
-<li><p>Rayleigh waves are observed at both positive and negative lags on the ZZ and RR components. Love waves, which are faster than Rayleigh waves in this period band, appear on the TT component. Rayleigh waves are stronger on the positive lag and Love waves on the negative lag, which means that the azimuthal content of Rayleigh and Love waves differ. The relative lack of longer-period Love wave dispersion measurements probably results mostly from the higher noise levels on horizontal components.</p>
-</li>
+<li>Rayleigh waves are observed at both positive and negative lags on the ZZ and RR components. Love waves, which are faster than Rayleigh waves in this period band, appear on the TT component. Rayleigh waves are stronger on the positive lag and Love waves on the negative lag, which means that the azimuthal content of Rayleigh and Love waves differ. The relative lack of longer-period Love wave dispersion measurements probably results mostly from the higher noise levels on horizontal components.</li>
 </ol>
 </li>
 </ul>
@@ -283,5 +293,22 @@ Natural noise is particularly strong in the microseism band(0.04-0.2Hz)p.xv">
   <script type="text/javascript" src="/js/FunnyTitle.js"></script>
   <!--toc -->
   <script type='text/javascript' src="/js/toc.js"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
 </body>
 </html>
