@@ -1,0 +1,201 @@
+<!DOCTYPE HTML>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  
+  <title>USTC(中科大)健康上报，邮件通知，自动联网 | ZeKyou&#39;s Blog</title>
+  <meta name="author" content="ZeKyou">
+  
+  <meta name="description" content="中科大自动健康上报，保姆级护航，支持邮件通知博主从到校从未上报过，学校突然发布通知，再不上报，全校通报，批评处分，所以想要弄个自动上报的脚本。">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="USTC(中科大)健康上报，邮件通知，自动联网"/>
+  <meta property="og:site_name" content="ZeKyou&#39;s Blog"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="ZeKyou&#39;s Blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">ZeKyou&#39;s Blog</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+      <li><a href="/">Resource</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article id="post-USTC-HR" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2020-10-03T15:00:00.000Z"><a href="/2020/10/04/USTC-HR/">2020-10-04</a></time>
+      
+      
+  
+    <h1 class="p-name title" itemprop="headline name">USTC(中科大)健康上报，邮件通知，自动联网</h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <div id="post-toc" class="post-toc" style="position: absolute; top:0px;">
+    <div class="toc-title">目录</div>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#中科大自动健康上报，保姆级护航，支持邮件通知"><span class="toc-text">中科大自动健康上报，保姆级护航，支持邮件通知</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#提要"><span class="toc-text">提要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#报表提交"><span class="toc-text">报表提交</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#定时发送"><span class="toc-text">定时发送</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#连接网络通"><span class="toc-text">连接网络通</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#邮件通知"><span class="toc-text">邮件通知</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#准备"><span class="toc-text">准备</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代码"><span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#收尾"><span class="toc-text">收尾</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#效果图"><span class="toc-text">效果图</span></a></li></ol></li></ol>
+</div>
+
+        
+        <h1 id="中科大自动健康上报，保姆级护航，支持邮件通知"><a href="#中科大自动健康上报，保姆级护航，支持邮件通知" class="headerlink" title="中科大自动健康上报，保姆级护航，支持邮件通知"></a>中科大自动健康上报，保姆级护航，支持邮件通知</h1><p>博主从到校从未上报过，学校突然发布通知，再不上报，全校通报，批评处分，所以想要弄个自动上报的脚本。</p>
+<p><img src="request.png" alt="request"> <a id="more"></a></p>
+<h2 id="提要"><a href="#提要" class="headerlink" title="提要"></a>提要</h2><p>我们主要是实现两个功能，一个是报表提交，一个是定时发送requests。另外就是一些适配中科大“特色”的功能：网络自动连接，邮箱通知。</p>
+<p>大部分包python都自带，需要额外安装的有</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pip3 install schedule</span><br><span class="line">pip3 install requests</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="报表提交"><a href="#报表提交" class="headerlink" title="报表提交"></a>报表提交</h2><p>通过抓包，发现健康上报主要是两个post，首先是<strong>登录</strong>账号，获取一个token，然后再用这个token配上<strong>其他参数</strong>，如：所在城市，健康状况，实现上报。</p>
+<p>具体代码如下，我们把帐号密码等一系列参数放进一个usrpara.txt文档里，方便多个帐号一起读取。</p>
+<p>usrpara.txt参考格式<strong>(#为注释)</strong>：</p>
+<p><img src="example.png" alt="example"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">webreport</span><span class="params">(usrpara)</span>:</span></span><br><span class="line">    session = requests.session()</span><br><span class="line">    headers = &#123;</span><br><span class="line">        <span class="string">'User-Agent'</span>:</span><br><span class="line">            <span class="string">'Mozilla/5.0 (Windows NT 10.0; Win64; x64) '</span></span><br><span class="line">            <span class="string">'AppleWebKit/537.36 (KHTML, like Gecko) '</span></span><br><span class="line">            <span class="string">'Chrome/85.0.4183.121 '</span></span><br><span class="line">            <span class="string">'Safari/537.36'</span></span><br><span class="line">    &#125;</span><br><span class="line">    loginurl = <span class="string">'https://passport.ustc.edu.cn/login?service=\</span></span><br><span class="line"><span class="string">    https%3A%2F%2Fweixine.ustc.edu.cn%2F2020%2Fcaslogin'</span></span><br><span class="line">    reporturl = <span class="string">'https://weixine.ustc.edu.cn/2020/daliy_report'</span></span><br><span class="line">    username = usrpara[<span class="number">0</span>]; password = usrpara[<span class="number">1</span>]</span><br><span class="line">    logindata = &#123;<span class="string">'username'</span>: username, <span class="string">'password'</span>: password&#125;</span><br><span class="line">    loginresponse = session.post(loginurl, headers = headers, data = logindata)</span><br><span class="line">    ini_token = re.search(<span class="string">r'&lt;input type="hidden" name="_token" value=".*"&gt;'</span>, loginresponse.text).group(<span class="number">0</span>)</span><br><span class="line">    token = ini_token[ini_token.find(<span class="string">'value="'</span>) + len(<span class="string">'value="'</span>) : <span class="number">-2</span>]</span><br><span class="line">    reportpara = &#123;</span><br><span class="line">        <span class="string">"_token"</span>:token,</span><br><span class="line">        <span class="string">"now_address"</span>:usrpara[<span class="number">2</span>],<span class="comment">#1forCNmainland;2forHk;3forForeign;4forMO;5forTW</span></span><br><span class="line">        <span class="string">"gps_now_address"</span>:<span class="string">""</span>,</span><br><span class="line">        <span class="string">"now_province"</span>:usrpara[<span class="number">3</span>],<span class="comment">#forAnhui</span></span><br><span class="line">        <span class="string">"gps_province"</span>:<span class="string">""</span>,</span><br><span class="line">        <span class="string">"now_city"</span>:usrpara[<span class="number">4</span>],<span class="comment">#for Hefei</span></span><br><span class="line">        <span class="string">"gps_city"</span>:<span class="string">""</span>,</span><br><span class="line">        <span class="string">"now_detail"</span>:<span class="string">""</span>,</span><br><span class="line">        <span class="string">"is_inschool"</span>:usrpara[<span class="number">5</span>],<span class="comment">#2forEast;3forSouth;4forMid;5forNorth;6forWest;7forXian;0forOut</span></span><br><span class="line">        <span class="string">"body_condition"</span>:usrpara[<span class="number">6</span>],<span class="comment">#1forNormal;2forPossible;3forConfirm;4forOthers</span></span><br><span class="line">        <span class="string">"body_condition_detail"</span>:<span class="string">""</span>,</span><br><span class="line">        <span class="string">"now_status"</span>:usrpara[<span class="number">7</span>],<span class="comment">#1forNormalinSchool;2forHome;3forHomeObs;4forCenterObs;5forHospital;6forOthers</span></span><br><span class="line">        <span class="string">"now_status_detail"</span>:<span class="string">""</span>,</span><br><span class="line">        <span class="string">"has_fever"</span>:usrpara[<span class="number">8</span>],<span class="comment">#0forNo;1forYes</span></span><br><span class="line">        <span class="string">"last_touch_sars"</span>:usrpara[<span class="number">9</span>],<span class="comment">#0forNo;1forYes</span></span><br><span class="line">        <span class="string">"last_touch_sars_date"</span>:<span class="string">""</span>,</span><br><span class="line">        <span class="string">"last_touch_sars_detail"</span>:<span class="string">""</span>,</span><br><span class="line">        <span class="string">"other_detail"</span>:<span class="string">""</span></span><br><span class="line">    &#125;</span><br><span class="line">    reportrespone = session.post(reporturl, headers = headers, data = reportpara)</span><br></pre></td></tr></table></figure>
+
+<h2 id="定时发送"><a href="#定时发送" class="headerlink" title="定时发送"></a>定时发送</h2><p>这个比较简单，我们设置在每天12点执行一次上报，检测为200s，为了减少系统占有。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">timereport</span><span class="params">()</span>:</span></span><br><span class="line">    schedule.every().day.at(<span class="string">"12:00"</span>).do(main)</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        schedule.run_pending()</span><br><span class="line">        time.sleep(<span class="number">200</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="连接网络通"><a href="#连接网络通" class="headerlink" title="连接网络通"></a>连接网络通</h2><p>由于中科大特别不人性的网络只能一台设备登陆。我们上报脚本一般放在实验室的机子上（放到不需要占用网络通的服务器，忽略这一步），如果我们在其他地方登陆了网络通，那么上报脚本就会因为没有网络失败。</p>
+<p>所以我们需要一个在webreport之前先连接网络的def。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">wltlogin</span><span class="params">()</span>:</span></span><br><span class="line">    rawurl = <span class="string">'http://wlt.ustc.edu.cn/cgi-bin/ip'</span></span><br><span class="line">    cmd = <span class="string">'login'</span></span><br><span class="line">    ip = <span class="string">'yourip'</span></span><br><span class="line">    set = <span class="string">'%D2%BB%BC%FC%C9%CF%CD%F8'</span></span><br><span class="line">    name = <span class="string">'your wlt name'</span></span><br><span class="line">    pwd = <span class="string">'your wlt password'</span></span><br><span class="line">    wlturl = rawurl+<span class="string">'?'</span>+<span class="string">'cmd='</span>+cmd+<span class="string">'&amp;url=URL&amp;ip='</span>+ip+<span class="string">'&amp;name='</span>+name+<span class="string">'&amp;password='</span>+pwd\</span><br><span class="line">    +<span class="string">'&amp;savepass=on&amp;set='</span>+set</span><br><span class="line">    headers = &#123;</span><br><span class="line">        <span class="string">'User-Agent'</span>:</span><br><span class="line">            <span class="string">'Mozilla/5.0 (Windows NT 10.0; Win64; x64) '</span></span><br><span class="line">            <span class="string">'AppleWebKit/537.36 (KHTML, like Gecko) '</span></span><br><span class="line">            <span class="string">'Chrome/85.0.4183.121 '</span></span><br><span class="line">            <span class="string">'Safari/537.36'</span></span><br><span class="line">    &#125;</span><br><span class="line">    logindata = requests.post(wlturl, headers = headers)</span><br></pre></td></tr></table></figure>
+
+<h2 id="邮件通知"><a href="#邮件通知" class="headerlink" title="邮件通知"></a>邮件通知</h2><p>当我们上报成功的时候，或者失败了，我们都希望脚本告诉我们。所以需要一个通知脚本。</p>
+<h3 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h3><p>先准备好一个邮箱，开通POP3/SMTP服务（百度教程一堆），获取登陆码。了解邮箱的服务器啥的（百度一堆），以163邮箱为例。</p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sendmail</span><span class="params">(emailaddress, flag)</span>:</span> <span class="comment">#emailaddress 和 flag是为了后续整合方便</span></span><br><span class="line">    <span class="keyword">from</span> email.mime.text <span class="keyword">import</span> MIMEText</span><br><span class="line">    <span class="keyword">from</span> email.header <span class="keyword">import</span> Header</span><br><span class="line">    mailhost = <span class="string">'smtp.163.com'</span></span><br><span class="line">    neteasemail = smtplib.SMTP()</span><br><span class="line">    neteasemail.connect(mailhost,<span class="number">25</span>)</span><br><span class="line">    account = <span class="string">'你的邮箱帐号'</span></span><br><span class="line">    pwd = <span class="string">'登陆码（非密码）'</span></span><br><span class="line">    neteasemail.login(account,password=pwd)</span><br><span class="line">    sender = <span class="string">'你的邮箱帐号@163.com'</span></span><br><span class="line">    receiver = emailaddress</span><br><span class="line">    <span class="keyword">if</span> flag ==<span class="number">0</span>:</span><br><span class="line">        content = <span class="string">'Congratulation from Robot.'</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        content = <span class="string">'Sorry, something error today about your report, please contact the admin!'</span></span><br><span class="line">    message = MIMEText(content,<span class="string">'plain'</span>,<span class="string">'utf-8'</span>)</span><br><span class="line">    subject = <span class="string">'USTC_HR_Result'</span></span><br><span class="line">    message[<span class="string">'Subject'</span>] = Header(subject, <span class="string">'utf-8'</span>)</span><br><span class="line">    message[<span class="string">'From'</span>] = <span class="string">'&lt;你的邮箱帐号@163.com&gt;'</span>   <span class="comment">#这两行很重要，如果发邮件显示544,可能是没加这两行</span></span><br><span class="line">    message[<span class="string">'To'</span>] = <span class="string">"'&lt;"</span>+emailaddress+<span class="string">"&gt;'"</span>     <span class="comment">#这两行很重要，如果发邮件显示544,可能是没加这两行 </span></span><br><span class="line">    neteasemail.sendmail(sender, receiver, message.as_string())</span><br><span class="line">    neteasemail.quit()</span><br></pre></td></tr></table></figure>
+
+<h2 id="收尾"><a href="#收尾" class="headerlink" title="收尾"></a>收尾</h2><p>最后整合一个main函数就行。完整参考代码见</p>
+<p><a href="https://github.com/zekyou/USTC-Health-Report" target="_blank" rel="noopener">Github链接</a></p>
+<p>点个star呗(^-^)</p>
+<h2 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h2><p><img src="result.png" alt="result"></p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/计算机/">计算机</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/Python/">Python</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+        
+            <section id="comment" class="comment">
+              <h1 class="title">Comments</h1>
+              <div class="valine_comment"></div>
+<!--载入js，在</body>之前插入即可-->
+<!--Leancloud 操作库:-->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<!--Valine 的核心代码库-->
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+  var notify = 'false' == true ? true : false;
+  var verify = 'false' == true ? true : false;
+  new Valine({
+      // AV 对象来自上面引入av-min.js(老司机们不要开车➳♡゛扎心了老铁)
+      av: AV,
+      el: '.valine_comment',
+      emoticon_url: 'https://cloud.panjunwen.com/alu',
+      emoticon_list: ["狂汗.png","不说话.png","汗.png","坐等.png","献花.png","不高兴.png","中刀.png","害羞.png","皱眉.png","小眼睛.png","暗地观察.png"],
+      app_id: 'wWOSPBUffJoJz5qeVL0drVLC-MdYXbMMI',
+      app_key: 'VgDB2Nt89reberaVG9mddVDa',
+      placeholder: 'I say...'
+    });
+</script>
+
+          </section>
+        
+
+</div></div>
+    
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2020 ZeKyou
+  
+</div>
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+  <!--loveclick --> 
+  <script type="text/javascript" src="/js/love.js"></script>
+  <!--funny title -->
+  <script type="text/javascript" src="/js/FunnyTitle.js"></script>
+  <!--toc -->
+  <script type='text/javascript' src="/js/toc.js"></script>
+</body>
+</html>
